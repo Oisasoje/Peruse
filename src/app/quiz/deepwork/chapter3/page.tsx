@@ -3,7 +3,7 @@
 import { HeartOffIcon, X } from "lucide-react";
 import { Inter } from "next/font/google";
 import QuestionsComponent from "@/app/components/Questions";
-import { deepWorkChapter3Questions as Questions } from "@/app/data/page";
+import { deepWorkChapter3Questions as Questions } from "../../../../../data";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -53,7 +53,6 @@ const Chapter3 = () => {
       className={`min-h-screen pb-50 ${inter.className} text-white  bg-[#131f24]`}
     >
       <QuestionsComponent
-        Questions={Questions}
         question={question}
         options={options}
         id={id}

@@ -1,13 +1,9 @@
 "use client";
 
-import { HeartOffIcon, X } from "lucide-react";
 import { Inter } from "next/font/google";
 import QuestionsComponent from "@/app/components/Questions";
-import { emotionalIntelligenceChapter4Questions as Questions } from "@/app/data/page";
+import { emotionalIntelligenceChapter4Questions as Questions } from "../../../../../data";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -54,7 +50,6 @@ const Chapter4 = () => {
       className={`min-h-screen pb-50 ${inter.className} text-white  bg-[#131f24]`}
     >
       <QuestionsComponent
-        Questions={Questions}
         question={question}
         options={options}
         book={book}

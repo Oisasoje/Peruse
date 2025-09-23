@@ -48,7 +48,6 @@ type UserDoc = {
 type SelectedOptions = Record<number, string>;
 
 const QuestionsComponent = ({
-  Questions,
   question,
   options,
   id,
@@ -62,7 +61,6 @@ const QuestionsComponent = ({
   setSelectedOptions,
   quizId,
 }: {
-  Questions: Questions[];
   question: string;
   options: string[];
   id: number;

@@ -1,13 +1,9 @@
 "use client";
 
-import { HeartOffIcon, X } from "lucide-react";
 import { Inter } from "next/font/google";
 import QuestionsComponent from "@/app/components/Questions";
-import { emotionalIntelligenceChapter2Questions as Questions } from "@/app/data/page";
+import { emotionalIntelligenceChapter2Questions as Questions } from "../../../../../data";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,9 +20,7 @@ interface Questions {
 const Chapter2 = () => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedOptionIndex, setSelectedOptionIndex] = useState<number | null>(
-    null
-  );
+
   const [questions, setQuestions] = useState<Questions[] | null>(null);
 
   useEffect(() => {
@@ -55,7 +49,6 @@ const Chapter2 = () => {
     >
       <QuestionsComponent
         id={id}
-        Questions={Questions}
         question={question}
         book={book}
         options={options}
