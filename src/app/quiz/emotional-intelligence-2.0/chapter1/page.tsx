@@ -1,13 +1,9 @@
 "use client";
 
-import { HeartOffIcon, X } from "lucide-react";
 import { Inter } from "next/font/google";
 import QuestionsComponent from "@/app/components/Questions";
-import { emotionalIntelligenceChapter1Questions as Questions } from "@/app/data/page";
+import { emotionalIntelligenceChapter1Questions as Questions } from "../../../../../data";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -15,6 +11,7 @@ const inter = Inter({
 });
 
 interface Questions {
+  book: string;
   id: number;
   question: string;
   options: string[];
@@ -23,9 +20,6 @@ interface Questions {
 const Chapter1 = () => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedOptionIndex, setSelectedOptionIndex] = useState<number | null>(
-    null
-  );
   const [questions, setQuestions] = useState<Questions[] | null>(null);
 
   useEffect(() => {
@@ -43,7 +37,7 @@ const Chapter1 = () => {
 
   const currentQuestionList = questions ?? Questions; // fallback
   const currentQuestion = currentQuestionList[currentQuestionIndex];
-  const { question, options } = currentQuestion;
+  const { question, options, id, book } = currentQuestion;
 
   const width = ((currentQuestionIndex + 1) / Questions.length) * 100;
   const [direction, setDirection] = useState(1);
@@ -53,9 +47,10 @@ const Chapter1 = () => {
       className={`min-h-screen pb-50 ${inter.className} text-white  bg-[#131f24]`}
     >
       <QuestionsComponent
-        Questions={Questions}
         question={question}
         options={options}
+        book={book}
+        id={id}
         currentQuestionIndex={currentQuestionIndex}
         direction={direction}
         width={width}
@@ -63,7 +58,7 @@ const Chapter1 = () => {
         setDirection={setDirection}
         selectedOptions={selectedOptions}
         setSelectedOptions={setSelectedOptions}
-        quizId="emotional-intelligence-chapter1"
+        quizId="emotional-intelligence-2.0-chapter1"
       />
     </div>
   );
