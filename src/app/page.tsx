@@ -58,7 +58,7 @@ const page = () => {
             </div>
 
             {/* Text and Buttons Section */}
-            <div className="flex gap-6 lg:gap-8 h-full justify-center flex-col order-1 lg:order-2 text-center -mt-30 md:mt-0 items-center lg:text-left">
+            <div className="flex gap-6 lg:gap-8 h-full justify-center flex-col order-1 lg:order-2 text-center -mt-20 md:mt-0 items-center lg:text-left">
               <p className="text-2xl text-center  leading-9 sm:leading-8 lg:leading-11 font-extrabold tracking-wider text-[#4B4B4B] max-w-md sm:max-w-lg lg:max-w-full">
                 The super fun quiz app you need to complete{" "}
                 <span className="text-amber-500 block font-bold text-3xl ">
