@@ -11,9 +11,11 @@
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
     "firebase": "^12.2.1",
+    "firebase-admin": "^13.5.0",
     "lucide-react": "^0.544.0",
     "motion": "^12.23.12",
     "next": "15.5.2",
+    "nookies": "^2.5.2",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.62.0",

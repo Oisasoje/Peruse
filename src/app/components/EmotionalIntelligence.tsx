@@ -106,9 +106,8 @@ const EmotionalIntelligence = () => {
       router.push(
         `/quiz/emotional-intelligence-2.0/chapter${chapterIndex + 1}`
       );
-    } finally {
-      // optional: reset after nav if you’re not leaving the page
-      setIsProcessing(false);
+    } catch (e) {
+      setIsProcessing(false); // error fallback
     }
   };
 

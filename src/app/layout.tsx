@@ -1,11 +1,12 @@
-"use client";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
-import { useContext, useState, ReactNode } from "react";
+
 import { ActivePageProvider } from "./components/ActivePageContext";
-import Footer from "./components/Footer";
+
+import AuthSync from "./components/AuthSync";
+import AppShell from "./components/AppShell";
 
 // ✅ Remove next/head usage — App Router handles head via metadata
 const geistSans = Geist({
@@ -18,7 +19,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const metadata: Metadata = {
+export const metadata: Metadata = {
   title: "Peruse - Quiz app for the 1%",
   description: "Quiz app for the 1%",
   icons: {
@@ -37,9 +38,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <AuthSync />
         <ActivePageProvider>
-          {children}
-          <Footer />
+          <AppShell>{children}</AppShell>
         </ActivePageProvider>
 
         <Toaster

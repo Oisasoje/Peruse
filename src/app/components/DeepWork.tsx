@@ -95,9 +95,8 @@ const DeepWork = () => {
       });
 
       router.push(`/quiz/deepwork/chapter${chapterIndex + 1}`);
-    } finally {
-      // optional: reset after nav if you’re not leaving the page
-      setIsProcessing(false);
+    } catch (e) {
+      setIsProcessing(false); // error fallback
     }
   };
 
