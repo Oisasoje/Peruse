@@ -140,7 +140,7 @@ const EmotionalIntelligence = () => {
         <div
           key={i}
           onClick={() => handleClick(i)}
-          className={`border-2 h-80 border-slate-600 flex flex-col items-center border-b-4 shadow-xl rounded-2xl justify-between text-center overflow-hidden transition-opacity 
+          className={`border-2 pb-10 h-80 border-slate-600 flex flex-col items-center border-b-4 shadow-xl rounded-2xl justify-between text-center overflow-hidden transition-opacity 
       ${
         isProcessing
           ? "pointer-events-none opacity-50"

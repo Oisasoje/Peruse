@@ -36,6 +36,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 
 import { z } from "zod";
+import { useActivePage } from "../components/ActivePageContext";
 
 type UserDoc = {
   createdAt: string;
@@ -389,7 +390,7 @@ const deepWorkChapters = [
 
 const Quiz = () => {
   const userData = useUserDoc();
-  const [activePage, setActivePage] = useState("take-quiz");
+  const { activePage, setActivePage } = useActivePage();
   const [username, setUsername] = useState("");
   const [podName, setPodName] = useState("The Overcomers");
   const [currentResource, setCurrentResource] = useState("DEEP WORK");
@@ -772,96 +773,8 @@ const Quiz = () => {
       </aside>
 
       {/* Mobile Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-[#0b2f33] border-slate-600 flex justify-around items-center py-3 md:hidden z-50">
-        <button
-          onClick={() => setActivePage("take-quiz")}
-          className={`flex flex-col items-center w-25 py-2 rounded-lg ${
-            activePage === "take-quiz" ? "bg-[#14545b]" : ""
-          }`}
-        >
-          <Lightbulb size={20} color="yellow" />
-          <span className="text-xs mt-1">Quiz</span>
-        </button>
-
-        <button
-          onClick={() => setActivePage("get-premium")}
-          className={`flex flex-col items-center w-25 py-2 rounded-lg ${
-            activePage === "get-premium" ? "bg-[#14545b]" : ""
-          }`}
-        >
-          <Gem size={20} color="blue" />
-          <span className="text-xs mt-1">Premium</span>
-        </button>
-
-        <button
-          onClick={() => setActivePage("about-us")}
-          className={`flex flex-col items-center w-25 py-2 rounded-lg ${
-            activePage === "about-us" ? "bg-[#14545b]" : ""
-          }`}
-        >
-          <BookOpen size={20} color="green" />
-          <span className="text-xs mt-1">About</span>
-        </button>
-      </div>
 
       {/* Mobile User Info Panel */}
-      <div className="lg:hidden px-4 py-6 mt-4">
-        <div className="border-2 px-3 pt-3 pb-4 text-sm rounded-2xl border-slate-600 mb-4">
-          <h2 className="tracking-wider font-semibold text-center mb-4">
-            YOUR INFORMATION
-          </h2>
-          <div className="flex flex-col gap-6">
-            <div className="text-center">
-              <label className="text-gray-400 font-semibold tracking-wider block mb-2">
-                USERNAME:
-              </label>
-              <UsernameEditor />
-            </div>
-
-            <div className="text-center">
-              <label className="text-gray-400 font-semibold tracking-wider block mb-2">
-                POD NAME:
-              </label>
-              <PodNameEditor />
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-2xl p-3 border-2 border-slate-600">
-          <h3 className="font-semibold text-sm text-center mb-4">
-            ACHIEVEMENTS
-          </h3>
-          <div className="space-y-4">
-            <div className="flex justify-between items-center">
-              <span className="flex gap-2 items-center">
-                <ClipboardList size={24} color="blue" />
-                <p className="font-semibold">Quizzes Taken</p>
-              </span>
-              <span className="font-semibold text-gray-300">
-                {userData?.quizzesTaken ?? 0}
-              </span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="flex gap-2 items-center">
-                <Crown size={24} color="red" />
-                <p className="font-semibold">Subscription</p>
-              </span>
-              <span className="font-semibold text-gray-300">
-                {userData?.hasPremium ? "Premium" : "Free"}
-              </span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="flex gap-2 items-center">
-                <Medal size={24} color="green" />
-                <p className="font-semibold">Badge</p>
-              </span>
-              <span className="font-semibold text-gray-300">
-                {userData?.hasPremium ? "Beacon" : "Newbie"}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
