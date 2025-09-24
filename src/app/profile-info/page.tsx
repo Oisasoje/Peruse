@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { onAuthStateChanged, updateProfile } from "firebase/auth";
 import z from "zod";
-import { ClipboardList, Crown, Medal } from "lucide-react";
+import { ClipboardList, Crown, Flame, Medal } from "lucide-react";
 
 const usernameSchema = z.string().min(1, "Required").max(25, "Max 25 chars");
 
@@ -238,7 +238,7 @@ const PodNameEditor = () => {
       <p
         className={`text-xs font-bold text-center ${
           changeCount === 0 ? "text-blue-500" : "text-red-500"
-        } -mt-2 `}
+        } `}
       >
         {isNewUser
           ? "Welcome! Set your pod name to get started."
@@ -326,7 +326,7 @@ const Profile_Info = () => {
           </div>
           <div className="flex justify-between items-center">
             <span className="flex gap-2 items-center">
-              <Crown size={24} color="red" />
+              <Crown size={24} color="indigo" />
               <p className="font-semibold">Subscription</p>
             </span>
             <span className="font-semibold text-gray-300">
@@ -340,6 +340,15 @@ const Profile_Info = () => {
             </span>
             <span className="font-semibold text-gray-300">
               {userData?.hasPremium ? "Beacon" : "Newbie"}
+            </span>
+          </div>
+          <div className="flex justify-between items-center">
+            <span className="flex gap-2 items-center">
+              <Flame size={24} color="red" />
+              <p className="font-semibold">Streak</p>
+            </span>
+            <span className="font-semibold text-gray-300">
+              {userData?.streak ?? 0}
             </span>
           </div>
         </div>
