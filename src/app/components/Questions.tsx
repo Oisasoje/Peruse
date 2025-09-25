@@ -17,6 +17,7 @@ import {
   updateDoc,
   increment,
   getDoc,
+  Timestamp,
 } from "firebase/firestore";
 import toast from "react-hot-toast";
 import { serverTimestamp } from "firebase/firestore";
@@ -38,7 +39,7 @@ type UserDoc = {
   displayName: string;
   hasPremium: boolean;
   hearts: number;
-  lastAnsweredAt: string;
+  lastAnsweredAt: Timestamp | string | number;
   podName: string;
   podNameChangeCount: number;
   quizzesTaken: number;
@@ -267,43 +268,59 @@ const QuestionsComponent = ({
       const now = new Date();
       const today = now.toISOString().split("T")[0];
 
-      let lastPlayedDate: string | null = null;
+      let lastDateStr: string | null = null;
+
+      // Properly handle Timestamp object
       if (userData.lastAnsweredAt) {
-        const lastDate = new Date(userData.lastAnsweredAt);
-        lastPlayedDate = lastDate.toISOString().split("T")[0];
+        if (userData.lastAnsweredAt instanceof Timestamp) {
+          // It's a Firestore Timestamp
+          lastDateStr = userData.lastAnsweredAt
+            .toDate()
+            .toISOString()
+            .split("T")[0];
+        } else if (typeof userData.lastAnsweredAt === "string") {
+          // It's already a string (backward compatibility)
+          lastDateStr = userData.lastAnsweredAt.split("T")[0];
+        }
       }
 
       let streakUpdate = userData.streak || 0;
 
       console.log("Streak Debug:", {
         currentStreak: streakUpdate,
-        lastPlayed: lastPlayedDate,
+        lastPlayed: lastDateStr,
         today: today,
+        rawLastAnswered: userData.lastAnsweredAt,
       });
 
-      if (!lastPlayedDate) {
+      if (!lastDateStr) {
         // First time playing
         streakUpdate = 1;
       } else {
-        const yesterday = new Date(now);
-        yesterday.setDate(yesterday.getDate() - 1);
-        const yesterdayStr = yesterday.toISOString().split("T")[0];
+        if (lastDateStr === today) {
+          // Already played today - keep current streak
+          console.log("Already played today, keeping streak:", streakUpdate);
+        } else {
+          const yesterday = new Date(now);
+          yesterday.setDate(yesterday.getDate() - 1);
+          const yesterdayStr = yesterday.toISOString().split("T")[0];
 
-        // Only increase streak if last played was yesterday
-        // If played today or before yesterday, handle accordingly
-        if (lastPlayedDate === yesterdayStr) {
-          // Consecutive day - increase streak
-          streakUpdate += 1;
-        } else if (lastPlayedDate !== today) {
-          // Not consecutive (missed a day) - reset to 1
-          streakUpdate = 1;
+          if (lastDateStr === yesterdayStr) {
+            // Consecutive day - increase streak
+            streakUpdate += 1;
+            console.log("Consecutive day! New streak:", streakUpdate);
+          } else {
+            // Missed one or more days - reset to 1
+            streakUpdate = 1;
+            console.log("Not consecutive, reset streak to 1");
+          }
         }
-        // If lastPlayedDate === today, keep the current streak (already played today)
       }
 
+      // Update with server timestamp (will be stored as Timestamp)
       await updateDoc(userRef, {
         quizzesTaken: increment(1),
-        lastAnsweredAt: serverTimestamp(),
+        lastAnsweredAt: serverTimestamp(), // This creates a Timestamp
         streak: streakUpdate,
       });
 
