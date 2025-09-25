@@ -265,8 +265,6 @@ const QuestionsComponent = ({
 
       const userData = userDocSnap.data() as UserDoc;
       const now = new Date();
-
-      // Get today's date string (YYYY-MM-DD) for simple comparison
       const today = now.toISOString().split("T")[0];
 
       let lastPlayedDate: string | null = null;
@@ -284,25 +282,23 @@ const QuestionsComponent = ({
       });
 
       if (!lastPlayedDate) {
+        // First time playing
         streakUpdate = 1;
       } else {
-        // Calculate yesterday's date string
         const yesterday = new Date(now);
         yesterday.setDate(yesterday.getDate() - 1);
         const yesterdayStr = yesterday.toISOString().split("T")[0];
 
-        if (lastPlayedDate === today) {
-          // Already played today
-          console.log("Already played today - streak unchanged");
-        } else if (lastPlayedDate === yesterdayStr) {
-          // Played yesterday - continue streak
+        // Only increase streak if last played was yesterday
+        // If played today or before yesterday, handle accordingly
+        if (lastPlayedDate === yesterdayStr) {
+          // Consecutive day - increase streak
           streakUpdate += 1;
-          console.log("Played yesterday - streak increased to:", streakUpdate);
-        } else {
-          // Missed one or more days - reset streak
+        } else if (lastPlayedDate !== today) {
+          // Not consecutive (missed a day) - reset to 1
           streakUpdate = 1;
-          console.log("Missed days - streak reset to 1");
         }
+        // If lastPlayedDate === today, keep the current streak (already played today)
       }
 
       await updateDoc(userRef, {
