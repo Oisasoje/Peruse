@@ -140,7 +140,7 @@ const Ultralearning = () => {
       await new Promise((resolve) => setTimeout(resolve, 50));
 
       // 4️⃣ Redirect to quiz
-      router.push(`/quiz/deepwork/chapter${chapterIndex + 1}`);
+      router.push(`/quiz/ultralearning/chapter${chapterIndex + 1}`);
     } catch (e) {
       console.error(e);
       toast.error("Something went wrong!");
