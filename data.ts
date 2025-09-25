@@ -2,7 +2,7 @@ export const deepWorkChapter1Questions = [
   {
     book: "Deep Work",
     id: 1,
-    question: "What do you do when you’re given a new project at work?",
+    question: "What would you do when you’re given a new project at work?",
     options: [
       "Memorize your teammates’ phone numbers",
       "Learn a new programming language quickly and apply it",
@@ -120,7 +120,7 @@ export const deepWorkChapter2Questions = [
     book: "Deep Work",
     id: 2,
     question:
-      "What do you do when you face challenges while learning something new?",
+      "What would you do when you face challenges while learning something new?",
     options: [
       "Continue with dogged persistence.",
       "Quit; you cannot kill yourself.",
@@ -312,7 +312,7 @@ export const deepWorkChapter3Questions = [
     book: "Deep Work",
     id: 3,
     question:
-      "What do you think about work that doesn’t produce something physical?",
+      "What would you think about work that doesn’t produce something physical?",
     options: [
       "It can still carry deep meaning if you choose to work with focus.",
       "It only matters if others notice and praise it.",
@@ -1491,7 +1491,7 @@ export const ultralearningChapter1Questions = [
     book: "Ultralearning",
     id: 1,
     question:
-      "Imagine you’re abroad practicing a new language, but people keep replying in English. What do you do?",
+      "Imagine you’re abroad practicing a new language, but people keep replying in English. What would you do?",
     options: [
       "Give up and stick to English for now.",
       "Keep speaking the local language politely, even if they switch to English.",
@@ -1614,7 +1614,7 @@ export const ultralearningChapter2Questions = [
     book: "Ultralearning",
     id: 2,
     question:
-      "Imagine you’re abroad practicing German, but people keep replying in English. What do you do?",
+      "Imagine you’re abroad practicing German, but people keep replying in English. What would you do?",
     options: [
       "Switch fully to English, it’s easier.",
       "Politely keep speaking German anyway.",

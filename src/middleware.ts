@@ -77,7 +77,7 @@ export async function middleware(req: NextRequest) {
     console.log("💓 Real hearts from Firestore:", hearts);
 
     // Check against the REAL heart count from database
-    if (hearts <= 0) {
+    if (hearts < 0) {
       console.log("❌ No hearts - blocking access");
       return NextResponse.redirect(new URL("/no-hearts", req.url));
     }
