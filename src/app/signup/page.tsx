@@ -144,14 +144,17 @@ const Signup = () => {
       await updateProfile(user, { displayName: username });
 
       // 3. Create Firestore doc with defaults
+      console.log("Signup: Before createUserDoc");
       await createUserDoc(user, username);
+      console.log("Signup: After createUserDoc - success");
 
       toast.success("Account created!", { id: t });
-      console.log("User created successfully:", user);
+      console.log("User created successfully:", user.uid);
 
       // 4. Navigate
       router.replace("/take-quiz");
     } catch (error: any) {
+      console.error("Signup: Full error details:", error);
       toast.error("Something went wrong!", { id: t });
 
       const errorCode = error.code;
@@ -162,8 +165,10 @@ const Signup = () => {
       } else if (errorCode === "auth/invalid-email") {
         setError("email", { message: "Invalid email address" });
       } else {
-        console.error(error);
-        setError("email", { message: "Something went wrong. Try again." });
+        console.error("Signup: Unexpected error:", error);
+        setError("root", {
+          message: error.message || "Something went wrong. Try again.",
+        });
       }
     } finally {
       setLoading(false);

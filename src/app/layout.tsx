@@ -38,9 +38,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthSync />
         <ActivePageProvider>
-          <AppShell>{children}</AppShell>
+          <AppShell>
+            {children}
+            <AuthSync />
+          </AppShell>
         </ActivePageProvider>
 
         <Toaster

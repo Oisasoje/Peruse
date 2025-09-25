@@ -1,3 +1,4 @@
+// components/AuthSync.tsx
 "use client";
 
 import { useEffect } from "react";
@@ -6,16 +7,49 @@ import nookies from "nookies";
 
 export default function AuthSync() {
   useEffect(() => {
-    // subscribe to auth state changes
-    return auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        const token = await user.getIdToken();
-        nookies.set(undefined, "token", token, { path: "/" });
-      } else {
-        nookies.destroy(undefined, "token");
+    const unsubscribe = auth.onIdTokenChanged(async (user) => {
+      try {
+        if (user) {
+          console.log("AuthSync: User logged in:", user.uid);
+          const token = await user.getIdToken();
+          nookies.set(null, "token", token, {
+            path: "/",
+            maxAge: 30 * 24 * 60 * 60, // 30 days
+            sameSite: "lax",
+          });
+        } else {
+          console.log("AuthSync: User logged out");
+          nookies.destroy(null, "token", { path: "/" });
+        }
+      } catch (error) {
+        console.error("AuthSync: Error syncing auth state:", error);
+        nookies.destroy(null, "token", { path: "/" });
       }
     });
+
+    // Force token refresh every 10 minutes to prevent expiration
+    const interval = setInterval(async () => {
+      const user = auth.currentUser;
+      if (user) {
+        try {
+          console.log("AuthSync: Refreshing token...");
+          const token = await user.getIdToken(true);
+          nookies.set(null, "token", token, {
+            path: "/",
+            maxAge: 30 * 24 * 60 * 60,
+            sameSite: "lax",
+          });
+        } catch (error) {
+          console.error("AuthSync: Token refresh error:", error);
+        }
+      }
+    }, 10 * 60 * 1000); // 10 minutes
+
+    return () => {
+      unsubscribe();
+      clearInterval(interval);
+    };
   }, []);
 
-  return null; // nothing to render visually
+  return null;
 }

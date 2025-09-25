@@ -265,36 +265,43 @@ const QuestionsComponent = ({
 
       const userData = userDocSnap.data() as UserDoc;
       const now = new Date();
-      const today = new Date(
-        Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
-      );
 
-      let lastPlayedDate: Date | null = null;
+      // Get today's date string (YYYY-MM-DD) for simple comparison
+      const today = now.toISOString().split("T")[0];
+
+      let lastPlayedDate: string | null = null;
       if (userData.lastAnsweredAt) {
-        const tempDate = new Date(userData.lastAnsweredAt);
-        lastPlayedDate = new Date(
-          Date.UTC(
-            tempDate.getUTCFullYear(),
-            tempDate.getUTCMonth(),
-            tempDate.getUTCDate()
-          )
-        );
+        const lastDate = new Date(userData.lastAnsweredAt);
+        lastPlayedDate = lastDate.toISOString().split("T")[0];
       }
 
       let streakUpdate = userData.streak || 0;
 
+      console.log("Streak Debug:", {
+        currentStreak: streakUpdate,
+        lastPlayed: lastPlayedDate,
+        today: today,
+      });
+
       if (!lastPlayedDate) {
         streakUpdate = 1;
       } else {
-        const yesterday = new Date(today);
-        yesterday.setUTCDate(yesterday.getUTCDate() - 1);
+        // Calculate yesterday's date string
+        const yesterday = new Date(now);
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yesterdayStr = yesterday.toISOString().split("T")[0];
 
-        if (lastPlayedDate.getTime() === today.getTime()) {
-          // Keep streak unchanged
-        } else if (lastPlayedDate.getTime() === yesterday.getTime()) {
+        if (lastPlayedDate === today) {
+          // Already played today
+          console.log("Already played today - streak unchanged");
+        } else if (lastPlayedDate === yesterdayStr) {
+          // Played yesterday - continue streak
           streakUpdate += 1;
+          console.log("Played yesterday - streak increased to:", streakUpdate);
         } else {
+          // Missed one or more days - reset streak
           streakUpdate = 1;
+          console.log("Missed days - streak reset to 1");
         }
       }
 
@@ -304,6 +311,7 @@ const QuestionsComponent = ({
         streak: streakUpdate,
       });
 
+      console.log("Final streak:", streakUpdate);
       clearQuizProgress();
       toast.success("Quiz submitted successfully!");
 
