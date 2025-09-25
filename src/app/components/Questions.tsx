@@ -355,6 +355,11 @@ const QuestionsComponent = ({
     <div
       className={`pt-5 ${inter.className} w-full flex flex-col items-center px-4 sm:px-6 lg:px-8`}
     >
+      {isLoading && (
+        <div className="flex w-full h-screen items-center justify-center p-8">
+          <div className="w-10 h-10 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
+        </div>
+      )}
       {resultModal && (
         <div
           className={`inset-0 z-50 fixed bg-black/40 flex justify-center items-center w-full h-full ${inter.className} px-4`}

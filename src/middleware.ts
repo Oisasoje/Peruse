@@ -36,10 +36,18 @@ async function getUserData(uid: string, baseUrl: string) {
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
+  const pathname = req.nextUrl.pathname;
 
-  console.log("🔍 Middleware checking:", req.nextUrl.pathname);
+  console.log("🔍 Middleware checking:", pathname);
+
+  // Skip middleware for API routes
+  if (pathname.startsWith("/api/")) {
+    console.log("🔄 Skipping middleware for API route");
+    return NextResponse.next();
+  }
 
   if (!token) {
+    console.log("❌ No token found - redirecting to login");
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
@@ -49,8 +57,17 @@ export async function middleware(req: NextRequest) {
       throw new Error("Invalid token");
     }
 
+    console.log("✅ Token verified, user:", user.localId);
+
     // Get REAL heart data from Firestore via API
-    const userData = await getUserData(user.localId, req.url);
+    // Use the origin to avoid path-based issues
+    const apiUrl = new URL(
+      `/api/get-user?uid=${user.localId}`,
+      req.nextUrl.origin
+    ).toString();
+    console.log("📡 Fetching user data from:", apiUrl);
+
+    const userData = await getUserData(user.localId, req.nextUrl.origin);
 
     if (!userData) {
       throw new Error("User data not available");
@@ -68,6 +85,7 @@ export async function middleware(req: NextRequest) {
     console.log("✅ Access granted - hearts available");
     return NextResponse.next();
   } catch (error) {
+    console.error("Middleware error:", error);
     return NextResponse.redirect(new URL("/no-hearts", req.url));
   }
 }
