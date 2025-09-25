@@ -11,7 +11,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    const userDoc = await adminDb.collection("users").doc(uid).get();
+    const userDoc = await adminDb!.collection("users").doc(uid).get();
 
     if (!userDoc.exists) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });

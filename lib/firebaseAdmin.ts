@@ -1,7 +1,7 @@
 // lib/firebaseAdmin.ts
 import { initializeApp, getApps, cert } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
-import { getFirestore } from "firebase-admin/firestore";
+import { getFirestore, Firestore } from "firebase-admin/firestore"; // Import Firestore type
 
 // Check if required environment variables exist
 const requiredEnvVars = [
@@ -29,12 +29,14 @@ try {
         });
 } catch (error) {
   console.error("❌ Firebase Admin initialization failed:", error);
-  throw error; // This will make the build fail clearly
+  throw error;
 }
 
 export const adminAuth = getAuth(app);
 
-let adminDb = null;
+// FIX: Add explicit type annotation
+let adminDb: Firestore | null = null;
+
 try {
   adminDb = getFirestore(app);
   console.log("✅ Firestore initialized successfully");
