@@ -7,35 +7,19 @@ export async function GET(request: Request) {
   const uid = searchParams.get("uid");
 
   if (!uid) {
-    return NextResponse.json({ error: "No UID provided" }, { status: 400 });
+    return NextResponse.json({ error: "No UID" }, { status: 400 });
   }
 
   try {
     const userDoc = await adminDb.collection("users").doc(uid).get();
 
     if (!userDoc.exists) {
-      // If user doesn't exist, create a default one
-      const defaultUserData = {
-        uid: uid,
-        hearts: 3,
-        streak: 0,
-        quizzesTaken: 0,
-        createdAt: new Date(),
-        lastLogin: new Date(),
-      };
-
-      await adminDb.collection("users").doc(uid).set(defaultUserData);
-
-      return NextResponse.json(defaultUserData);
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     const userData = userDoc.data();
     return NextResponse.json(userData);
   } catch (error) {
-    console.error("Error getting user data:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

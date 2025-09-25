@@ -333,6 +333,10 @@ const EmotionalIntelligence = dynamic(
     loading: () => <SimpleLoader />,
   }
 );
+const Ultralearning = dynamic(() => import("../components/Ultralearning"), {
+  ssr: false,
+  loading: () => <SimpleLoader />,
+});
 
 const inter = Inter({
   subsets: ["latin"],
@@ -425,6 +429,8 @@ const Quiz = () => {
       <DeepWork />
     ) : currentResource === "EMOTIONAL INTELLIGENCE 2.0" ? (
       <EmotionalIntelligence />
+    ) : currentResource === "ULTRALEARNING" ? (
+      <Ultralearning />
     ) : (
       <div className="col-span-3 flex items-center justify-center h-64">
         <p className="text-xl">Select a resource to get started</p>

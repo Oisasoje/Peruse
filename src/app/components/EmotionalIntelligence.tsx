@@ -6,6 +6,7 @@ import { doc, increment, onSnapshot, updateDoc } from "firebase/firestore";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Cookies from "js-cookie";
 
 type UserDoc = {
   createdAt: string; // or Firebase Timestamp if you switch later
@@ -84,14 +85,11 @@ const EmotionalIntelligence = () => {
   }, []);
 
   const handleClick = async (chapterIndex: number) => {
-    // block all clicks while processing
     if (isProcessing) return;
-
     setIsProcessing(true);
 
     try {
-      if (!userDoc) return; // safety
-      if (userDoc.hearts <= 0) {
+      if (!userDoc || userDoc.hearts <= 0) {
         toast.error("No hearts left!");
         return;
       }
@@ -99,15 +97,23 @@ const EmotionalIntelligence = () => {
       const user = auth.currentUser;
       if (!user) return;
 
+      // 1️⃣ Update Firestore
       await updateDoc(doc(db, "users", user.uid), {
         hearts: increment(-1),
       });
 
-      router.push(
-        `/quiz/emotional-intelligence-2.0/chapter${chapterIndex + 1}`
-      );
+      // 2️⃣ Update cookie for middleware
+      const newHearts = userDoc.hearts - 1;
+      Cookies.set("hearts", String(newHearts), { path: "/" });
+
+      // 3️⃣ Tiny wait to ensure cookie is written
+      await new Promise((resolve) => setTimeout(resolve, 50));
+
+      // 4️⃣ Redirect to quiz
+      router.push(`/quiz/deepwork/chapter${chapterIndex + 1}`);
     } catch (e) {
-      setIsProcessing(false); // error fallback
+      console.error(e);
+      toast.error("Something went wrong!");
     }
   };
 

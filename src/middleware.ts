@@ -15,32 +15,21 @@ async function verifyToken(token: string) {
       }
     );
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
+    if (!response.ok) return null;
     const data = await response.json();
     return data.users?.[0] || null;
   } catch (error) {
-    console.error("Token verification failed:", error);
     return null;
   }
 }
 
 async function getUserData(uid: string, baseUrl: string) {
   try {
-    // Use the base URL to construct the API call
     const apiUrl = new URL(`/api/get-user?uid=${uid}`, baseUrl).toString();
     const response = await fetch(apiUrl);
-
-    if (!response.ok) {
-      throw new Error(`API error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    return data;
+    if (!response.ok) return null;
+    return await response.json();
   } catch (error) {
-    console.error("Failed to get user data:", error);
     return null;
   }
 }
@@ -48,47 +37,38 @@ async function getUserData(uid: string, baseUrl: string) {
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
 
-  console.log("\n🔍 === MIDDLEWARE START ===");
-  console.log("📍 Path:", req.nextUrl.pathname);
+  console.log("🔍 Middleware checking:", req.nextUrl.pathname);
 
   if (!token) {
-    console.log("❌ No token - redirecting to login");
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
   try {
-    // Verify token using REST API
     const user = await verifyToken(token);
     if (!user) {
       throw new Error("Invalid token");
     }
 
-    console.log("✅ Token verified for user:", user.localId);
-
-    // Get user data from your API
+    // Get REAL heart data from Firestore via API
     const userData = await getUserData(user.localId, req.url);
 
-    if (!userData || userData.error) {
-      console.log("❌ Failed to get user data");
+    if (!userData) {
       throw new Error("User data not available");
     }
 
-    const hearts = userData?.hearts ?? 3;
-    console.log(`💓 User has ${hearts} hearts`);
+    const hearts = userData.hearts ?? 0;
+    console.log("💓 Real hearts from Firestore:", hearts);
 
+    // Check against the REAL heart count from database
     if (hearts <= 0) {
-      console.log("❌ No hearts - redirecting to /no-hearts");
+      console.log("❌ No hearts - blocking access");
       return NextResponse.redirect(new URL("/no-hearts", req.url));
     }
 
-    console.log("✅ Access granted");
+    console.log("✅ Access granted - hearts available");
     return NextResponse.next();
   } catch (error) {
-    console.error("❌ Middleware error:", error);
-
-    const response = NextResponse.redirect(new URL("/no-hearts", req.url));
-    response.cookies.delete("token");
-    return response;
+    return NextResponse.redirect(new URL("/no-hearts", req.url));
   }
 }
 

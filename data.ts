@@ -494,7 +494,7 @@ export const emotionalIntelligenceChapter1Questions = [
     book: "Emotional Intelligence 2.0",
     id: 1,
     question:
-      "When you’re stuck in traffic, already late, and frustration creeps in, how would you treat the moment with more calm?",
+      "When you’re stuck in traffic, already late, and frustration comes in, how would you treat the moment with more calm?",
     options: [
       "Accept that the road isn’t in your control right now",
       "Shout at other drivers even though it changes nothing",
@@ -580,7 +580,7 @@ export const emotionalIntelligenceChapter1Questions = [
     question:
       "When you feel low but can’t explain why, what’s a kind step you could take?",
     options: [
-      "Pause and check in with your body—maybe you’re just tired or tense",
+      "Pause and check in with your body maybe you’re just tired or tense",
       "Scroll aimlessly on social media to numb the feeling",
       "Write a few lines about how you feel to see if it clears up",
       "Tell yourself, “Something’s wrong with me” and hide it",
@@ -590,11 +590,11 @@ export const emotionalIntelligenceChapter1Questions = [
     book: "Emotional Intelligence 2.0",
     id: 1,
     question:
-      "When you’ve just had a really tough moment, what’s the most humane way to bring yourself back to center?",
+      "After a difficult or emotionally draining moment, how would you bring yourself back to a calmer place?",
     options: [
       "Sit quietly and breathe until your body softens",
       "Beat yourself up for not handling it better",
-      "Talk to someone who reminds you you’re not alone",
+      "Reach out to someone you trust for comfort or advice",
       "Distract yourself completely and pretend nothing happened",
     ],
   },
@@ -606,7 +606,7 @@ export const emotionalIntelligenceChapter2Questions = [
     book: "Emotional Intelligence 2.0",
     id: 2,
     question:
-      "What do you do when you share an idea at work and a colleague immediately cuts in with “That won’t work,” while everyone’s watching?",
+      "What would you do when you share an idea at work and a colleague immediately cuts in with “That won’t work,” while everyone’s watching?",
     options: [
       "Laugh it off, but feel stung inside.",
       "Fire back with a sarcastic jab.",
@@ -618,7 +618,7 @@ export const emotionalIntelligenceChapter2Questions = [
     book: "Emotional Intelligence 2.0",
     id: 2,
     question:
-      "How do you react when a friend keeps interrupting you every time you try to share something personal?",
+      "How would you react when a friend keeps interrupting you every time you try to share something personal?",
     options: [
       "Brush it off; “That’s just how they are.”",
       "Tell them you feel dismissed when they do that.",
@@ -642,7 +642,7 @@ export const emotionalIntelligenceChapter2Questions = [
     book: "Emotional Intelligence 2.0",
     id: 2,
     question:
-      "How do you respond when you’ve put in the most effort but get completely overlooked for recognition?",
+      "How would you respond when you’ve put in the most effort but get completely overlooked for recognition?",
     options: [
       "Tell yourself hard work never gets noticed anyway.",
       "Politely bring it up with your manager.",
@@ -654,7 +654,7 @@ export const emotionalIntelligenceChapter2Questions = [
     book: "Emotional Intelligence 2.0",
     id: 2,
     question:
-      "What do you do when a close friend jokes about something you’re sensitive about, and everyone laughs?",
+      "What would you do when a close friend jokes about something you’re sensitive about, and everyone laughs?",
     options: [
       "Laugh along but feel hurt inside.",
       "Call them out jokingly but with a sharp edge.",
@@ -666,7 +666,7 @@ export const emotionalIntelligenceChapter2Questions = [
     book: "Emotional Intelligence 2.0",
     id: 2,
     question:
-      "How do you react when your younger sibling ignores your advice but later acts like they figured it out themselves?",
+      "How would you react when your younger sibling ignores your advice but later acts like they figured it out themselves?",
     options: [
       "Roll your eyes and say nothing.",
       "Tease them about it but let it slide.",
@@ -690,7 +690,7 @@ export const emotionalIntelligenceChapter2Questions = [
     book: "Emotional Intelligence 2.0",
     id: 2,
     question:
-      "How do you handle it when a stranger makes a rude comment about your appearance in public?",
+      "How would you handle it when a stranger makes a rude comment about your appearance in public?",
     options: [
       "Fire back with something meaner.",
       "Laugh it off and keep moving.",
@@ -702,7 +702,7 @@ export const emotionalIntelligenceChapter2Questions = [
     book: "Emotional Intelligence 2.0",
     id: 2,
     question:
-      "What do you do when your partner dismisses your feelings during an argument with: “You’re overreacting”?",
+      "What would you do when your partner dismisses your feelings during an argument with: “You’re overreacting”?",
     options: [
       "Shut down completely.",
       "Yell louder to make them hear you.",
@@ -714,7 +714,7 @@ export const emotionalIntelligenceChapter2Questions = [
     book: "Emotional Intelligence 2.0",
     id: 2,
     question:
-      "How do you respond when you finally take a bold step, but someone you respect says: “That’s a bad idea”?",
+      "How would you respond when you finally take a bold step, but someone you respect says: “That’s a bad idea”?",
     options: [
       "Immediately doubt yourself and back off.",
       "Listen but still follow your gut.",
@@ -729,31 +729,31 @@ export const emotionalIntelligenceChapter3Questions = [
     book: "Emotional Intelligence 2.0",
     id: 3,
     question:
-      "How do you respond when you notice your voice rising and anger building in the middle of a heated conversation?",
+      "How would you respond when a heated online chat or group text pushes your buttons?",
     options: [
-      "Match their tone and shout back.",
-      "Pause, breathe, and lower your voice on purpose.",
-      "Shut down and stop talking completely.",
-      "Excuse yourself briefly to cool off.",
+      "Fire off a sharp reply you’ll regret later.",
+      "Pause before typing and cool down first.",
+      "Leave the chat entirely without saying anything.",
+      "Send a short message: “Let’s pause, this is getting too much.”",
     ],
   },
   {
     book: "Emotional Intelligence 2.0",
     id: 3,
     question:
-      "What’s your move when anxiety hits right before you’re asked to speak in front of a group?",
+      "What’s your move when you’re asked a tough question in class or at work and your mind goes blank?",
     options: [
-      "Freeze and hope someone else takes over.",
-      "Break it down and focus only on your opening line.",
-      "Talk too fast just to get it over with.",
-      "Use the nerves as energy to stay sharp.",
+      "Freeze and hope someone else answers.",
+      "Take a deep breath and ask for a moment to think.",
+      "Ramble quickly just to fill the silence.",
+      "Share one small thought you’re sure about and build from there.",
     ],
   },
   {
     book: "Emotional Intelligence 2.0",
     id: 3,
     question:
-      "How do you react when you realize you’re procrastinating on an important task yet again?",
+      "How would you react when you realize you’re procrastinating on an important task yet again?",
     options: [
       "Keep scrolling or distracting yourself.",
       "Break it into the smallest first step and start there.",
@@ -765,7 +765,7 @@ export const emotionalIntelligenceChapter3Questions = [
     book: "Emotional Intelligence 2.0",
     id: 3,
     question:
-      "What do you do when you receive unexpected criticism and feel shame rising inside?",
+      "What would you do when you receive unexpected criticism and feel shame rising inside?",
     options: [
       "Defend yourself immediately to look strong.",
       "Listen, thank them, and think about it later.",
@@ -777,12 +777,12 @@ export const emotionalIntelligenceChapter3Questions = [
     book: "Emotional Intelligence 2.0",
     id: 3,
     question:
-      "How do you respond when you catch yourself comparing your progress to someone else’s success?",
+      "How would you respond when a peer posts their success online and you feel left behind?",
     options: [
       "Let jealousy eat at you quietly.",
-      "Acknowledge it and ask what you can learn.",
-      "Pretend it doesn’t bother you and hide the feeling.",
-      "Turn it into motivation for your own goals.",
+      "Ask yourself what you can learn from their journey.",
+      "Pretend you don’t care while scrolling.",
+      "Use it as motivation to keep working on your own path.",
     ],
   },
   {
@@ -801,7 +801,7 @@ export const emotionalIntelligenceChapter3Questions = [
     book: "Emotional Intelligence 2.0",
     id: 3,
     question:
-      "How do you handle it when your body tenses and your mind says, “I can’t do this,” before a big challenge?",
+      "How would you handle it when your body tenses and your mind says, “I can’t do this,” before a big challenge?",
     options: [
       "Back out and avoid it altogether.",
       "Ground yourself with slow breathing and step in anyway.",
@@ -813,7 +813,7 @@ export const emotionalIntelligenceChapter3Questions = [
     book: "Emotional Intelligence 2.0",
     id: 3,
     question:
-      "What do you do when someone points out a blind spot you didn’t see in yourself?",
+      "What would you do when someone points out a blind spot you didn’t see in yourself?",
     options: [
       "Argue and explain why they’re wrong.",
       "Thank them and think it over later.",
@@ -825,12 +825,12 @@ export const emotionalIntelligenceChapter3Questions = [
     book: "Emotional Intelligence 2.0",
     id: 3,
     question:
-      "How do you react when you feel guilty after snapping at someone unfairly?",
+      "How would you handle it when you’ve just spoken harshly to someone at work and you see the hurt on their face?",
     options: [
       "Pretend it didn’t happen.",
-      "Apologize and explain the stress behind it.",
-      "Beat yourself up in your head all day.",
-      "Make a small joke to cover it up.",
+      "Apologize quickly and own your tone.",
+      "Beat yourself up for hours about it.",
+      "Crack a joke to cover the awkwardness.",
     ],
   },
   {
@@ -852,7 +852,7 @@ export const emotionalIntelligenceChapter4Questions = [
     book: "Emotional Intelligence 2.0",
     id: 4,
     question:
-      "How do you respond when you’re tempted to work on all four EQ skills at once instead of focusing on just one?",
+      "How would you respond when you’re tempted to work on all four EQ skills at once instead of focusing on just one?",
     options: [
       "Spread myself thin and try everything.",
       "Pick one skill and dig deep.",
@@ -876,7 +876,7 @@ export const emotionalIntelligenceChapter4Questions = [
     book: "Emotional Intelligence 2.0",
     id: 4,
     question:
-      "How do you react when your new EQ mentor asks how committed you really are?",
+      "How would you react when your new EQ mentor asks how committed you really are?",
     options: [
       "Take it seriously and set up regular check-ins.",
       "Admit you’ll try but can’t promise much.",
@@ -888,19 +888,19 @@ export const emotionalIntelligenceChapter4Questions = [
     book: "Emotional Intelligence 2.0",
     id: 4,
     question:
-      "What do you do when you slip back into an old habit after weeks of practice?",
+      "What would you do when you’ve been eating healthy for weeks, then binge on junk food one night?",
     options: [
       "Call it proof you’ll never change.",
-      "Remind yourself that one mistake doesn’t erase progress.",
-      "Decide this skill just isn’t for you.",
-      "Take it as a sign you need more practice.",
+      "Remind yourself one night doesn’t erase progress.",
+      "Decide healthy eating just isn’t for you.",
+      "Learn from it and get back on track the next day.",
     ],
   },
   {
     book: "Emotional Intelligence 2.0",
     id: 4,
     question:
-      "How do you see yourself when your emotions feel like traffic on a two-lane road?",
+      "How would you see yourself when your emotions feel like traffic on a two-lane road?",
     options: [
       "Believe patience will widen the road.",
       "Tell yourself change isn’t worth the effort.",
@@ -924,7 +924,7 @@ export const emotionalIntelligenceChapter4Questions = [
     book: "Emotional Intelligence 2.0",
     id: 4,
     question:
-      "How do you keep going when three months in, your progress feels invisible?",
+      "How would you keep going when three months in, your progress feels invisible?",
     options: [
       "Stay patient, knowing change takes months.",
       "Give up because no results means it’s not working.",
@@ -936,7 +936,7 @@ export const emotionalIntelligenceChapter4Questions = [
     book: "Emotional Intelligence 2.0",
     id: 4,
     question:
-      "What do you do when your mentor points out you’re still avoiding real emotional conversations?",
+      "What would you do when your mentor points out you’re still avoiding real emotional conversations?",
     options: [
       "Accept it hurts, but use it to grow.",
       "Get defensive and wish they’d encourage me instead.",
@@ -948,7 +948,7 @@ export const emotionalIntelligenceChapter4Questions = [
     book: "Emotional Intelligence 2.0",
     id: 4,
     question:
-      "How do you feel as you prepare to retake the Emotional Intelligence Appraisal after months of practice?",
+      "How would you feel as you prepare to retake the Emotional Intelligence Appraisal after months of practice?",
     options: [
       "Confident you’ll see improvement.",
       "Afraid that no change means you’re a failure.",
@@ -975,7 +975,7 @@ export const emotionalIntelligenceChapter5Questions = [
     book: "Emotional Intelligence 2.0",
     id: 5,
     question:
-      "How do you react when you feel guilty after missing a deadline and see your team waiting, frustrated?",
+      "How would you react when you feel guilty after missing a deadline and see your team waiting, frustrated?",
     options: [
       "Sit with the feeling and learn from it.",
       "Judge it and try to push it away.",
@@ -999,7 +999,7 @@ export const emotionalIntelligenceChapter5Questions = [
     book: "Emotional Intelligence 2.0",
     id: 5,
     question:
-      "How do you handle it when you feel uncomfortable and want to distract yourself instead of facing your feelings?",
+      "How would you handle it when you feel uncomfortable and want to distract yourself instead of facing your feelings?",
     options: [
       "Lean into the feeling and see why it’s there.",
       "Distract yourself until it goes away.",
@@ -1011,7 +1011,7 @@ export const emotionalIntelligenceChapter5Questions = [
     book: "Emotional Intelligence 2.0",
     id: 5,
     question:
-      "What do you do when your body reacts during a heated discussion, heart racing, muscles tight and you feel your emotions rising?",
+      "What would you do when your body reacts during a heated discussion, heart racing, muscles tight and you feel your emotions rising?",
     options: [
       "Notice your body to understand the feeling.",
       "Ignore it and keep going.",
@@ -1023,7 +1023,7 @@ export const emotionalIntelligenceChapter5Questions = [
     book: "Emotional Intelligence 2.0",
     id: 5,
     question:
-      "How do you respond when a coworker takes over a meeting and immediately pushes all your buttons?",
+      "How would you respond when a coworker takes over a meeting and immediately pushes all your buttons?",
     options: [
       "Notice what triggers you and why.",
       "Snap or react right away.",
@@ -1047,7 +1047,7 @@ export const emotionalIntelligenceChapter5Questions = [
     book: "Emotional Intelligence 2.0",
     id: 5,
     question:
-      "How do you react when writing in your journal feels boring, but you start noticing patterns in your emotions?",
+      "How would you react when writing in your journal feels boring, but you start noticing patterns in your emotions?",
     options: [
       "Keep writing and watch your patterns.",
       "Stop because it feels like too much work.",
@@ -1059,36 +1059,1138 @@ export const emotionalIntelligenceChapter5Questions = [
     book: "Emotional Intelligence 2.0",
     id: 5,
     question:
-      "How do you handle it when a bad mood makes every task feel hard and every interaction frustrating?",
+      "What’s your move when you wake up already drained, and the whole day feels heavy before it starts?",
     options: [
-      "Notice the mood and remind yourself it will pass.",
-      "Let it control your thoughts and actions.",
-      "Complain to anyone who will listen.",
-      "Pretend everything is fine and ignore it.",
+      "Notice it and give yourself a gentler start.",
+      "Let the feeling set the tone for your day.",
+      "Complain loudly to everyone around you.",
+      "Ignore it and push yourself like nothing’s wrong.",
     ],
   },
   {
     book: "Emotional Intelligence 2.0",
     id: 5,
     question:
-      "What’s your move when excitement makes you want to act without thinking, like spending too much or rushing a decision?",
+      "How would you react when you’re tempted to buy something flashy because you saw others posting about it?",
     options: [
-      "Notice the excitement and think before acting.",
-      "Let the mood carry you away.",
-      "Just enjoy it and deal with mistakes later.",
-      "Compare yourself to others and feel pressure.",
+      "Pause and ask if you’d still want it tomorrow.",
+      "Give in and swipe your card.",
+      "Tell yourself you’ll figure out the money later.",
+      "Compare yourself to them and feel pressured to keep up.",
     ],
   },
   {
     book: "Emotional Intelligence 2.0",
     id: 5,
     question:
-      "How do you respond when you suddenly feel angry and want to lash out?",
+      "How would you respond when you suddenly feel angry and want to lash out?",
     options: [
       "Stop and ask why you feel this way.",
       "Ignore it.",
       "Blame someone else for making you angry.",
       "Let it control what you do without thinking.",
+    ],
+  },
+];
+
+export const emotionalIntelligenceChapter6Questions = [
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 6,
+    question:
+      "What would you do when someone cuts you off in a meeting and you feel that flash of anger rising in your chest?",
+    options: [
+      "Snap right back to prove you won’t be talked over.",
+      "Take a slow breath and let your stomach rise and fall to steady yourself.",
+      "Count to ten quietly so you don’t lash out.",
+      "Push your point even harder just so they don’t win.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 6,
+    question:
+      "How would you handle it when you’re under pressure to make a quick decision and panic kicks in?",
+    options: [
+      "Go with the panic and make the fastest call.",
+      "Jot down the pros and cons on paper to clear your head.",
+      "Ask yourself, “What would calm me do here?” before acting.",
+      "Decide on the spot just so the anxiety goes away.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 6,
+    question:
+      "What’s your move when you’ve promised yourself to stop overreacting, but no one else even knows you’re trying to change?",
+    options: [
+      "Keep it a secret and hope you’ll stick to it.",
+      "Tell a close friend so they can check in on you.",
+      "Share it openly and create some accountability.",
+      "Blame others whenever you slip instead of owning it.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 6,
+    question:
+      "How would you usually respond when you see a text that annoys you and your fingers itch to clap back?",
+    options: [
+      "Fire off the first angry reply that comes to mind.",
+      "Put the phone down and decide to sleep on it.",
+      "Draft a calmer message, wait, then send if it still feels right.",
+      "Drop a sarcastic comment to get it off your chest.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 6,
+    question:
+      "Imagine waking up with that heavy thought, “I can’t handle this today.” What would you actually do?",
+    options: [
+      "Let the thought loop all day and sink into it.",
+      "Catch it and tell yourself, “This is tough, but I’ll take it one step at a time.”",
+      "Picture yourself handling the day calmly and steadily.",
+      "Give in to the negative voice and let it set the tone.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 6,
+    question:
+      "What would you do when you make a mistake in front of everyone and feel the eyes on you?",
+    options: [
+      "Defend yourself quickly so you don’t look weak.",
+      "Find a calm colleague and ask how they’d handle it.",
+      "Admit the mistake and suggest how you’ll fix it.",
+      "Try to hide it and hope no one remembers.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 6,
+    question:
+      "How would you react when a problem keeps nagging at you all day and you just can’t focus?",
+    options: [
+      "Stress out and try to fix everything at once.",
+      "Block 15 minutes later to sit and think it through quietly.",
+      "Break it into one small step and do just that first.",
+      "Ignore it and let the pressure build.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 6,
+    question:
+      "What’s your move when you walk into a room full of new people and instantly feel nervous?",
+    options: [
+      "Stick to a corner and avoid eye contact.",
+      "Take a deep breath and start with one friendly smile or hello.",
+      "Tell yourself you’ll just listen for now and warm up later.",
+      "Force yourself to talk quickly so you “get it over with.”",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 6,
+    question:
+      "How would you handle it when you keep skipping workouts even though you know they help clear your head?",
+    options: [
+      "Put it off and tell yourself you’ll start again tomorrow.",
+      "Treat exercise like an appointment you can’t cancel.",
+      "Do a short walk or stretch just to reset your mind.",
+      "Use busyness as an excuse and regret it later.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 6,
+    question:
+      "Imagine big changes are announced at work and you feel completely overwhelmed, what would you do?",
+    options: [
+      "Assume the worst and spiral about everything that could go wrong.",
+      "Write down what might change and a few steps you can take now.",
+      "Focus on what you can actually control instead of everything else.",
+      "Freeze and wait for someone else to figure it out.",
+    ],
+  },
+];
+
+export const emotionalIntelligenceChapter7Questions = [
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 7,
+    question:
+      "How would you respond when you walk into the breakroom and notice a coworker sitting alone with their shoulders hunched?",
+    options: [
+      "You ignore them and grab your coffee; it’s not your problem.",
+      "You say their name and ask, “Hey, you okay?” to open the door.",
+      "You sit quietly beside them and listen if they want to talk.",
+      "You make a joke to lighten the mood, even if it misses the mark.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 7,
+    question:
+      "What’s your move when someone speaks quickly and avoids eye contact while explaining a problem?",
+    options: [
+      "You interrupt to correct them so the meeting stays on track.",
+      "You slow your own pace and ask a calm question so they can slow down.",
+      "You reflect back what you heard to check you understood them.",
+      "You assume they’re hiding something and watch them warily.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 7,
+    question:
+      "Imagine you’re hosting a small team lunch and one person is unusually quiet, how would you act?",
+    options: [
+      "You keep the conversation superficial and hope they join in.",
+      "You gently ask about their week and give them space to share.",
+      "You notice their body language and steer the topic toward something they like.",
+      "You call them out for being distant so others see you noticed.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 7,
+    question:
+      "How would you respond when a colleague from another culture uses a greeting you don’t recognize?",
+    options: [
+      "You fake recognition and avoid asking questions.",
+      "You ask politely what the greeting means and show curiosity.",
+      "You mirror their greeting to show respect and openness.",
+      "You dismiss it as unimportant and stick to your usual habits.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 7,
+    question:
+      "What’s your move when you enter a room and the chatter drops, you can feel tension in the air?",
+    options: [
+      "You plow ahead with your agenda, ignoring the mood.",
+      "You pause, scan faces, and ask if anyone needs a moment before starting.",
+      "You acknowledge the feeling (“It seems tense, want to check in?”).",
+      "You make a loud announcement to break the silence, hoping to snap people out of it.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 7,
+    question:
+      "How would you react when someone thanks you but keeps glancing away and fidgeting?",
+    options: [
+      "You accept the thanks and move on without noticing the rest.",
+      "You ask a follow-up question to see if there’s more beneath the surface.",
+      "You lower your voice and give them space to speak honestly.",
+      "You assume they’re being insincere and pull back.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 7,
+    question:
+      "When you’re at a networking event and spot a small group that looks closed-off, what would you do?",
+    options: [
+      "You barge in and try to force a connection so you don’t miss a chance.",
+      "You wait nearby and look for a natural opening to introduce yourself.",
+      "You watch their body language and approach the one who’s most open.",
+      "You leave them alone and move to an easier crowd.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 7,
+    question:
+      "How would you respond if a teammate sends a curt email that feels sharp but could be just a bad day?",
+    options: [
+      "You reply in kind so they know you felt the sting.",
+      "You check in privately: “I noticed your tone, is everything okay?”",
+      "You assume stress and offer practical help to ease their load.",
+      "You escalate it to the manager immediately without asking them first.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 7,
+    question:
+      "What’s your move when you notice two coworkers whispering and suddenly stop when you walk over?",
+    options: [
+      "You accuse them of excluding you to make your point.",
+      "You smile and ask a neutral question so they can include you if they want.",
+      "You give them a moment and later check in with one of them about it.",
+      "You assume they’re talking behind your back and get defensive.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 7,
+    question:
+      "How would you act when a client’s face shows confusion during your explanation but they keep nodding?",
+    options: [
+      "You keep talking, assuming they’ll catch up eventually.",
+      "You pause and ask, “Can I explain that another way?” to be sure they follow.",
+      "You offer a quick example or visual to make it clearer.",
+      "You rush to finish so you can move on to the next point.",
+    ],
+  },
+];
+
+export const emotionalIntelligenceChapter8Questions = [
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 8,
+    question:
+      "What would you do when you learn a teammate stayed late to finish your part of a shared project and didn’t mention it?",
+    options: [
+      "Pretend you didn’t notice and take the credit later.",
+      "Thank them sincerely and ask how you can return the favor.",
+      "Send a quick message praising their help so the manager sees it.",
+      "Assume they expect something in return and feel resentful.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 8,
+    question:
+      "How would you react if a friend texts you in the middle of a stressful day asking for advice they should’ve handled earlier?",
+    options: [
+      "Tell them bluntly you’re too busy and block their messages.",
+      "Say you care, offer one clear suggestion, and schedule a longer chat later.",
+      "Give a short helpful tip now and offer to talk when you’re free.",
+      "Ignore them and later complain to others about being used.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 8,
+    question:
+      "What’s your move when your partner points out a habit that annoys them and looks hurt?",
+    options: [
+      "Dismiss their feelings and say they’re overreacting.",
+      "Listen, say you hear them, and ask what would help.",
+      "Name one small change you’ll try and check back in a week.",
+      "Get defensive and bring up things they do wrong instead.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 8,
+    question:
+      "Imagine you overhear a coworker repeating a private comment you made, how would you respond?",
+    options: [
+      "Confront them angrily in front of others to shame them.",
+      "Pull them aside calmly and explain why it bothered you.",
+      "Tell your manager privately if it seems serious and impacts work.",
+      "Retreat and stop sharing anything personal at work.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 8,
+    question:
+      "How would you act when someone close cancels plans last minute for the third time this month?",
+    options: [
+      "Lose your temper and accuse them of not caring.",
+      "Ask if everything’s okay and suggest rescheduling at a clear time.",
+      "Say you’re disappointed but offer a next option that works for both of you.",
+      "Hold a grudge and stop responding to their messages.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 8,
+    question:
+      "What would you do when giving feedback to a colleague who’s clearly proud of their work but missed a key detail?",
+    options: [
+      "Mock their effort to make a point so they’ll improve.",
+      "Start with one positive, point out the issue, and suggest a fix.",
+      "Ask permission to share your thoughts, then give a specific example and next step.",
+      "Stay silent and let the mistake repeat so you don’t “rock the boat.”",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 8,
+    question:
+      "How would you respond if a friend brags about something you’ve been quietly working toward for months?",
+    options: [
+      "Say something passive-aggressive to cut them down.",
+      "Congratulate them and later ask for pointers that might help you.",
+      "Celebrate their win and keep working toward your goal without envy.",
+      "Withdraw and decide you won’t share future efforts with them.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 8,
+    question:
+      "What’s your move when a team meeting becomes heated and someone unfairly blames you?",
+    options: [
+      "Snap back angrily so they know not to mess with you.",
+      "Stay calm, ask for specific examples, and propose a step to clarify the situation.",
+      "Suggest a short break and then a focused review of facts to resolve it.",
+      "Refuse to participate and let the accusation stand without defending yourself.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 8,
+    question:
+      "How would you react when someone you care about says, “I’m fine,” but their eyes tell a different story?",
+    options: [
+      "Ignore it and assume they’ll tell you if it matters.",
+      "Gently say, “You don’t look fine; want to talk?” and give them space if they decline.",
+      "Offer a small kindness (tea, quiet company) and check in later.",
+      "Push them to explain immediately until they shut down.",
+    ],
+  },
+  {
+    book: "Emotional Intelligence 2.0",
+    id: 8,
+    question:
+      "What would you do when you need to make a decision that affects others and you know it won’t be popular?",
+    options: [
+      "Make the call quietly and tell people later, it’s faster.",
+      "Explain your reasoning in advance, invite questions, and outline support steps.",
+      "Share the decision, acknowledge the downsides, and offer a way to help those affected.",
+      "Avoid making the decision and let the problem fester until someone else steps in.",
+    ],
+  },
+];
+
+export const ultralearningChapter1Questions = [
+  {
+    book: "Ultralearning",
+    id: 1,
+    question:
+      "What would you do if you were thinking about moving into a new field?",
+    options: [
+      "Look for free or low-cost courses and sketch out a rough study plan.",
+      "Keep telling yourself you’ll get started soon.",
+      "Try a small side project to see if you actually enjoy it.",
+      "Put it off and tell yourself now isn’t the right time.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 1,
+    question:
+      "How do you respond when you’re teaching yourself something new but aren’t sure if you’re actually improving?",
+    options: [
+      "Avoid checking because you don’t want to know if you’re not ready.",
+      "Take some practice quizzes or past questions to see where you stand.",
+      "Promise yourself you’ll track progress later once you feel more prepared.",
+      "Build a tiny project to test whether you can use what you’ve learned.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 1,
+    question:
+      "Imagine you’re abroad practicing a new language, but people keep replying in English. What do you do?",
+    options: [
+      "Give up and stick to English for now.",
+      "Keep speaking the local language politely, even if they switch to English.",
+      "Switch back to English when the chat gets too fast, then try again later.",
+      "Get stuck in grammar books and never actually speak.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 1,
+    question:
+      "What’s your move if you want to practice a skill but feel afraid of making mistakes?",
+    options: [
+      "Go for it and accept that mistakes are part of learning.",
+      "Avoid speaking so you don’t embarrass yourself.",
+      "Wait until you’ve studied a bit more so it feels safer.",
+      "Practice with a supportive friend first so it feels less scary.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 1,
+    question:
+      "What would you do if you signed up for a competition that covers lots of topics?",
+    options: [
+      "Put practice off and hope it all works out on the day.",
+      "Spend more time on the areas you struggle with the most.",
+      "Skim around a bit and tell yourself that’s enough for now.",
+      "Go through old questions and try to spot patterns.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 1,
+    question:
+      "How do you respond when there’s one topic you keep stumbling over?",
+    options: [
+      "Watch documentaries or listen to podcasts to get a different angle.",
+      "Break it into small steps and give yourself extra time.",
+      "Tell yourself you’ll come back to it later.",
+      "Decide it’s too stressful and avoid it altogether.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 1,
+    question:
+      "Imagine you want to start a project (an app, blog, craft) but don’t have all the skills. What’s your move?",
+    options: [
+      "Push it aside because it feels overwhelming.",
+      "Team up with people who already have the skills and learn as you go.",
+      "Read more about how others did it before beginning.",
+      "Use simple templates or starter tools to get moving faster.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 1,
+    question:
+      "Picture this: you try something creative, and it doesn’t match what you imagined. How do you react?",
+    options: [
+      "Walk away and tell yourself maybe you’re not talented enough.",
+      "Redo it a few times until it’s closer to what you pictured.",
+      "Step away for a bit and come back with fresh eyes.",
+      "Look at other people’s work and note what can be improved.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 1,
+    question:
+      "What would you do if you wanted to learn a skill quickly and decided to immerse yourself?",
+    options: [
+      "Set a strict rule to use that skill in daily life.",
+      "Read about how others did immersion first, to plan it right.",
+      "Spend ages reading about immersion and never give it a try.",
+      "Join a community where everyone is practicing that skill regularly.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 1,
+    question:
+      "How do you respond when you want to get better at something but aren’t sure how to get useful feedback?",
+    options: [
+      "Keep practicing on your own to avoid criticism.",
+      "Compare your work to professional examples to see what’s missing.",
+      "Tell yourself you’ll ask for feedback later, once you feel more confident.",
+      "Ask a friend or peer for honest, specific notes on what to improve.",
+    ],
+  },
+];
+
+export const ultralearningChapter2Questions = [
+  {
+    book: "Ultralearning",
+    id: 2,
+    question:
+      "What would you do if you were curious about switching to data science but stuck in your current job?",
+    options: [
+      "Sign up for a free Python course and plan a practice project.",
+      "Tell yourself you’ll switch someday.",
+      "Try a small weekend project with real data.",
+      "Wait until you feel 100% ready.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 2,
+    question:
+      "How do you respond when you’ve been learning Spanish but aren’t sure if you’re actually improving?",
+    options: [
+      "Avoid testing because you might feel discouraged.",
+      "Try a practice quiz or short conversation.",
+      "Promise to track later, once you feel better prepared.",
+      "Record yourself speaking to test fluency.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 2,
+    question:
+      "Imagine you’re abroad practicing German, but people keep replying in English. What do you do?",
+    options: [
+      "Switch fully to English, it’s easier.",
+      "Politely keep speaking German anyway.",
+      "Use English when stuck, then try German again.",
+      "Hide in grammar books without speaking.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 2,
+    question:
+      "What’s your move if you want to practice coding but feel afraid of making mistakes?",
+    options: [
+      "Code anyway, errors are part of learning.",
+      "Avoid coding until you’re smarter.",
+      "Practice a bit privately before sharing.",
+      "Pair up with a friend so it feels safer.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 2,
+    question:
+      "How would you handle wanting to learn UX design but not being able to afford a bootcamp?",
+    options: [
+      "Dive into free Figma tutorials and daily practice.",
+      "Keep wishing you had the money.",
+      "Buy fancy design gear without practicing.",
+      "Join an online design challenge to test yourself.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 2,
+    question: "What happens if your job might soon be replaced by AI?",
+    options: [
+      "Complain and hope it’s a fad.",
+      "Learn prompt engineering and test small AI projects.",
+      "Skim LinkedIn posts but never practice.",
+      "Wait for your company to train you.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 2,
+    question:
+      "What would you do if you’ve always wanted to play guitar but never committed?",
+    options: [
+      "Create a 30-day plan to learn 5 songs.",
+      "Keep watching tutorials without picking up the guitar.",
+      "Buy a new guitar to get motivated.",
+      "Record short clips to track your progress.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 2,
+    question: "How do you respond when your industry is shrinking fast?",
+    options: [
+      "Invest 6 months in coding or logistics skills.",
+      "Sit and hope jobs return.",
+      "Try random online tutorials with no plan.",
+      "Network while building a portfolio in the new skill.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 2,
+    question:
+      "What would you do if you wanted to break into a new field like AI research but don’t have the right background?",
+    options: [
+      "Design a 6-month self-study plan to cover the basics.",
+      "Keep waiting for grad school or a formal program.",
+      "Read articles casually without practicing.",
+      "Build a small AI project to test what you’ve learned.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 2,
+    question: "How would you deal with believing you’re bad at art?",
+    options: [
+      "Sketch faces daily and compare them with photos.",
+      "Keep repeating the story that you’re untalented.",
+      "Buy supplies but never draw.",
+      "Join a beginner art challenge for feedback.",
+    ],
+  },
+];
+
+export const ultralearningChapter3Questions = [
+  {
+    book: "Ultralearning",
+    id: 3,
+    question:
+      "What would you do if you wanted to get better at public speaking but kept feeling nervous about trying?",
+    options: [
+      "Record yourself giving a short talk and watch it back.",
+      "Avoid speaking in front of others until you feel more prepared.",
+      "Volunteer to say a few words in a small group setting.",
+      "Keep reading books about confidence before you even try.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 3,
+    question:
+      "Imagine you’re learning to cook but mostly rely on recipe videos. How would you take the next step?",
+    options: [
+      "Cook a meal for a friend, even if it doesn’t turn out perfect.",
+      "Tell yourself you’ll practice later when you buy the right equipment.",
+      "Try cooking without looking at the recipe the whole time.",
+      "Keep binge-watching cooking shows instead of touching the stove.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 3,
+    question:
+      "What’s your move if you want to learn coding but find yourself stuck in tutorials?",
+    options: [
+      "Start a small project, even if it feels messy.",
+      "Copy code without really testing if you understand it.",
+      "Build something simple that actually solves a problem you care about.",
+      "Wait until you finish three more tutorials before trying anything on your own.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 3,
+    question:
+      "Picture this: you’re trying to improve in a new language but feel nervous speaking. How might you handle it?",
+    options: [
+      "Spend weeks memorizing vocabulary flashcards before speaking.",
+      "Have short conversations with native speakers, even if you make mistakes.",
+      "Watch shows in that language and try to follow along.",
+      "Avoid real conversations until you feel “ready.”",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 3,
+    question:
+      "How would you apply what you’ve learned if you studied design theory but never created anything?",
+    options: [
+      "Redesign a simple app screen or poster to test your skills.",
+      "Keep collecting resources without creating anything.",
+      "Ask a friend for a small design task you can do.",
+      "Worry about starting because your work won’t look professional yet.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 3,
+    question:
+      "What would you do if you were preparing for an interview but weren’t sure how to practice?",
+    options: [
+      "Re-read articles on interview tips but never rehearse.",
+      "Run through practice questions out loud with a friend.",
+      "Imagine yourself doing well but skip actual practice.",
+      "Do a mock interview on video to see how you come across.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 3,
+    question:
+      "Imagine you want to get better at writing but keep second-guessing yourself. What’s your move?",
+    options: [
+      "Write short blog posts or journal entries regularly.",
+      "Share your writing with someone for feedback, even if it’s rough.",
+      "Read more books on writing techniques before starting.",
+      "Keep thinking about ideas but never put them down.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 3,
+    question: "How would you prepare if you had an important exam coming up?",
+    options: [
+      "Rewrite key ideas in your own words and test yourself.",
+      "Postpone practice because you don’t feel ready yet.",
+      "Work through old exam papers under timed conditions.",
+      "Reread the textbook again and highlight notes.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 3,
+    question:
+      "What would you do if you wanted to get better at basketball but felt behind others?",
+    options: [
+      "Run drills that copy real game situations.",
+      "Watch hours of NBA highlights to learn new moves.",
+      "Skip practice until you feel more confident.",
+      "Play short games with others, even if you miss shots.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 3,
+    question:
+      "Picture this: you’re trying to learn sales but only ever read theory. How do you put it into action?",
+    options: [
+      "Tell yourself you’ll start once you know every detail.",
+      "Try approaching someone casually to explain your idea.",
+      "Role-play a short sales pitch with a peer.",
+      "Keep making notes from books without ever pitching.",
+    ],
+  },
+];
+
+export const ultralearningChapter4Questions = [
+  {
+    book: "Ultralearning",
+    id: 4,
+    question:
+      "What would you do if you kept getting stuck on one tricky part of a skill you’re learning?",
+    options: [
+      "Tell yourself you’ll circle back to it later but never do.",
+      "Focus on that part directly, even if it feels uncomfortable.",
+      "Break it into smaller steps until it feels manageable.",
+      "Keep practicing everything else and avoid that spot.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 4,
+    question:
+      "Imagine you’re practicing piano and always miss the same notes. How would you fix it?",
+    options: [
+      "Stop practicing altogether because it feels too frustrating.",
+      "Slow it down and practice just that section until it feels natural.",
+      "Record yourself playing to hear exactly where you slip.",
+      "Keep playing the whole song from start to finish and hope it improves.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 4,
+    question:
+      "You’re trying to get better at writing essays but struggle with introductions. What’s your move?",
+    options: [
+      "Skip the introduction and leave it until the very end.",
+      "Write three different openings before finishing the rest.",
+      "Collect examples of strong openings and copy the style.",
+      "Keep writing full essays without changing how you start.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 4,
+    question:
+      "Picture this: you’re learning to shoot basketball free throws, but your accuracy is off. How do you train?",
+    options: [
+      "Ask a teammate to watch your form and give tips.",
+      "Take 100 focused shots just from the free-throw line.",
+      "Watch tutorials without actually practicing.",
+      "Keep playing full games and hope the shots improve with time.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 4,
+    question:
+      "How would you handle it if you’re learning guitar and your fingers can’t keep up with fast songs?",
+    options: [
+      "Drill finger exercises for a few minutes each day.",
+      "Play the whole song sloppily just to get through it.",
+      "Practice the fast section slowly until it builds up.",
+      "Keep avoiding fast songs altogether.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 4,
+    question:
+      "What would you do if you’re practicing a foreign language but can’t pronounce certain sounds?",
+    options: [
+      "Ignore them and hope people still understand you.",
+      "Listen closely and mimic recordings until you get closer.",
+      "Avoid speaking until you feel more “ready.”",
+      "Practice those sounds in isolation until your mouth gets used to them.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 4,
+    question:
+      "Imagine you’re preparing for math exams but keep tripping over word problems. How do you deal with it?",
+    options: [
+      "Stick to the easier types of questions you already know.",
+      "Break word problems into small steps and practice each part.",
+      "Reread the chapter but skip actually solving problems.",
+      "Work only on word problems for a while until they click.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 4,
+    question:
+      "You’re practicing public speaking but stumble when answering unexpected questions. What’s your move?",
+    options: [
+      "Avoid Q&A entirely because it makes you nervous.",
+      "Have a friend throw random questions at you during practice.",
+      "Learn a few strategies to buy time, like pausing or repeating the question.",
+      "Rehearse the speech over and over without questions.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 4,
+    question:
+      "Picture this: you’re trying to draw but can’t get faces right. How would you practice?",
+    options: [
+      "Sketch just eyes, noses, or mouths repeatedly until they improve.",
+      "Stop drawing faces and stick to landscapes instead.",
+      "Use reference photos to drill one feature at a time.",
+      "Keep drawing full portraits without focusing on details.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 4,
+    question:
+      "How would you train if you’re learning tennis but your backhand is weak?",
+    options: [
+      "Watch videos of proper form and copy them during practice.",
+      "Play full matches and hope the backhand improves naturally.",
+      "Avoid using the backhand as much as possible.",
+      "Hit 50 backhands in a row with a partner or coach.",
+    ],
+  },
+];
+
+export const ultralearningChapter5Questions = [
+  {
+    book: "Ultralearning",
+    id: 5,
+    question:
+      "How would you prepare if you wanted to actually remember what you studied for an exam?",
+    options: [
+      "Quiz yourself without looking at the notes.",
+      "Reread chapters and highlights.",
+      "Recall main ideas in your own words.",
+      "Wait until the last minute and cram everything.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 5,
+    question:
+      "What would you do if you studied a lot but kept blanking out during practice?",
+    options: [
+      "Pretend it’s fine because you understood it earlier.",
+      "Keep rewriting notes neatly until they look perfect.",
+      "Practice recalling without peeking at the material.",
+      "Flip through pages quickly hoping it sinks in.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 5,
+    question:
+      "Imagine you’re trying to learn history dates but keep forgetting them. How do you fix it?",
+    options: [
+      "Build a simple timeline and test yourself from it.",
+      "Reread the chapter hoping it sticks this time.",
+      "Guess until something feels right.",
+      "Keep highlighting the same facts over and over.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 5,
+    question:
+      "Picture this: you’re learning a new language and want to make words stick. What’s your move?",
+    options: [
+      "Practice recalling words in short conversations.",
+      "Copy vocabulary sheets neatly into a notebook.",
+      "Memorize word lists in order without context.",
+      "Mix words into sentences you create yourself.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 5,
+    question:
+      "What would you do if you needed to study for a test but only had one hour?",
+    options: [
+      "Skim the entire book as fast as possible.",
+      "Test yourself on the likely exam questions only.",
+      "Spend time rewriting notes to make them look tidy.",
+      "Focus on recalling the most important topics from memory.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 5,
+    question:
+      "How would you handle it if you kept forgetting formulas in math?",
+    options: [
+      "Chant the formulas over and over until they sound right.",
+      "Keep rereading them until they feel familiar.",
+      "Solve practice problems without looking at the formula sheet.",
+      "Decide it’s not worth learning because you’ll just look them up.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 5,
+    question:
+      "What’s your move if you’re learning definitions but can’t keep them straight?",
+    options: [
+      "Highlight key lines again and again.",
+      "Cover the page and explain the idea in your own words.",
+      "Write quizzes for yourself and test later.",
+      "Repeat them out loud until they’re word-perfect.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 5,
+    question:
+      "Imagine you’re preparing for a job interview and need to remember key points. What would you do?",
+    options: [
+      "Do a mock run with a friend to recall under pressure.",
+      "Rehearse answers silently in your head but never out loud.",
+      "Read your notes once more right before bed.",
+      "Keep writing bullet points but never test yourself.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 5,
+    question:
+      "Picture this: you’re learning music and keep forgetting the notes of a scale. How do you practice?",
+    options: [
+      "Hope your fingers remember it eventually without effort.",
+      "Drill the scale from memory until it feels natural.",
+      "Play the scale only while peeking at the sheet every time.",
+      "Test yourself by playing blind, then check accuracy.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 5,
+    question:
+      "What would you do if you needed to give a presentation without notes?",
+    options: [
+      "Keep reading slides silently until they feel familiar.",
+      "Memorize the script word-for-word until it’s exact.",
+      "Ask a friend to throw practice questions mid-speech.",
+      "Rehearse by recalling the flow out loud without peeking.",
+    ],
+  },
+];
+
+export const ultralearningChapter6Questions = [
+  {
+    book: "Ultralearning",
+    id: 6,
+    question:
+      "What would you do if you finished a project but weren’t sure how good it really was?",
+    options: [
+      "Avoid feedback completely in case it’s discouraging.",
+      "Assume it’s fine and move on.",
+      "Share it with someone and ask for honest notes.",
+      "Pick out one trusted friend to review it closely.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 6,
+    question:
+      "Imagine you’re practicing guitar but don’t know if you’re improving. How do you handle it?",
+    options: [
+      "Record yourself and listen back.",
+      "Keep practicing daily without checking progress.",
+      "Convince yourself you’ll notice progress naturally.",
+      "Skip practice altogether since you can’t tell anyway.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 6,
+    question:
+      "Picture this: you’ve been writing essays but your teacher only gives vague comments. What’s your move?",
+    options: [
+      "Accept the vague comments and do nothing.",
+      "Ignore the feedback and just keep writing the same way.",
+      "Ask specific questions about what worked and what didn’t.",
+      "Compare your essay with top examples to spot differences.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 6,
+    question: "How would you react if a mentor gave you feedback that stung?",
+    options: [
+      "Get defensive and argue your point.",
+      "Dismiss it quietly and never bring it up again.",
+      "Thank them and take time to reflect before reacting.",
+      "Pick one small part of the feedback to improve first.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 6,
+    question:
+      "What’s your move if you wanted feedback but people only said “Looks good”?",
+    options: [
+      "Stop sharing your work since no one is helpful.",
+      "Ask follow-up questions like “What could be better?”",
+      "Nod politely and keep their comments as they are.",
+      "Show it to different people for more variety.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 6,
+    question:
+      "Imagine you got negative feedback in front of others. How would you deal with it?",
+    options: [
+      "Laugh it off but ignore what was said.",
+      "Shut down completely and stop participating.",
+      "Note the main points and decide later what’s useful.",
+      "Leave the group altogether so you’re not embarrassed again.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 6,
+    question:
+      "What would you do if feedback kept pointing out the same weakness?",
+    options: [
+      "Take it seriously and create a plan to work on it.",
+      "Pretend you didn’t notice the pattern.",
+      "Avoid situations where that weakness shows up.",
+      "Ask for advice specifically on improving that area.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 6,
+    question:
+      "Picture this: you submit work online and strangers leave harsh comments. How do you respond?",
+    options: [
+      "Ignore every comment, good or bad.",
+      "Look for useful points hidden under the tone.",
+      "Take the insults personally and feel discouraged.",
+      "Ask a trusted person to filter comments for you.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 6,
+    question:
+      "How would you handle it if feedback conflicted, one person said great and another said bad?",
+    options: [
+      "Try to see if both are commenting on different things.",
+      "Get confused and leave the work as it is.",
+      "Decide one person must be wrong and ignore them.",
+      "Ask clarifying questions so you understand the context.",
+    ],
+  },
+  {
+    book: "Ultralearning",
+    id: 6,
+    question:
+      "What would you do if you kept asking for feedback but no one responded?",
+    options: [
+      "Stop asking because maybe it means you’re fine.",
+      "Offer to trade feedback so people feel motivated.",
+      "Find a community where giving feedback is expected.",
+      "Keep waiting and hope someone eventually replies.",
     ],
   },
 ];

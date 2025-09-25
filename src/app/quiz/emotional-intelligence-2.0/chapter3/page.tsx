@@ -59,7 +59,7 @@ const Chapter3 = () => {
         setDirection={setDirection}
         selectedOptions={selectedOptions}
         setSelectedOptions={setSelectedOptions}
-        quizId="emotional-intelligence-chapter2"
+        quizId="emotional-intelligence-chapter3"
       />
     </div>
   );
