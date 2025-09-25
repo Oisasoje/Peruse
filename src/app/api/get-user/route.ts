@@ -2,24 +2,27 @@
 import { NextResponse } from "next/server";
 import { adminDb } from "../../../../lib/firebaseAdmin";
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const uid = searchParams.get("uid");
-
-  if (!uid) {
-    return NextResponse.json({ error: "No UID" }, { status: 400 });
-  }
-
+export async function GET(req: Request) {
   try {
-    const userDoc = await adminDb!.collection("users").doc(uid).get();
+    const uid = req.headers.get("x-user-id");
+    if (!uid) {
+      return NextResponse.json(
+        { error: "Missing UID header" },
+        { status: 400 }
+      );
+    }
 
-    if (!userDoc.exists) {
+    const docRef = adminDb.collection("users").doc(uid);
+    const docSnap = await docRef.get();
+
+    if (!docSnap.exists) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const userData = userDoc.data();
-    return NextResponse.json(userData);
-  } catch (error) {
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    const data = docSnap.data();
+    return NextResponse.json({ user: data });
+  } catch (err: any) {
+    console.error("❌ /api/get-user error:", err);
+    return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }

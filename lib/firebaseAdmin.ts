@@ -1,47 +1,32 @@
 // lib/firebaseAdmin.ts
 import { initializeApp, getApps, cert } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
-import { getFirestore, Firestore } from "firebase-admin/firestore"; // Import Firestore type
+import { getFirestore } from "firebase-admin/firestore";
 
-// Check if required environment variables exist
+// sanity check
 const requiredEnvVars = [
   "FIREBASE_PROJECT_ID",
   "FIREBASE_CLIENT_EMAIL",
   "FIREBASE_PRIVATE_KEY",
 ];
-const missingVars = requiredEnvVars.filter((varName) => !process.env[varName]);
 
-if (missingVars.length > 0) {
-  console.error("❌ Missing Firebase environment variables:", missingVars);
+const missing = requiredEnvVars.filter((v) => !process.env[v]);
+if (missing.length > 0) {
+  throw new Error(`❌ Missing Firebase Admin env vars: ${missing.join(", ")}`);
 }
 
-let app;
-try {
-  app =
-    getApps().length > 0
-      ? getApps()[0]
-      : initializeApp({
-          credential: cert({
-            projectId: process.env.FIREBASE_PROJECT_ID,
-            clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-            privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
-          }),
-        });
-} catch (error) {
-  console.error("❌ Firebase Admin initialization failed:", error);
-  throw error;
-}
+// make sure privateKey has proper newlines
+const privateKey = process.env.FIREBASE_PRIVATE_KEY!.replace(/\\n/g, "\n");
 
-export const adminAuth = getAuth(app);
+const adminApp = !getApps().length
+  ? initializeApp({
+      credential: cert({
+        projectId: process.env.FIREBASE_PROJECT_ID,
+        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+        privateKey,
+      }),
+    })
+  : getApps()[0];
 
-// FIX: Add explicit type annotation
-let adminDb: Firestore | null = null;
-
-try {
-  adminDb = getFirestore(app);
-  console.log("✅ Firestore initialized successfully");
-} catch (error) {
-  console.error("❌ Firestore initialization failed:", error);
-}
-
-export { adminDb };
+export const adminAuth = getAuth(adminApp);
+export const adminDb = getFirestore(adminApp);
