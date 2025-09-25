@@ -3,27 +3,43 @@ import { initializeApp, getApps, cert } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
 
-// For Edge Runtime compatibility, we need to use a different approach
-const app =
-  getApps().length > 0
-    ? getApps()[0]
-    : initializeApp({
-        credential: cert({
-          projectId: process.env.FIREBASE_PROJECT_ID,
-          clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-          privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
-        }),
-      });
+// Check if required environment variables exist
+const requiredEnvVars = [
+  "FIREBASE_PROJECT_ID",
+  "FIREBASE_CLIENT_EMAIL",
+  "FIREBASE_PRIVATE_KEY",
+];
+const missingVars = requiredEnvVars.filter((varName) => !process.env[varName]);
+
+if (missingVars.length > 0) {
+  console.error("❌ Missing Firebase environment variables:", missingVars);
+}
+
+let app;
+try {
+  app =
+    getApps().length > 0
+      ? getApps()[0]
+      : initializeApp({
+          credential: cert({
+            projectId: process.env.FIREBASE_PROJECT_ID,
+            clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+            privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+          }),
+        });
+} catch (error) {
+  console.error("❌ Firebase Admin initialization failed:", error);
+  throw error; // This will make the build fail clearly
+}
 
 export const adminAuth = getAuth(app);
 
-// For Firestore in Edge Runtime, we need to use a different approach
-let adminDb: any = null;
-
+let adminDb = null;
 try {
   adminDb = getFirestore(app);
+  console.log("✅ Firestore initialized successfully");
 } catch (error) {
-  console.log("Firestore not available in Edge Runtime, using fallback");
+  console.error("❌ Firestore initialization failed:", error);
 }
 
 export { adminDb };
