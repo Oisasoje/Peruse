@@ -10,7 +10,7 @@ const fredoka = Fredoka({
 export default function NoHeartsPage() {
   return (
     <div
-      className={`flex flex-col ${fredoka.className} tracking-widest text-white bg-[#131f24] items-center justify-center min-h-screen`}
+      className={`flex flex-col ${fredoka.className} w-full tracking-widest text-center p-5 md:p-0 text-white bg-[#131f24] items-center justify-center h-screen`}
     >
       <h1 className="text-2xl font-bold mb-4">No Hearts Left ❤️</h1>
       <p className="mb-4">
