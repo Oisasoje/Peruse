@@ -7,7 +7,7 @@ const Footer = () => {
   const { activePage, setActivePage } = useActivePage();
   const { isProcessing, setIsProcessing, loading, setLoading } = useLoader();
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-[#0b2f33] border-slate-600 flex justify-around items-center py-3 md:hidden z-50">
+    <div className="fixed bottom-0 text-white left-0 right-0 bg-[#0b2f33] border-slate-600 flex justify-around items-center py-3 md:hidden z-50">
       <Link href={"/take-quiz"}>
         <button
           disabled={isProcessing || loading}
@@ -20,17 +20,6 @@ const Footer = () => {
           <span className="text-xs mt-1">Quiz</span>
         </button>
       </Link>
-
-      <button
-        disabled={isProcessing || loading}
-        onClick={() => setActivePage("get-premium")}
-        className={`flex flex-col items-center disabled:cursor-not-allowed w-25 py-2 rounded-lg ${
-          activePage === "get-premium" ? "bg-[#14545b]" : ""
-        }`}
-      >
-        <Gem size={20} color="blue" />
-        <span className="text-xs mt-1">Premium</span>
-      </button>
 
       <Link href={"/profile-info"}>
         <button

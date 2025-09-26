@@ -552,21 +552,6 @@ const Quiz = () => {
 
                 <button
                   onClick={() => {
-                    setActivePage("get-premium");
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-left ${
-                    activePage === "get-premium"
-                      ? "bg-[#14545b]"
-                      : "bg-[#0b2f33]"
-                  }`}
-                >
-                  <Gem size={24} color="blue" />
-                  <span className="font-semibold">GET PREMIUM</span>
-                </button>
-
-                <button
-                  onClick={() => {
                     setActivePage("about-us");
                     setIsMobileMenuOpen(false);
                   }}
@@ -599,16 +584,6 @@ const Quiz = () => {
           >
             <Lightbulb size={35} color="yellow" />
             <span className="font-semibold">TAKE QUIZ</span>
-          </button>
-
-          <button
-            onClick={() => setActivePage("get-premium")}
-            className={`flex items-center gap-3 px-5 py-4 rounded-2xl text-left ${
-              activePage === "get-premium" ? "bg-[#14545b]" : "bg-[#0b2f33]"
-            }`}
-          >
-            <Gem size={35} color="blue" />
-            <span className="font-semibold">GET PREMIUM</span>
           </button>
 
           <button
