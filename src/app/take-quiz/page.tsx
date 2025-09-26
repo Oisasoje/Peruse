@@ -181,10 +181,21 @@ const UsernameEditor = () => {
   );
 };
 
-const podNameSchema = z.string().min(1, "Required").max(25, "Max 25 chars");
+const podOptions = [
+  "The GroundBreakers",
+  "The Disrupters",
+  "The Overcomers",
+  "The Refined",
+  "The Forged",
+  "The Emberborns",
+  "The Neovisionaries",
+  "The Catalysts",
+  "The Phoenixes",
+  "The Victors",
+];
 
 const PodNameEditor = () => {
-  const [podName, setPodName] = useState("Provide your pod name");
+  const [podName, setPodName] = useState("Select your pod");
   const [editPodName, setEditPodName] = useState(false);
   const [podNameError, setPodNameError] = useState<string | null>(null);
   const [changeCount, setChangeCount] = useState(0);
@@ -201,18 +212,18 @@ const PodNameEditor = () => {
           const snap = await getDoc(userDoc);
           if (snap.exists()) {
             const data = snap.data();
-            setPodName(data.podName || "Provide your pod name");
+            setPodName(data.podName || "Select your pod");
             setChangeCount(data.podNameChangeCount || 0);
             setIsNewUser(!data.podName);
           } else {
             await setDoc(userDoc, { podName: "", podNameChangeCount: 0 });
-            setPodName("Provide your pod name");
+            setPodName("Select your pod");
             setChangeCount(0);
             setIsNewUser(true);
           }
         } catch (err) {
           console.error("Firestore init error:", err);
-          setPodName("Provide your pod name");
+          setPodName("Select your pod");
           setChangeCount(0);
           setIsNewUser(true);
         } finally {
@@ -236,22 +247,18 @@ const PodNameEditor = () => {
       return;
     }
 
-    const trimmedPodName = podName.trim();
-    const parsed = podNameSchema.safeParse(trimmedPodName);
-
-    if (!parsed.success) {
-      setPodNameError(parsed.error.issues[0].message);
+    if (podName === "Select your pod" || !podOptions.includes(podName)) {
+      setPodNameError("Please select a valid pod");
       return;
     }
 
     try {
       const userDoc = doc(db, "users", user.uid);
       await updateDoc(userDoc, {
-        podName: trimmedPodName,
+        podName: podName,
         podNameChangeCount: changeCount + 1,
       });
 
-      setPodName(trimmedPodName);
       setChangeCount((prev) => prev + 1);
       setPodNameError(null);
       setEditPodName(false);
@@ -259,22 +266,30 @@ const PodNameEditor = () => {
       toast.success("Pod name updated!");
     } catch (err) {
       console.error("Firestore write error:", err);
-      toast.error("Failed to update pod name. Check your Firestore rules.");
+      toast.error("Failed to update pod name.");
     }
   };
 
   return editPodName ? (
     <div className="flex flex-col gap-2 w-full">
-      <input
-        className="border-2 border-amber-600 outline-none px-2 py-1 w-full max-w-xs mt-2 rounded-lg tracking-wider text-[15px]"
+      <select
+        className="border-2 border-amber-600 outline-none px-2 py-2 w-full max-w-xs mt-2 rounded-lg tracking-wider text-[15px] cursor-pointer text-white bg-[#131f24]"
         value={podName}
         onChange={(e) => setPodName(e.target.value)}
-      />
+      >
+        <option value="Select your pod">Select your pod</option>
+        {podOptions.map((pod) => (
+          <option key={pod} value={pod}>
+            {pod}
+          </option>
+        ))}
+      </select>
       {podNameError && <p className="text-red-500 text-sm">{podNameError}</p>}
       <div className="flex w-full gap-2">
         <button
           className="bg-green-500 rounded-lg text-sm w-fit font-semibold px-3 py-2 cursor-pointer hover:bg-green-600 flex-1"
           onClick={confirmPodName}
+          disabled={podName === "Select your pod"}
         >
           CONFIRM
         </button>
@@ -288,7 +303,7 @@ const PodNameEditor = () => {
     </div>
   ) : (
     <div className="flex flex-col gap-2 w-full">
-      <p className="font-bold tracking-wider text-[17px] break-words">
+      <p className="font-bold text-white tracking-widest text-[17px] break-words">
         {podName}
       </p>
 
@@ -301,16 +316,16 @@ const PodNameEditor = () => {
         onClick={() => !isLoading && changeCount < 2 && setEditPodName(true)}
         disabled={isLoading || changeCount >= 2}
       >
-        EDIT POD NAME
+        {isNewUser ? "SELECT POD" : "CHANGE POD"}
       </button>
 
       <p
         className={`text-xs font-bold text-center ${
           changeCount === 0 ? "text-blue-500" : "text-red-500"
-        } -mt-2 `}
+        } `}
       >
         {isNewUser
-          ? "Welcome! Set your pod name to get started."
+          ? "Welcome! Select your pod to get started."
           : `${2 - changeCount} ${
               changeCount > 0 ? "change" : "changes"
             } remaining`}
@@ -400,12 +415,11 @@ const Quiz = () => {
   const userData = useUserDoc();
   const { activePage, setActivePage } = useActivePage();
   const [username, setUsername] = useState("");
-  const [podName, setPodName] = useState("The Overcomers");
+
   const [currentResource, setCurrentResource] = useState("DEEP WORK");
   const [currentAuthor, setCurrentAuthor] = useState("Cal Newport");
   const [isMounted, setIsMounted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isResourcesOpen, setIsResourcesOpen] = useState(false);
   const { isProcessing, setIsProcessing } = useLoader();
 
@@ -532,7 +546,7 @@ const Quiz = () => {
             <button
               onClick={() => setActivePage("take-quiz")}
               className={`flex items-center gap-3 cursor-pointer hover:opacity-80 px-5 py-4 rounded-2xl text-left ${
-                activePage === "take-quiz" ? "bg-[#14545b]" : "bg-[#0b2f33]"
+                activePage === "take-quiz" ? "border-2 border-green-400" : ""
               }`}
             >
               <Lightbulb size={35} color="yellow" />
@@ -544,7 +558,7 @@ const Quiz = () => {
             <button
               onClick={() => setActivePage("about-us")}
               className={`flex items-center cursor-pointer hover:opacity-80 gap-3 px-5 py-4 rounded-2xl text-left ${
-                activePage === "about-us" ? "bg-[#14545b]" : "bg-[#0b2f33]"
+                activePage === "about-us" ? " border-2 border-green-400" : ""
               }`}
             >
               <BookOpen size={30} color="green" />

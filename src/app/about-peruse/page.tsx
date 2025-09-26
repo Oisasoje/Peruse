@@ -1,13 +1,16 @@
 // app/about/page.tsx
-import Image from "next/image";
+"use client";
 import Link from "next/link";
+import { useActivePage } from "../components/ActivePageContext";
 
 export default function AboutPage() {
+  const { setActivePage } = useActivePage();
   return (
     <div className="min-h-screen bg-black py-8 px-4 sm:py-12 sm:px-6 lg:py-16">
       <Link
         href={"/take-quiz"}
         className="underline hidden md:block underline-offset-2 fixed top-3  left-3 text-green-600 cursor-pointer text-lg font-extrabold tracking-widest hover:text-green-700"
+        onClick={() => setActivePage("take-quiz")}
       >
         Back To Home
       </Link>
@@ -34,7 +37,9 @@ export default function AboutPage() {
             <p>• Turning knowledge into a shared adventure</p>
             <p className="font-bold text-white mt-3 sm:mt-4">
               Result? You're never burnt out. You{" "}
-              <span className="text-lg text-blue-300 font-bold ">CLOCK-IN</span>{" "}
+              <span className="text-2xl text-blue-500 font-bold ">
+                CLOCK-IN
+              </span>{" "}
               with renewed vigour!
             </p>
           </div>
@@ -135,7 +140,7 @@ export default function AboutPage() {
           </h2>
           <Link
             href="/take-quiz"
-            className="inline-block bg-red-600 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold mb-20 md:mb-0 text-base sm:text-lg hover:bg-red-700 transition transform hover:scale-105"
+            className="inline-block bg-blue-500 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold mb-20 md:mb-0 text-base sm:text-lg hover:bg-red-700 transition transform hover:scale-105"
           >
             GET ROASTED NOW!
           </Link>
