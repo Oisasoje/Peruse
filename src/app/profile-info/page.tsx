@@ -45,7 +45,6 @@ const UsernameEditor = () => {
 
     const result = usernameSchema.safeParse(trimmed);
     if (!result.success) {
-      toast.error(result.error.message);
       return;
     }
 
@@ -190,7 +189,7 @@ const PodNameEditor = () => {
       toast.success("Pod name updated!");
     } catch (err) {
       console.error("Firestore write error:", err);
-      toast.error("Failed to update pod name. Check your Firestore rules.");
+      toast.error("Failed to update pod name.");
     }
   };
 

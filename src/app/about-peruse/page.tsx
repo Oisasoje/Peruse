@@ -5,7 +5,13 @@ import Link from "next/link";
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-black py-8 px-4 sm:py-12 sm:px-6 lg:py-16">
-      <div className="max-w-3xl mx-auto">
+      <Link
+        href={"/take-quiz"}
+        className="underline underline-offset-2 fixed top-3  left-3 text-green-600 cursor-pointer text-lg font-extrabold tracking-widest hover:text-green-700"
+      >
+        Back To Home
+      </Link>
+      <div className="max-w-3xl mt-8 md:mt-0 mx-auto">
         {/* Header */}
         <header className="text-center mb-12 sm:mb-16">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-white mb-4 px-2">
@@ -18,16 +24,18 @@ export default function AboutPage() {
         </header>
 
         {/* Problem Section */}
-        <section className="mb-12 sm:mb-16 bg-white p-6 sm:p-8 rounded-xl sm:rounded-2xl shadow-lg border-2 border-red-200 mx-2">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-red-800 mb-4 sm:mb-6">
+        <section className="mb-12 sm:mb-16  p-6 sm:p-8 rounded-xl sm:rounded-2xl shadow-lg border-2 border-red-200 mx-2">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6">
             HERE IS WHAT WE'RE ABOUT
           </h2>
-          <div className="space-y-3 sm:space-y-4 text-base sm:text-lg text-gray-700">
+          <div className="space-y-3 sm:space-y-4 text-base sm:text-lg text-white">
             <p>• Having fun while grinding through The Bridge Resources</p>
             <p>• Sparking excitement and community pride</p>
             <p>• Turning knowledge into a shared adventure</p>
-            <p className="font-bold text-red-600 mt-3 sm:mt-4">
-              Result? You're never burnt out. You clock-in with renewed vigour!
+            <p className="font-bold text-white mt-3 sm:mt-4">
+              Result? You're never burnt out. You{" "}
+              <span className="text-lg text-blue-300 font-bold ">CLOCK-IN</span>{" "}
+              with renewed vigour!
             </p>
           </div>
         </section>
@@ -101,24 +109,20 @@ export default function AboutPage() {
         </section>
 
         {/* Philosophy */}
-        <section className="mb-12 sm:mb-16 bg-yellow-100 p-6 sm:p-8 rounded-xl sm:rounded-2xl border-2 border-yellow-300 mx-2">
-          <h2 className="text-2xl sm:text-3xl font-bold text-blue-600 mb-4 sm:mb-6 text-center">
+        <section className="mb-12 sm:mb-16 p-6 sm:p-8 rounded-xl sm:rounded-2xl border-2 border-yellow-300 mx-2">
+          <h2 className="text-2xl sm:text-3xl font-bold text-amber-400 mb-4 sm:mb-6 text-center">
             PERUSE'S PHILOSOPHY
           </h2>
-          <div className="space-y-3 sm:space-y-4 text-base sm:text-lg text-gray-800">
-            <p className="font-bold text-sm sm:text-base">
-              • Kindness without truth is cruelty in disguise
-            </p>
-            <p className="font-bold text-sm sm:text-base">
+          <div className="space-y-3 sm:space-y-4 text-base sm:text-lg text-white">
+            <p className="">• Kindness without truth is cruelty in disguise</p>
+            <p className="">
               • The right insult at the right time can change a life
             </p>
-            <p className="font-bold text-sm sm:text-base">
+            <p className="">
               • Laughter is the best way to swallow bitter pills
             </p>
-            <p className="font-bold text-sm sm:text-base">
-              • Growth requires occasionally feeling stupid
-            </p>
-            <p className="font-bold text-sm sm:text-base">
+            <p className="">• Growth requires occasionally feeling stupid</p>
+            <p className="">
               • Partying (with emotional intelligence, of course) in The Bridge!
             </p>
           </div>

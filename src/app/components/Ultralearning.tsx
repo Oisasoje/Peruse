@@ -141,6 +141,7 @@ const Ultralearning = () => {
 
   const handleClick = async (chapterIndex: number) => {
     if (isProcessing) return;
+    if (userDoc!.hearts <= 0) return;
     setIsProcessing(true);
 
     try {
@@ -179,7 +180,7 @@ const Ultralearning = () => {
     }
   };
 
-  if (loading) {
+  if (loading || isProcessing) {
     // show placeholder or spinner until userDoc is loaded
     return (
       <motion.div

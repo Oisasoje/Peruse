@@ -140,7 +140,7 @@ const DeepWork = () => {
     }
   };
 
-  if (loading) {
+  if (loading || isProcessing) {
     // show placeholder or spinner until userDoc is loaded
     return (
       <motion.div
