@@ -87,11 +87,11 @@ const QuestionsComponent = ({
   };
 
   const completionMessages = [
-    `🔥 Another chapter down! Mama Kuti is impressed you finished Chapter ${id} of ${book}.`,
+    `🔥 Another chapter down! Impressive work, finishing Chapter ${id} of ${book}.`,
     `From page-turner to page-master: Chapter ${id} of ${book} is officially yours.`,
     `Your brain just did push-ups through Chapter ${id} — keep flexing that ${book} muscle!`,
     `🎯 You just crossed Chapter ${id} of ${book} like a pro. The Bridge salutes you!`,
-    `Ah-ah, you actually finished Chapter ${id}? Mama Kuti didn't see that coming. 🏆`,
+    `Ah-ah, you actually finished Chapter ${id}? Didn't see that coming. 🏆`,
     `Your attention span just shocked the nation. Chapter ${id} of ${book}… conquered.`,
     `Not just reading — bridging. Chapter ${id} of ${book} done and dusted. 💪`,
     `📚 Chapter ${id} in the bag! ${book} is starting to look like your playground.`,
@@ -464,8 +464,7 @@ const QuestionsComponent = ({
               <p className="relative z-10 tracking-wider text-sm sm:text-base leading-relaxed">
                 {isRoastLoading[currentQuestionIndex]
                   ? "Loading roast..."
-                  : roasts[currentQuestionIndex] ??
-                    "I can't even be bothered to roast this."}
+                  : roasts[currentQuestionIndex]}
               </p>
             </div>
           </div>
