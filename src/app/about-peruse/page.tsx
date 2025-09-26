@@ -24,8 +24,8 @@ export default function AboutPage() {
           </h2>
           <div className="space-y-3 sm:space-y-4 text-base sm:text-lg text-gray-700">
             <p>• Having fun while grinding through The Bridge Resources</p>
-            <p>• Spark excitement and community pride</p>
-            <p>• Turn knowledge into a shared adventure</p>
+            <p>• Sparking excitement and community pride</p>
+            <p>• Turning knowledge into a shared adventure</p>
             <p className="font-bold text-red-600 mt-3 sm:mt-4">
               Result? You're never burnt out. You clock-in with renewed vigour!
             </p>
@@ -51,7 +51,7 @@ export default function AboutPage() {
             </div>
             <div>
               <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
-                WHAT IT ISN'T:
+                WHAT IT IS NOT:
               </h3>
               <ul className="space-y-2 sm:space-y-3">
                 <li>• Your cheerleader</li>
@@ -119,7 +119,7 @@ export default function AboutPage() {
               • Growth requires occasionally feeling stupid
             </p>
             <p className="font-bold text-sm sm:text-base">
-              • Let's party (with emotional intelligence) in The Bridge!
+              • Partying (with emotional intelligence, of course) in The Bridge!
             </p>
           </div>
         </section>
@@ -131,7 +131,7 @@ export default function AboutPage() {
           </h2>
           <Link
             href="/take-quiz"
-            className="inline-block bg-red-600 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold text-base sm:text-lg hover:bg-red-700 transition transform hover:scale-105"
+            className="inline-block bg-red-600 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold mb-20 md:mb-0 text-base sm:text-lg hover:bg-red-700 transition transform hover:scale-105"
           >
             GET ROASTED NOW!
           </Link>
