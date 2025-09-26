@@ -7,11 +7,11 @@ export default function AboutPage() {
     <div className="min-h-screen bg-black py-8 px-4 sm:py-12 sm:px-6 lg:py-16">
       <Link
         href={"/take-quiz"}
-        className="underline underline-offset-2 fixed top-3  left-3 text-green-600 cursor-pointer text-lg font-extrabold tracking-widest hover:text-green-700"
+        className="underline hidden md:block underline-offset-2 fixed top-3  left-3 text-green-600 cursor-pointer text-lg font-extrabold tracking-widest hover:text-green-700"
       >
         Back To Home
       </Link>
-      <div className="max-w-3xl mt-8 md:mt-0 mx-auto">
+      <div className="max-w-3xl md:mt-0 mx-auto">
         {/* Header */}
         <header className="text-center mb-12 sm:mb-16">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-white mb-4 px-2">
