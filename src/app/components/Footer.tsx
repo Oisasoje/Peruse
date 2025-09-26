@@ -34,16 +34,18 @@ const Footer = () => {
         </button>
       </Link>
 
-      <button
-        disabled={isProcessing || loading}
-        onClick={() => setActivePage("about-us")}
-        className={`flex flex-col items-center disabled:cursor-not-allowed w-25 py-2 rounded-lg ${
-          activePage === "about-us" ? "bg-[#14545b]" : ""
-        }`}
-      >
-        <BookOpen size={20} color="green" />
-        <span className="text-xs mt-1">About</span>
-      </button>
+      <Link href={"/about-peruse"}>
+        <button
+          disabled={isProcessing || loading}
+          onClick={() => setActivePage("about-us")}
+          className={`flex flex-col items-center disabled:cursor-not-allowed w-25 py-2 rounded-lg ${
+            activePage === "about-us" ? "bg-[#14545b]" : ""
+          }`}
+        >
+          <BookOpen size={20} color="green" />
+          <span className="text-xs mt-1">About</span>
+        </button>
+      </Link>
     </div>
   );
 };

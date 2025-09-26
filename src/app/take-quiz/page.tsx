@@ -38,6 +38,7 @@ import dynamic from "next/dynamic";
 import { z } from "zod";
 import { useActivePage } from "../components/ActivePageContext";
 import { useLoader } from "../components/LoaderContext";
+import Link from "next/link";
 
 type UserDoc = {
   createdAt: string;
@@ -519,55 +520,6 @@ const Quiz = () => {
         </div>
       </header>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ x: -300, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -300, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-[#131f24] border-r-2 border-slate-600 w-64 md:hidden"
-          >
-            <div className="p-6">
-              <h3
-                className={`${fredoka.className} text-blue-500 text-3xl font-extrabold mb-8`}
-              >
-                peruse
-              </h3>
-              <div className="flex flex-col gap-6">
-                <button
-                  onClick={() => {
-                    setActivePage("take-quiz");
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-left ${
-                    activePage === "take-quiz" ? "bg-[#14545b]" : "bg-[#0b2f33]"
-                  }`}
-                >
-                  <Lightbulb size={30} color="yellow" />
-
-                  <span className="font-semibold">TAKE QUIZ</span>
-                </button>
-
-                <button
-                  onClick={() => {
-                    setActivePage("about-us");
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-left ${
-                    activePage === "about-us" ? "bg-[#14545b]" : "bg-[#0b2f33]"
-                  }`}
-                >
-                  <BookOpen size={24} color="green" />
-                  <span className="font-semibold">ABOUT US</span>
-                </button>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* Desktop Sidebar */}
       <aside className="fixed hidden md:block z-100 top-0 left-0 h-screen w-60 border-r-2 border-slate-600 pl-5 pr-3">
         <h3
@@ -576,25 +528,29 @@ const Quiz = () => {
           peruse
         </h3>
         <div className="flex flex-col gap-10 mt-10 h-screen w-full">
-          <button
-            onClick={() => setActivePage("take-quiz")}
-            className={`flex items-center gap-3 px-5 py-4 rounded-2xl text-left ${
-              activePage === "take-quiz" ? "bg-[#14545b]" : "bg-[#0b2f33]"
-            }`}
-          >
-            <Lightbulb size={35} color="yellow" />
-            <span className="font-semibold">TAKE QUIZ</span>
-          </button>
+          <Link href={"/take-quiz"}>
+            <button
+              onClick={() => setActivePage("take-quiz")}
+              className={`flex items-center gap-3 cursor-pointer hover:opacity-80 px-5 py-4 rounded-2xl text-left ${
+                activePage === "take-quiz" ? "bg-[#14545b]" : "bg-[#0b2f33]"
+              }`}
+            >
+              <Lightbulb size={35} color="yellow" />
+              <span className="font-semibold">TAKE QUIZ</span>
+            </button>
+          </Link>
 
-          <button
-            onClick={() => setActivePage("about-us")}
-            className={`flex items-center gap-3 px-5 py-4 rounded-2xl text-left ${
-              activePage === "about-us" ? "bg-[#14545b]" : "bg-[#0b2f33]"
-            }`}
-          >
-            <BookOpen size={30} color="green" />
-            <span className="font-semibold">ABOUT US</span>
-          </button>
+          <Link href={"/about-peruse"}>
+            <button
+              onClick={() => setActivePage("about-us")}
+              className={`flex items-center cursor-pointer hover:opacity-80 gap-3 px-5 py-4 rounded-2xl text-left ${
+                activePage === "about-us" ? "bg-[#14545b]" : "bg-[#0b2f33]"
+              }`}
+            >
+              <BookOpen size={30} color="green" />
+              <span className="font-semibold">ABOUT US</span>
+            </button>
+          </Link>
         </div>
       </aside>
 
