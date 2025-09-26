@@ -9,7 +9,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   // Paths where you do NOT want the footer
   const hideFooterOn = ["/", "/login", "/signup", "/no-hearts"];
 
-  const showFooter = !hideFooterOn.includes(pathname);
+  const isQuizRoute = pathname.startsWith("/quiz");
+
+  const showFooter = !hideFooterOn.includes(pathname) && !isQuizRoute;
 
   return (
     <>

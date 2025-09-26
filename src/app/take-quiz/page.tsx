@@ -37,18 +37,21 @@ import dynamic from "next/dynamic";
 
 import { z } from "zod";
 import { useActivePage } from "../components/ActivePageContext";
+import { useLoader } from "../components/LoaderContext";
 
 type UserDoc = {
   createdAt: string;
   displayName: string;
   hasPremium: boolean;
   hearts: number;
+  lastHeartReset: string;
   lastAnsweredAt: string;
   podName: string;
   podNameChangeCount: number;
   quizzesTaken: number;
   streak: number;
   lastStreakUpdate: string;
+  completedChapters: string[];
 };
 
 const useUserDoc = () => {
@@ -403,6 +406,7 @@ const Quiz = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isResourcesOpen, setIsResourcesOpen] = useState(false);
+  const { isProcessing, setIsProcessing } = useLoader();
 
   useEffect(() => {
     setIsMounted(true);
@@ -412,6 +416,37 @@ const Quiz = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  // Add this useEffect to your quiz component
+  useEffect(() => {
+    const checkDailyReset = async () => {
+      if (!auth.currentUser) return;
+
+      try {
+        const userRef = doc(db, "users", auth.currentUser.uid);
+        const userDoc = await getDoc(userRef);
+
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          const today = new Date().toISOString().split("T")[0];
+          const lastReset = userData.lastHeartReset || "";
+
+          // If last reset was NOT today, reset hearts to 5
+          if (lastReset !== today) {
+            await updateDoc(userRef, {
+              hearts: 5, // RESET to 5, not add
+              lastHeartReset: today,
+            });
+            console.log("🔄 Daily hearts reset to 5");
+          }
+        }
+      } catch (error) {
+        console.error("Error in daily reset:", error);
+      }
+    };
+
+    checkDailyReset();
+  }, [auth.currentUser]);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -602,8 +637,9 @@ const Quiz = () => {
 
           <div className="relative group">
             <button
+              disabled={isProcessing}
               onClick={() => setIsResourcesOpen(!isResourcesOpen)}
-              className="flex items-center gap-2 px-4 py-3 border-2 border-b-4 border-slate-600 text-sm font-semibold rounded-2xl cursor-pointer hover:opacity-80"
+              className="flex items-center gap-2 px-4 py-3 disabled:opacity-50 border-2 border-b-4 border-slate-600 text-sm font-semibold rounded-2xl cursor-pointer hover:opacity-80"
             >
               <Library size={24} color="purple" />
               RESOURCES
@@ -669,7 +705,7 @@ const Quiz = () => {
                         setCurrentAuthor(author);
                         setIsResourcesOpen(false);
                       }}
-                      className={`font-semibold cursor-pointer hover:bg-[#14545b] tracking-wider text-sm rounded-2xl p-2 text-left ${
+                      className={`font-semibold  cursor-pointer hover:bg-[#14545b] tracking-wider text-sm rounded-2xl p-2 text-left ${
                         currentResource === title
                           ? "bg-[#14545b]"
                           : "bg-[#0b2f33]"
@@ -685,8 +721,9 @@ const Quiz = () => {
           </AnimatePresence>
 
           <button
+            disabled={isProcessing}
             onClick={() => setIsResourcesOpen(!isResourcesOpen)}
-            className="bg-blue-500 p-4 rounded-full shadow-lg"
+            className="bg-blue-500 disabled:opacity-50 p-4 rounded-full shadow-lg"
           >
             <Library size={24} color="white" />
           </button>

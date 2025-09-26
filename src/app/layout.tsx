@@ -7,6 +7,7 @@ import { ActivePageProvider } from "./components/ActivePageContext";
 
 import AuthSync from "./components/AuthSync";
 import AppShell from "./components/AppShell";
+import { LoaderProvider } from "./components/LoaderContext";
 
 // ✅ Remove next/head usage — App Router handles head via metadata
 const geistSans = Geist({
@@ -38,12 +39,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ActivePageProvider>
-          <AppShell>
-            {children}
-            <AuthSync />
-          </AppShell>
-        </ActivePageProvider>
+        <LoaderProvider>
+          <ActivePageProvider>
+            <AppShell>
+              {children}
+              <AuthSync />
+            </AppShell>
+          </ActivePageProvider>
+        </LoaderProvider>
 
         <Toaster
           position="top-right"

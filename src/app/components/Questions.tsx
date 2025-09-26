@@ -18,6 +18,7 @@ import {
   increment,
   getDoc,
   Timestamp,
+  arrayUnion,
 } from "firebase/firestore";
 import toast from "react-hot-toast";
 import { serverTimestamp } from "firebase/firestore";
@@ -268,37 +269,25 @@ const QuestionsComponent = ({
       const now = new Date();
       const today = now.toISOString().split("T")[0];
 
+      // Handle last answered date
       let lastDateStr: string | null = null;
-
-      // Properly handle Timestamp object
       if (userData.lastAnsweredAt) {
         if (userData.lastAnsweredAt instanceof Timestamp) {
-          // It's a Firestore Timestamp
           lastDateStr = userData.lastAnsweredAt
             .toDate()
             .toISOString()
             .split("T")[0];
         } else if (typeof userData.lastAnsweredAt === "string") {
-          // It's already a string (backward compatibility)
           lastDateStr = userData.lastAnsweredAt.split("T")[0];
         }
       }
 
+      // Calculate streak
       let streakUpdate = userData.streak || 0;
-
-      console.log("Streak Debug:", {
-        currentStreak: streakUpdate,
-        lastPlayed: lastDateStr,
-        today: today,
-        rawLastAnswered: userData.lastAnsweredAt,
-      });
-
       if (!lastDateStr) {
-        // First time playing
         streakUpdate = 1;
       } else {
         if (lastDateStr === today) {
-          // Already played today - keep current streak
           console.log("Already played today, keeping streak:", streakUpdate);
         } else {
           const yesterday = new Date(now);
@@ -306,27 +295,34 @@ const QuestionsComponent = ({
           const yesterdayStr = yesterday.toISOString().split("T")[0];
 
           if (lastDateStr === yesterdayStr) {
-            // Consecutive day - increase streak
             streakUpdate += 1;
             console.log("Consecutive day! New streak:", streakUpdate);
           } else {
-            // Missed one or more days - reset to 1
             streakUpdate = 1;
             console.log("Not consecutive, reset streak to 1");
           }
         }
       }
 
-      // Update with server timestamp (will be stored as Timestamp)
+      // Generate chapter ID for completion tracking
+      const chapterId = `${book
+        .toLowerCase()
+        .replace(/\s+/g, "-")}-chapter-${id}`;
+
+      // Update user document with quiz completion and chapter progress
       await updateDoc(userRef, {
         quizzesTaken: increment(1),
-        lastAnsweredAt: serverTimestamp(), // This creates a Timestamp
+        lastAnsweredAt: serverTimestamp(),
         streak: streakUpdate,
+        completedChapters: arrayUnion(chapterId), // Add chapter to completed array
       });
 
-      console.log("Final streak:", streakUpdate);
+      console.log("Quiz submitted successfully!");
+      console.log("Chapter completed:", chapterId);
+      console.log("New streak:", streakUpdate);
+
       clearQuizProgress();
-      toast.success("Quiz submitted successfully!");
+      toast.success("Chapter completed! 🎉");
 
       setTimeout(() => {
         setResultModal(true);

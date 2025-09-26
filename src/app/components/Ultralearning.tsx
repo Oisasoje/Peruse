@@ -7,6 +7,8 @@ import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Cookies from "js-cookie";
+import { useLoader } from "./LoaderContext";
+import { Check } from "lucide-react";
 
 type UserDoc = {
   createdAt: string; // or Firebase Timestamp if you switch later
@@ -18,7 +20,24 @@ type UserDoc = {
   podNameChangeCount: number;
   quizzesTaken: number;
   streak: number;
+  completedChapters: string[];
 };
+
+const CompletionBadge = () => (
+  <motion.div
+    initial={{ scale: 0, rotate: -180 }}
+    animate={{ scale: 1, rotate: 0 }}
+    transition={{ type: "spring", stiffness: 200, damping: 15 }}
+    className="absolute top-2 right-2 z-10 bg-gradient-to-br from-red-600 to-orange-600 rounded-full p-2 shadow-lg"
+  >
+    <Check strokeWidth={3} className="w-5 h-5 text-white" />
+    <motion.div
+      animate={{ scale: [1, 1.2, 1], opacity: [0, 1, 0] }}
+      transition={{ duration: 2, repeat: Infinity }}
+      className="absolute inset-0 rounded-full border-2 border-emerald-300"
+    />
+  </motion.div>
+);
 
 const ultralearningChapters = [
   {
@@ -95,10 +114,16 @@ const ultralearningChapters = [
 
 const Ultralearning = () => {
   const [userDoc, setUserDoc] = useState<UserDoc | null>(null);
-  const [isProcessing, setIsProcessing] = useState(false);
+  const { isProcessing, setIsProcessing } = useLoader();
 
   const [loading, setLoading] = useState(true); // new
   const router = useRouter();
+
+  const isChapterCompleted = (chapterIndex: number) => {
+    if (!userDoc?.completedChapters) return false;
+    const chapterId = `deep-work-chapter-${chapterIndex + 1}`;
+    return userDoc.completedChapters.includes(chapterId);
+  };
 
   useEffect(() => {
     if (!auth.currentUser) return;
@@ -144,6 +169,13 @@ const Ultralearning = () => {
     } catch (e) {
       console.error(e);
       toast.error("Something went wrong!");
+      setTimeout(() => {
+        setIsProcessing(false);
+      }, 8000);
+    } finally {
+      setTimeout(() => {
+        setIsProcessing(false);
+      }, 15000);
     }
   };
 
@@ -171,30 +203,37 @@ const Ultralearning = () => {
 
   return (
     <>
-      {ultralearningChapters.map(({ title, img, chapter }, i) => (
-        <div
-          key={i}
-          onClick={() => handleClick(i)}
-          className={`border-2 pb-10 h-80 border-slate-600 flex flex-col items-center border-b-4 shadow-xl rounded-2xl justify-between text-center overflow-hidden transition-opacity 
+      {ultralearningChapters.map(({ title, img, chapter }, i) => {
+        const completed = isChapterCompleted(i);
+        return (
+          <div
+            key={i}
+            onClick={() => handleClick(i)}
+            className={`relative border-2 pb-10 h-80 border-slate-600 flex flex-col items-center border-b-4 shadow-xl rounded-2xl justify-between text-center ${
+              completed ? "opacity-100" : "opacity-70"
+            }  overflow-hidden transition-opacity 
       ${
         isProcessing
           ? "pointer-events-none opacity-50"
-          : "cursor-pointer hover:opacity-70"
+          : "cursor-pointer hover:opacity-90"
       }`}
-        >
-          <Image
-            src={img}
-            alt={title}
-            width={200}
-            height={200}
-            className="object-cover w-full pointer-events-none"
-          />
-          <p className="flex pt-[70px] pb-4 flex-col items-center">
-            <span className="font-semibold tracking-wider">{chapter}</span>
-            <span className="text-sm text-gray-400">{title}</span>
-          </p>
-        </div>
-      ))}
+          >
+            {completed && <CompletionBadge />}
+
+            <Image
+              src={img}
+              alt={title}
+              width={200}
+              height={200}
+              className="object-cover w-full pointer-events-none"
+            />
+            <p className="flex pt-[70px] pb-4 flex-col items-center">
+              <span className="font-semibold tracking-wider">{chapter}</span>
+              <span className="text-sm text-gray-400">{title}</span>
+            </p>
+          </div>
+        );
+      })}
     </>
   );
 };
