@@ -2,12 +2,13 @@ export const deepWorkChapter1Questions = [
   {
     book: "Deep Work",
     id: 1,
-    question: "What would you do when you’re given a new project at work?",
+    question:
+      "You’re handed a brand-new project at work. Which approach best shows you’re adding real value through focused effort?",
     options: [
-      "Memorize your teammates’ phone numbers",
-      "Learn a new programming language quickly and apply it",
-      "Perfect a dish at home and stick to the recipe",
-      "Re-read the same notes without using them",
+      "Identify the core skills you need and start learning or applying them deeply.",
+      "Collect everyone’s phone numbers first to feel prepared.",
+      "Tidy your desk and make coffee until you feel ‘ready.’",
+      "Re-read old notes without actually using them.",
     ],
   },
   {
