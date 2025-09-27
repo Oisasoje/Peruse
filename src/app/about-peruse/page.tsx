@@ -140,7 +140,7 @@ export default function AboutPage() {
           </h2>
           <Link
             href="/take-quiz"
-            className="inline-block bg-blue-500 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold mb-20 md:mb-0 text-base sm:text-lg hover:bg-red-700 transition transform hover:scale-105"
+            className="inline-block bg-blue-500 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold mb-20 md:mb-0 text-base sm:text-lg hover:bg-blue-700 transition transform hover:scale-105"
           >
             GET ROASTED NOW!
           </Link>

@@ -102,7 +102,7 @@ const DeepWork = () => {
 
   const handleClick = async (chapterIndex: number) => {
     if (isProcessing) return;
-    setIsProcessing(true);
+    if (userDoc!.hearts > 0) setIsProcessing(true);
 
     try {
       if (!userDoc || userDoc.hearts <= 0) {
@@ -170,9 +170,7 @@ const DeepWork = () => {
           <div
             key={i}
             onClick={() => handleClick(i)}
-            className={`border-2 relative h-80 border-slate-600 flex flex-col items-center border-b-4 shadow-xl text-center ${
-              completed ? "opacity-100" : "opacity-70"
-            } rounded-2xl justify-between overflow-hidden transition-opacity 
+            className={`border-2 relative h-80 border-slate-600 flex flex-col items-center border-b-4 shadow-xl text-center  rounded-2xl justify-between overflow-hidden transition-opacity 
     ${
       isProcessing
         ? "pointer-events-none opacity-50"

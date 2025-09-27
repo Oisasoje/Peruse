@@ -49,6 +49,59 @@ type UserDoc = {
 
 type SelectedOptions = Record<number, string>;
 
+const impatientPlaceholders = [
+  "Are you going to pick an option or should I come back tomorrow?",
+  "The suspense is killing me... and not in a good way.",
+  "Even a snail would have chosen by now.",
+  "I don't have all day to watch you stare at options.",
+  "Tick tock, tick tock... my beard is growing longer.",
+  "If you wait any longer, the question will answer itself.",
+  "I've seen glaciers move faster than your decision-making.",
+  "Are you reading or having a spiritual experience with the options?",
+  "The options won't bite you... unlike me if you don't choose soon.",
+  "I could have roasted three other people by now.",
+  "Your hesitation is louder than your eventual choice will be.",
+  "Did you fall asleep or are you actually thinking this hard?",
+  "Even indecision is a decision... a bad one.",
+  "I'm starting to think you enjoy wasting my time.",
+  "The answer won't magically appear if you stare long enough.",
+  "You're taking so long I might forget what the question was.",
+  "If confusion were a superpower, you'd be invincible right now.",
+  "I've got better things to do than watch you contemplate existence.",
+  "Your slow pace is actually impressive... in the worst way possible.",
+  "Are you waiting for divine intervention or just scared?",
+  "The options haven't changed in the last minute, you know.",
+  "I could write a book in the time you're taking to choose.",
+  "Your procrastination needs its own zip code.",
+  "Even a rock would have shown more urgency by now.",
+  "If you don't choose soon, I might choose for you... poorly.",
+  "This isn't a museum - you don't need to admire the options.",
+  "Your hesitation speaks volumes about your confidence.",
+  "I'm aging faster than you're making progress.",
+  "The question isn't that hard... or maybe it is for you.",
+  "I've lost interest and I'm the one who's supposed to care.",
+  "Your slow response time is a roast in itself.",
+  "Are you analyzing each option with a microscope?",
+  "I could have trained a monkey to choose faster by now.",
+  "This isn't a chess match - it's multiple choice.",
+  "Your deliberation is longer than the chapter itself.",
+  "I'm starting to doubt you can read at this point.",
+  "The suspense isn't building... it's decaying.",
+  "You're making this harder than it needs to be.",
+  "I've seen faster decision-making in a traffic jam.",
+  "If you wait any longer, the quiz will retire.",
+  "Your pace is setting records... for slowness.",
+  "Are you waiting for the options to introduce themselves?",
+  "I could have grown a full beard in this time.",
+  "This isn't rocket science - pick one already.",
+  "Your hesitation is more interesting than your answer will be.",
+  "I'm running out of patience and I have infinite patience.",
+  "The clock is ticking... and so is my annoyance.",
+  "You're giving 'overthinking' a bad name.",
+  "I've seen sloths make faster life decisions.",
+  "If you don't choose soon, I might lose my sage-like composure.",
+];
+
 const QuestionsComponent = ({
   question,
   options,
@@ -91,7 +144,7 @@ const QuestionsComponent = ({
     `From page-turner to page-master: Chapter ${id} of ${book} is officially yours.`,
     `Your brain just did push-ups through Chapter ${id} — keep flexing that ${book} muscle!`,
     `🎯 You just crossed Chapter ${id} of ${book} like a pro. The Bridge salutes you!`,
-    `Ah-ah, you actually finished Chapter ${id}? Didn't see that coming. 🏆`,
+    `Ah-ah, you actually finished Chapter ${id}? Mama Kuti didn't see that coming. 🏆`,
     `Your attention span just shocked the nation. Chapter ${id} of ${book}… conquered.`,
     `Not just reading — bridging. Chapter ${id} of ${book} done and dusted. 💪`,
     `📚 Chapter ${id} in the bag! ${book} is starting to look like your playground.`,
@@ -115,7 +168,11 @@ const QuestionsComponent = ({
   );
   const [resultModal, setResultModal] = useState(false);
 
-  // Save progress to sessionStorage whenever it changes
+  const getRandomPlaceholder = (questionIndex: number) => {
+    const index = questionIndex % impatientPlaceholders.length;
+    return impatientPlaceholders[index];
+  };
+
   useEffect(() => {
     if (!hasRestoredProgress) return;
 
@@ -242,7 +299,7 @@ const QuestionsComponent = ({
       console.error("Error fetching roast:", err);
       setRoasts((prev) => ({
         ...prev,
-        [currentQuestionIndex]: "I can't even be bothered to roast this.",
+        [currentQuestionIndex]: getRandomPlaceholder(currentQuestionIndex),
       }));
     } finally {
       setIsRoastLoading((prev) => ({ ...prev, [currentQuestionIndex]: false }));
@@ -464,7 +521,8 @@ const QuestionsComponent = ({
               <p className="relative z-10 tracking-wider text-sm sm:text-base leading-relaxed">
                 {isRoastLoading[currentQuestionIndex]
                   ? "Loading roast..."
-                  : roasts[currentQuestionIndex]}
+                  : roasts[currentQuestionIndex] ??
+                    getRandomPlaceholder(currentQuestionIndex)}
               </p>
             </div>
           </div>

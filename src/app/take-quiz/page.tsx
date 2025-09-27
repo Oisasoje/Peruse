@@ -1,32 +1,20 @@
 "use client";
 
 import { onAuthStateChanged, updateProfile } from "firebase/auth";
-import {
-  doc,
-  updateDoc,
-  increment,
-  getDoc,
-  setDoc,
-  onSnapshot,
-} from "firebase/firestore";
+import { doc, updateDoc, getDoc, setDoc, onSnapshot } from "firebase/firestore";
 import { auth, db } from "../../../lib/firebase";
 import { useState, useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 
 import {
-  Badge,
   BookOpen,
   ClipboardList,
   Crown,
   Flame,
-  FlameKindling,
-  Gem,
   HeartOffIcon,
   Library,
   Lightbulb,
   Medal,
-  Menu,
-  X,
 } from "lucide-react";
 import { Fredoka, Inter } from "next/font/google";
 import Image from "next/image";
@@ -356,6 +344,10 @@ const Ultralearning = dynamic(() => import("../components/Ultralearning"), {
   ssr: false,
   loading: () => <SimpleLoader />,
 });
+const Essentialism = dynamic(() => import("../components/Essentialism"), {
+  ssr: false,
+  loading: () => <SimpleLoader />,
+});
 
 const inter = Inter({
   subsets: ["latin"],
@@ -370,7 +362,7 @@ const bookResources = [
   { title: "DEEP WORK", author: "Cal NewPort" },
   { title: "ESSENTIALISM", author: "Greg McKeown" },
   { title: "ULTRALEARNING", author: "Scott Young" },
-  { title: "LAWS OF HUMAN NATURE", author: "Robert Greene" },
+  // { title: "LAWS OF HUMAN NATURE", author: "Robert Greene" },
   {
     title: "EMOTIONAL INTELLIGENCE 2.0",
     author: "Travis Bradberry & Jean Greaves",
@@ -481,10 +473,10 @@ const Quiz = () => {
       <EmotionalIntelligence />
     ) : currentResource === "ULTRALEARNING" ? (
       <Ultralearning />
+    ) : currentResource === "ESSENTIALISM" ? (
+      <Essentialism />
     ) : (
-      <div className="col-span-3 flex items-center justify-center h-64">
-        <p className="text-xl">Select a resource to get started</p>
-      </div>
+      ""
     );
 
   if (!isMounted || isLoading) {

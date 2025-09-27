@@ -91,7 +91,7 @@ const EmotionalIntelligence = () => {
 
   const isChapterCompleted = (chapterIndex: number) => {
     if (!userDoc?.completedChapters) return false;
-    const chapterId = `deep-work-chapter-${chapterIndex + 1}`;
+    const chapterId = `emotional-intelligence-2.0-chapter-${chapterIndex + 1}`;
     return userDoc.completedChapters.includes(chapterId);
   };
 
@@ -111,7 +111,7 @@ const EmotionalIntelligence = () => {
 
   const handleClick = async (chapterIndex: number) => {
     if (isProcessing) return;
-    setIsProcessing(true);
+    if (userDoc!.hearts > 0) setIsProcessing(true);
 
     try {
       if (!userDoc || userDoc.hearts <= 0) {
@@ -181,9 +181,7 @@ const EmotionalIntelligence = () => {
           <div
             key={i}
             onClick={() => handleClick(i)}
-            className={` relative border-2 pb-10 h-80 border-slate-600 flex flex-col items-center border-b-4 shadow-xl rounded-2xl justify-between text-center ${
-              completed ? "opacity-100" : "opacity-70"
-            } overflow-hidden transition-opacity 
+            className={` relative border-2 pb-10 h-80 border-slate-600 flex flex-col items-center border-b-4 shadow-xl rounded-2xl justify-between text-center overflow-hidden transition-opacity 
       ${
         isProcessing
           ? "pointer-events-none opacity-50"
