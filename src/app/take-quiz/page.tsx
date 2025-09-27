@@ -1,6 +1,6 @@
 "use client";
 
-import { onAuthStateChanged, updateProfile } from "firebase/auth";
+import { onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
 import { doc, updateDoc, getDoc, setDoc, onSnapshot } from "firebase/firestore";
 import { auth, db } from "../../../lib/firebase";
 import { useState, useEffect, useRef } from "react";
@@ -14,6 +14,7 @@ import {
   HeartOffIcon,
   Library,
   Lightbulb,
+  LogOut,
   Medal,
 } from "lucide-react";
 import { Fredoka, Inter } from "next/font/google";
@@ -27,6 +28,7 @@ import { z } from "zod";
 import { useActivePage } from "../components/ActivePageContext";
 import { useLoader } from "../components/LoaderContext";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type UserDoc = {
   createdAt: string;
@@ -479,6 +481,20 @@ const Quiz = () => {
       ""
     );
 
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      toast.success("Logged out successfully!");
+
+      router.push("/login");
+    } catch (error) {
+      console.error("Logout error:", error);
+      toast.error("Failed to log out");
+    }
+  };
+
   if (!isMounted || isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#131f24]">
@@ -557,6 +573,19 @@ const Quiz = () => {
               <span className="font-semibold">ABOUT US</span>
             </button>
           </Link>
+
+          <button
+            onClick={() => {
+              setActivePage("log-out");
+              handleLogout();
+            }}
+            className={`flex items-center cursor-pointer hover:opacity-80 gap-3 px-5 py-4 rounded-2xl text-left ${
+              activePage === "log-out" ? " border-2 border-green-400" : ""
+            }`}
+          >
+            <LogOut size={30} color="red" />
+            <span className="font-semibold">LOG OUT</span>
+          </button>
         </div>
       </aside>
 

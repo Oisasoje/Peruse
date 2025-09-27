@@ -4,9 +4,10 @@ import { doc, getDoc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../../../lib/firebase";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { onAuthStateChanged, updateProfile } from "firebase/auth";
+import { onAuthStateChanged, updateProfile, signOut } from "firebase/auth";
 import z from "zod";
-import { ClipboardList, Crown, Flame, Medal } from "lucide-react";
+import { ClipboardList, Crown, Flame, Medal, LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const usernameSchema = z.string().min(1, "Required").max(25, "Max 25 chars");
 
@@ -301,6 +302,20 @@ const Profile_Info = () => {
   };
 
   const userData = useUserDoc();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      toast.success("Logged out successfully!");
+
+      router.push("/login");
+    } catch (error) {
+      console.error("Logout error:", error);
+      toast.error("Failed to log out");
+    }
+  };
+
   return (
     <div className=" bg-[#131f24] min-h-screen w-full px-4 py-6 ">
       <div className="border-2 px-3 pt-3 pb-4 text-sm rounded-2xl border-slate-600 mb-4">
@@ -366,6 +381,18 @@ const Profile_Info = () => {
             </span>
           </div>
         </div>
+      </div>
+      <div className="rounded-2xl p-3 border-2 border-slate-600">
+        <h3 className="font-semibold text-gray-400 text-sm text-center mb-4">
+          ACCOUNT
+        </h3>
+        <button
+          onClick={handleLogout}
+          className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors duration-200"
+        >
+          <LogOut size={20} />
+          LOG OUT
+        </button>
       </div>
     </div>
   );
