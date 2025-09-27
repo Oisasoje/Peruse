@@ -1,13 +1,9 @@
 "use client";
 
-import { HeartOffIcon, X } from "lucide-react";
 import { Inter } from "next/font/google";
 import QuestionsComponent from "@/app/components/Questions";
 import { deepWorkChapter3Questions as Questions } from "../../../../../data";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -16,9 +12,9 @@ const inter = Inter({
 
 interface Questions {
   id: number;
+  book: string;
   question: string;
   options: string[];
-  book: string;
 }
 
 const Chapter3 = () => {
@@ -48,6 +44,7 @@ const Chapter3 = () => {
 
   const width = ((currentQuestionIndex + 1) / Questions.length) * 100;
   const [direction, setDirection] = useState(1);
+
   return (
     <div
       className={`min-h-screen pb-50 ${inter.className} text-white  bg-[#131f24]`}
@@ -64,7 +61,7 @@ const Chapter3 = () => {
         setDirection={setDirection}
         selectedOptions={selectedOptions}
         setSelectedOptions={setSelectedOptions}
-        quizId="deepwork-chapter3"
+        quizId="deepwork-chapter2"
       />
     </div>
   );
