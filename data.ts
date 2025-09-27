@@ -476,6 +476,372 @@ export const deepWorkChapter4Questions = [
   },
 ];
 
+export const deepWorkChapter5Questions = [
+  {
+    book: "Deep Work",
+    id: 5,
+    question:
+      "Your afternoon is clear, but you're feeling tired. How do you approach your deep work block?",
+    options: [
+      "Start with a 15-minute walk to clear your head, then begin the session as planned.",
+      "Push through the fatigue and force yourself to work, even if your focus is weak.",
+      "Reschedule the deep work for tomorrow when you'll have more energy.",
+      "Skip the deep work and use the time to catch up on easy emails instead.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 5,
+    question:
+      "You finish a deep work session and your phone shows 5 new notifications. What's your move?",
+    options: [
+      "Ignore them until your next scheduled 'shallow work' block later in the day.",
+      "Quickly check them all now as a 'reward' for your hard work.",
+      "Respond only to the ones that look urgent, then get back to work.",
+      "Feel anxious and check them immediately, thinking one might be important.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 5,
+    question:
+      "A colleague constantly drops by your desk for 'quick questions' that disrupt your focus. How do you handle it?",
+    options: [
+      "Politely set boundaries: 'I'm in deep focus until 2 PM - can we connect then?'",
+      "Try to multitask, giving half attention while attempting to stay productive.",
+      "Accept the interruptions but feel increasingly resentful throughout the day.",
+      "Work from home to avoid people, even if it hurts team collaboration.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 5,
+    question: "You have 30 minutes between meetings. How do you use that time?",
+    options: [
+      "Do a brief review of your next deep work task or take a proper mental break.",
+      "Try to squeeze in 'quick' shallow tasks, making you rushed for the next meeting.",
+      "Scroll through social media to 'unwind,' ending up more distracted.",
+      "Start an important task but have to abandon it abruptly when the meeting begins.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 5,
+    question:
+      "Your to-do list is overflowing with small, administrative tasks. What's your strategy?",
+    options: [
+      "Batch them into a specific 'shallow work' block and stick to the time limit.",
+      "Knock them out first thing in the morning to 'clear the deck.'",
+      "Work late to get everything done, sacrificing personal time.",
+      "Ignore them entirely, hoping some will resolve themselves.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 5,
+    question:
+      "You're tempted to check news sites during a challenging part of your work. What do you do?",
+    options: [
+      "Acknowledge the urge, then return to the task, embracing the temporary boredom.",
+      "Give in for 'just 2 minutes,' which turns into 20 minutes of lost focus.",
+      "Promise yourself you'll check after finishing the next paragraph.",
+      "Decide the task is too hard and switch to something easier instead.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 5,
+    question:
+      "How do you handle an inbox that constantly fills up with requests?",
+    options: [
+      "Schedule 2-3 specific times to process email instead of checking constantly.",
+      "Keep your inbox open all day and respond to each email as it arrives.",
+      "Declare 'email bankruptcy' and archive everything unread.",
+      "Respond immediately to show you're responsive, even during deep work.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 5,
+    question: "You're waiting in a long line. What's your default behavior?",
+    options: [
+      "Let your mind wander or observe your surroundings, practicing boredom.",
+      "Immediately pull out your phone to check messages or social media.",
+      "Feel impatient and frustrated, constantly checking how the line is moving.",
+      "Try to do 'productive' shallow work on your phone, feeling stressed.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 5,
+    question:
+      "A project has both high-value deep work and tedious shallow components. How do you proceed?",
+    options: [
+      "Schedule separate, protected time for the deep work first; batch the shallow parts later.",
+      "Do the shallow parts first to 'get them out of the way,' risking mental fatigue.",
+      "Alternate between deep and shallow work to keep things 'interesting.'",
+      "Focus only on the deep work and procrastinate on the shallow tasks indefinitely.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 5,
+    question:
+      "At the end of the workday, you haven't finished your planned deep work session. What do you do?",
+    options: [
+      "Protect your downtime; reschedule it for the next day and analyze what went wrong.",
+      "Work late to finish it, even if it means sacrificing exercise or family time.",
+      "Tell yourself you'll do it after dinner, but end up too tired.",
+      "Feel guilty and scroll mindlessly on your phone instead of truly relaxing.",
+    ],
+  },
+];
+
+export const deepWorkChapter6Questions = [
+  {
+    book: "Deep Work",
+    id: 6,
+    question:
+      "You’re overwhelmed with apps but want to focus on your studies. What’s the first step you could take?",
+    options: [
+      "Run a 30-day break from one platform to test its value.",
+      "Download a productivity app to block everything permanently.",
+      "Ignore the problem and hope it fixes itself.",
+      "Keep all apps but promise to use them less.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 6,
+    question:
+      "You’re thinking about opening a new social media account to ‘network.’ What should you do before signing up?",
+    options: [
+      "Weigh the benefits and costs to your main goals.",
+      "Join immediately because everyone else is there.",
+      "Create the account but only post occasionally.",
+      "Wait until a friend convinces you to join.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 6,
+    question:
+      "During a 30-day break from Instagram you notice your focus improves. What’s the best response at the end of the break?",
+    options: [
+      "If there’s no clear loss to your goals, stay off permanently.",
+      "Return immediately because you’ve ‘earned it.’",
+      "Reinstall but limit use to weekends only.",
+      "Ask your friends if they missed you before deciding.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 6,
+    question:
+      "Your job depends on LinkedIn but not on Twitter. How should you handle this?",
+    options: [
+      "Keep LinkedIn for work; drop Twitter if it doesn’t pass the test.",
+      "Stay on both so you don’t miss out.",
+      "Limit Twitter to 5 minutes a day regardless of value.",
+      "Keep both but mute notifications.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 6,
+    question:
+      "What is the biggest hidden cost of keeping multiple social media apps open all day?",
+    options: [
+      "They fragment attention and reduce your ability to focus.",
+      "They take up storage space on your phone.",
+      "They make you seem anti-social if you delete them.",
+      "They’re more expensive than newspapers.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 6,
+    question:
+      "You need an online tool for your side business but fear distraction. What’s the smartest approach?",
+    options: [
+      "Use only the features that directly support your main goal.",
+      "Sign up for every new platform to maximize exposure.",
+      "Use it but also open other apps during breaks.",
+      "Pick the most entertaining platform to stay motivated.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 6,
+    question:
+      "A friend says quitting social media will ruin your career. How can you test this claim?",
+    options: [
+      "Do a trial disconnection and evaluate real impact on results.",
+      "Stay connected but turn off notifications only.",
+      "Quit without thinking and never look back.",
+      "Ask others what they think before deciding.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 6,
+    question:
+      "You’re tempted to fill every spare minute with scrolling. Which practice helps break this habit?",
+    options: [
+      "Schedule specific times for online use instead of constant checking.",
+      "Scroll quickly so you finish faster.",
+      "Keep the apps but hide them in folders.",
+      "Promise yourself you’ll ‘make up’ lost time later.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 6,
+    question:
+      "You deleted Facebook but still feel the urge to check. What are you really training by resisting?",
+    options: [
+      "Your ability to tolerate boredom and strengthen focus.",
+      "Your skill at memorizing newsfeed content.",
+      "Your social popularity.",
+      "Your multitasking efficiency.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 6,
+    question: "Which statement best reflects a healthy rule for digital tools?",
+    options: [
+      "Keep only the ones that deliver clear, substantial benefits to your highest goals.",
+      "Use every platform at least a little to stay current.",
+      "Delete all apps because technology is bad.",
+      "Rotate through apps each week to ‘balance’ usage.",
+    ],
+  },
+];
+
+export const deepWorkChapter7Questions = [
+  {
+    book: "Deep Work",
+    id: 7,
+    question:
+      "It's Sunday night. How do you plan your upcoming workweek to ensure depth?",
+    options: [
+      "Time-block every work hour, assigning specific deep and shallow work blocks.",
+      "Make a long to-do list and hope you'll find time for the important stuff.",
+      "Plan to 'work really hard' and stay late if necessary to get everything done.",
+      "Don't plan at all, believing a rigid schedule kills creativity.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 7,
+    question:
+      "Your boss asks for a 'quick, informal' update during your scheduled deep work block. What do you do?",
+    options: [
+      "Politely say you're in the middle of focused work and schedule a specific time later to connect.",
+      "Drop everything immediately to provide the update, not wanting to seem uncooperative.",
+      "Try to multitask, giving a rushed answer while thinking about your interrupted work.",
+      "Feel annoyed but comply, then spend the next hour complaining about the interruption.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 7,
+    question:
+      "You've scheduled 90 minutes for shallow tasks, but they only take 45 minutes. What do you do with the extra time?",
+    options: [
+      "Start your next deep work block early or take a proper break to recharge.",
+      "Immediately find more shallow tasks to fill the time and feel 'productive.'",
+      "Use the time to randomly check emails and websites until the next block starts.",
+      "Consider the day 'won' and relax for the rest of the afternoon.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 7,
+    question:
+      "A colleague suggests a 'low-priority' meeting that would break up your prime deep work time. How do you respond?",
+    options: [
+      "Decline politely, explaining your focus schedule, and offer to communicate asynchronously.",
+      "Accept the meeting to maintain good relations, even though it will fragment your day.",
+      "Accept but resentfully multitask during the meeting to 'reclaim' the lost time.",
+      "Suggest moving the meeting to the end of the day when your energy is lower anyway.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 7,
+    question:
+      "You notice you're spending 3 hours a day on email. What's your first step to fix this?",
+    options: [
+      "Implement a strict schedule (e.g., checking email only at 11 AM and 4 PM).",
+      "Try to answer emails faster, aiming to keep your inbox at zero at all times.",
+      "Install an email plugin that hides new messages but still check it constantly.",
+      "Declare that email is broken and switch entirely to a different messaging app.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 7,
+    question:
+      "You finish your most important task for the day by 2 PM. How do you handle the rest of your workday?",
+    options: [
+      "Stick to your schedule, using the remaining time for pre-planned secondary deep or shallow work.",
+      "Consider your workday effectively over and start relaxing or doing personal tasks.",
+      "Look for more 'urgent' but less important tasks to fill the time and feel busy.",
+      "Use the time to aimlessly 'research' or learn online without a clear goal.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 7,
+    question:
+      "You're invited to a project that seems interesting but is mostly composed of administrative meetings. What do you do?",
+    options: [
+      "Politely decline, citing your commitment to protecting your time for core deep work goals.",
+      "Accept it, hoping you can minimize the shallow parts once you're involved.",
+      "Accept it but complain frequently about the 'waste of time' the meetings are.",
+      "Accept it and try to delegate all the shallow work to an intern or junior colleague.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 7,
+    question:
+      "Your scheduled shallow work block is constantly overflowing into your deep work time. What change do you make?",
+    options: [
+      "Be more ruthless in prioritizing shallow tasks and reduce the time allotted for them.",
+      "Start working earlier in the morning to get a head start before the shallow work piles up.",
+      "Let the shallow work bleed into deep time, assuming it's just the nature of your job.",
+      "Abandon time-blocking altogether since it 'isn't working' for your role.",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 7,
+    question:
+      "You have a free hour between commitments. What's the best way to use it according to the 'drain the shallows' philosophy?",
+    options: [
+      "Do nothing or take a walk—protecting your mental energy for your next deep block.",
+      "Try to cram in a 'quick' deep work task, likely getting interrupted and frustrated.",
+      "Use it to clear out a bunch of tiny, nagging shallow tasks from your phone.",
+      "Spend it on social media, telling yourself you're 'networking' or 'researching trends.'",
+    ],
+  },
+  {
+    book: "Deep Work",
+    id: 7,
+    question:
+      "At the end of the quarter, how do you evaluate if you've successfully 'drained the shallows'?",
+    options: [
+      "Review your time logs to see if the majority of your productive time was spent on deep work.",
+      "See if you met all your deadlines, even if you had to work nights and weekends to do it.",
+      "Check if your inbox is at zero and you've responded to every message promptly.",
+      "Ask your manager if they've noticed you being less available for impromptu requests.",
+    ],
+  },
+];
+
 // CHAPTER 1
 export const emotionalIntelligenceChapter1Questions = [
   {

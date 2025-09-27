@@ -619,7 +619,7 @@ const Quiz = () => {
         </header>
 
         {/* Content Grid */}
-        <div className="px-4 md:px-2 mx-auto space-y-4 gap-2 grid grid-cols-2 lg:grid-cols-3 pt-20 w-full md:pt-30">
+        <div className="px-4 md:px-2 pb-4 mx-auto space-y-4 gap-2 grid grid-cols-2 lg:grid-cols-3 pt-20 w-full md:pt-30">
           {renderedResource}
         </div>
 
