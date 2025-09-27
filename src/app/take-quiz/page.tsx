@@ -534,7 +534,6 @@ const Quiz = () => {
 
         {/* Current Resource Info */}
         <div className="px-4 pb-4">
-          <p className="text-blue-200 font-semibold text-sm">WEEK 1</p>
           <p className="font-bold flex flex-col">
             <span className="text-yellow-500 text-lg">{currentResource}</span>
             <span className="text-sm">BY {currentAuthor.toUpperCase()}</span>
@@ -594,7 +593,6 @@ const Quiz = () => {
         {/* Desktop Header */}
         <header className="hidden md:flex fixed z-101 rounded-lg top-0 left-60 right-80 h-24 bg-blue-500 items-center justify-between px-6">
           <div className="flex flex-col space-y-1">
-            <p className="text-blue-200 font-semibold text-sm">WEEK 1</p>
             <p className="font-bold flex flex-col">
               <span className="text-yellow-400">{currentResource}</span>
               <span className="text-sm">BY {currentAuthor.toUpperCase()}</span>
