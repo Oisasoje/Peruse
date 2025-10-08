@@ -1,7 +1,8 @@
-import { BookOpen, Gem, Lightbulb, User } from "lucide-react";
+import { BookOpen, Lightbulb, User } from "lucide-react";
 import { useActivePage } from "./ActivePageContext";
 import Link from "next/link";
 import { useLoader } from "./LoaderContext";
+import { GiSwordsEmblem } from "react-icons/gi";
 
 const Footer = () => {
   const { activePage, setActivePage } = useActivePage();
@@ -18,6 +19,18 @@ const Footer = () => {
         >
           <Lightbulb size={20} color="yellow" />
           <span className="text-xs mt-1">Quiz</span>
+        </button>
+      </Link>
+      <Link href={"/challenge"}>
+        <button
+          disabled={isProcessing || loading}
+          onClick={() => setActivePage("challenge")}
+          className={`flex flex-col items-center w-25 disabled:cursor-not-allowed py-2 rounded-lg ${
+            activePage === "challenge" ? "bg-[#14545b]" : ""
+          }`}
+        >
+          <GiSwordsEmblem size={20} color="violet" />
+          <span className="text-xs mt-1">Clash</span>
         </button>
       </Link>
 

@@ -6,18 +6,11 @@ import { useActivePage } from "../components/ActivePageContext";
 export default function AboutPage() {
   const { setActivePage } = useActivePage();
   return (
-    <div className="min-h-screen bg-black py-8 px-4 sm:py-12 sm:px-6 lg:py-16">
-      <Link
-        href={"/take-quiz"}
-        className="underline hidden md:block underline-offset-2 fixed top-3  left-3 text-green-600 cursor-pointer text-lg font-extrabold tracking-widest hover:text-green-700"
-        onClick={() => setActivePage("take-quiz")}
-      >
-        Back To Home
-      </Link>
-      <div className="max-w-3xl md:mt-0 mx-auto">
+    <div className="min-h-screen  bg-[#131f24] py-8  px-4 sm:py-12 sm:px-6 lg:py-16">
+      <div className="max-w-3xl md:ml-60 lg:mr-80 pb-20 md:pb-0 pt-24 md:pt-0 md:mt-0 mx-auto">
         {/* Header */}
         <header className="text-center mb-12 sm:mb-16">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-white mb-4 px-2">
+          <h1 className="text-4xl sm:text-5xl font-black lg:text-6xl text-white white mb-4 px-2">
             ABOUT PERUSE
           </h1>
           <p className="text-lg sm:text-xl text-amber-500 font-medium px-4">

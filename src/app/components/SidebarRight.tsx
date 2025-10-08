@@ -1,15 +1,49 @@
-"use client";
-
 import { doc, getDoc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
+import { ClipboardList, Crown, Flame, HeartOffIcon, Medal } from "lucide-react";
 import { auth, db } from "../../../lib/firebase";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { onAuthStateChanged, updateProfile, signOut } from "firebase/auth";
+import { onAuthStateChanged, updateProfile } from "firebase/auth";
 import z from "zod";
-import { ClipboardList, Crown, Flame, Medal, LogOut } from "lucide-react";
-import { useRouter } from "next/navigation";
 
 const usernameSchema = z.string().min(1, "Required").max(25, "Max 25 chars");
+
+type UserDoc = {
+  createdAt: string;
+  displayName: string;
+  hasPremium: boolean;
+  hearts: number;
+  lastHeartReset: string;
+  lastAnsweredAt: string;
+  podName: string;
+  podNameChangeCount: number;
+  quizzesTaken: number;
+  streak: number;
+  lastStreakUpdate: string;
+  completedChapters: string[];
+};
+
+const useUserDoc = () => {
+  const [userData, setUserData] = useState<UserDoc | null>(null);
+
+  useEffect(() => {
+    const unsubAuth = auth.onAuthStateChanged((user) => {
+      if (!user) return setUserData(null);
+
+      const userRef = doc(db, "users", user.uid);
+      const unsubSnap = onSnapshot(userRef, (snap) => {
+        const data = snap.data() as UserDoc | undefined;
+        setUserData(data ?? null);
+      });
+
+      return () => unsubSnap();
+    });
+
+    return () => unsubAuth();
+  }, []);
+
+  return userData;
+};
 
 const UsernameEditor = () => {
   const [username, setUsername] = useState("");
@@ -46,6 +80,7 @@ const UsernameEditor = () => {
 
     const result = usernameSchema.safeParse(trimmed);
     if (!result.success) {
+      toast.error(result.error.message);
       return;
     }
 
@@ -68,9 +103,9 @@ const UsernameEditor = () => {
   };
 
   return editUsername ? (
-    <div className="flex flex-col  gap-2 justify-between w-full">
+    <div className="flex flex-col gap-2 justify-between w-full">
       <input
-        className="border-2 text-white border-amber-600 outline-none px-2 py-1 w-full max-w-xs mt-2 rounded-lg tracking-wider text-[15px]"
+        className="border-2 border-amber-600 outline-none px-2 py-1 w-full max-w-xs mt-2 rounded-lg tracking-wider text-[15px]"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
@@ -96,7 +131,7 @@ const UsernameEditor = () => {
     </div>
   ) : (
     <div className="flex flex-col w-full">
-      <p className="font-bold tracking-widest text-white text-[17px] break-words">
+      <p className="font-bold tracking-wider text-[17px] break-words">
         {username || "Loading username..."}
       </p>
       <button
@@ -257,7 +292,7 @@ const PodNameEditor = () => {
       >
         {isNewUser
           ? "Welcome! Select your pod to get started."
-          : `${2 - changeCount > 0 ? 2 - changeCount : 0} ${
+          : `${2 - changeCount} ${
               changeCount > 0 ? "change" : "changes"
             } remaining`}
       </p>
@@ -265,73 +300,47 @@ const PodNameEditor = () => {
   );
 };
 
-type UserDoc = {
-  createdAt: string;
-  displayName: string;
-  hasPremium: boolean;
-  hearts: number;
-  lastAnsweredAt: string;
-  podName: string;
-  podNameChangeCount: number;
-  quizzesTaken: number;
-  streak: number;
-  lastStreakUpdate: string;
-};
-
-const Profile_Info = () => {
-  const useUserDoc = () => {
-    const [userData, setUserData] = useState<UserDoc | null>(null);
-
-    useEffect(() => {
-      const unsubAuth = auth.onAuthStateChanged((user) => {
-        if (!user) return setUserData(null);
-
-        const userRef = doc(db, "users", user.uid);
-        const unsubSnap = onSnapshot(userRef, (snap) => {
-          const data = snap.data() as UserDoc | undefined;
-          setUserData(data ?? null);
-        });
-
-        return () => unsubSnap();
-      });
-
-      return () => unsubAuth();
-    }, []);
-
-    return userData;
-  };
-
+const SidebarRight = () => {
   const userData = useUserDoc();
-  const router = useRouter();
-
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      toast.success("Logged out successfully!");
-
-      router.push("/login");
-    } catch (error) {
-      console.error("Logout error:", error);
-      toast.error("Failed to log out");
-    }
-  };
 
   return (
-    <div className=" bg-[#131f24] min-h-screen w-full px-4 py-6 ">
-      <div className="border-2 px-3 pt-3 pb-4 text-sm rounded-2xl border-slate-600 mb-4">
-        <h2 className="tracking-wider text-amber-500 font-semibold text-center mb-4">
-          YOUR INFORMATION
-        </h2>
-        <div className="flex flex-col gap-6">
-          <div className="text-center">
-            <label className="text-gray-400 font-semibold tracking-wider block mb-2">
+    <aside className="hidden text-white lg:block w-80 pl-5 fixed top-0 right-0 h-screen">
+      <div className="flex px-6 py-2 mt-6 justify-between rounded-2xl">
+        <span className="flex gap-2">
+          <Flame color="orange" />
+          <span className="flex flex-col">
+            <span className="font-semibold text-lg">
+              {userData?.streak ?? 0}
+            </span>
+            <span className="text-sm font-semibold tracking-wider text-orange-400">
+              DAY STREAK
+            </span>
+          </span>
+        </span>
+        <span className="flex gap-3">
+          <HeartOffIcon size={30} color="red" />
+          <span className="flex flex-col">
+            <span className="font-semibold text-lg">
+              {userData?.hearts ?? 0}
+            </span>
+            <span className="text-sm tracking-wider text-red-600 font-semibold">
+              {userData && userData.hearts > 1 ? "HEARTS" : "HEART"}
+            </span>
+          </span>
+        </span>
+      </div>
+
+      <div className="border-2 px-3 pt-3 pb-4 text-sm rounded-2xl h-75 mt-2 border-slate-600">
+        <h2 className="tracking-wider font-semibold">YOUR INFORMATION</h2>
+        <div className="mt-3 flex gap-3 justify-center flex-col">
+          <div>
+            <label className="text-gray-400 font-semibold tracking-wider">
               USERNAME:
             </label>
             <UsernameEditor />
           </div>
-
-          <div className="text-center">
-            <label className="text-gray-400 font-semibold tracking-wider block mb-2">
+          <div>
+            <label className="text-gray-400 font-semibold tracking-wider">
               POD NAME:
             </label>
             <PodNameEditor />
@@ -339,62 +348,43 @@ const Profile_Info = () => {
         </div>
       </div>
 
-      <div className="rounded-2xl p-3 border-2 border-slate-600">
-        <h3 className="font-semibold text-gray-400 text-sm text-center mb-4">
-          ACHIEVEMENTS
-        </h3>
-        <div className="space-y-4 text-teal-300">
+      <div className="mt-2 rounded-2xl overflow-y-auto p-3 border-2 border-slate-600">
+        <h3 className="font-semibold text-sm">ACHIEVEMENTS</h3>
+        <div className="mt-5 space-y-4">
           <div className="flex justify-between items-center">
             <span className="flex gap-2 items-center">
-              <ClipboardList size={24} color="blue" />
-              <p className="font-semibold">Quizzes Taken</p>
+              <ClipboardList size={30} color="blue" />
+              <p className="font-semibold text-[17px] tracking-wider">
+                Quizzes Taken
+              </p>
             </span>
-            <span className="font-semibold text-gray-300">
+            <span className="text-[17px] font-semibold text-gray-300">
               {userData?.quizzesTaken ?? 0}
             </span>
           </div>
           <div className="flex justify-between items-center">
             <span className="flex gap-2 items-center">
-              <Crown size={24} color="indigo" />
-              <p className="font-semibold">Subscription</p>
+              <Crown size={30} color="red" />
+              <p className="font-semibold text-[17px] tracking-wider">
+                Subscription
+              </p>
             </span>
-            <span className="font-semibold text-gray-300">
+            <span className="text-[17px] font-semibold text-gray-300">
               {userData?.hasPremium ? "Premium" : "Free"}
             </span>
           </div>
           <div className="flex justify-between items-center">
             <span className="flex gap-2 items-center">
-              <Medal size={24} color="green" />
-              <p className="font-semibold">Badge</p>
+              <Medal size={30} color="green" />
+              <p className="font-semibold text-[17px] tracking-wider">Badge</p>
             </span>
-            <span className="font-semibold text-gray-300">
+            <span className="text-[17px] font-semibold text-gray-300">
               {userData?.hasPremium ? "Beacon" : "Newbie"}
-            </span>
-          </div>
-          <div className="flex justify-between items-center">
-            <span className="flex gap-2 items-center">
-              <Flame size={24} color="red" />
-              <p className="font-semibold">Streak</p>
-            </span>
-            <span className="font-semibold text-gray-300">
-              {userData?.streak ?? 0}
             </span>
           </div>
         </div>
       </div>
-      <div className="rounded-2xl mt-4 p-3 border-2 border-slate-600">
-        <h3 className="font-semibold text-gray-400 text-sm text-center mb-4">
-          ACCOUNT
-        </h3>
-        <button
-          onClick={handleLogout}
-          className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors duration-200"
-        >
-          <LogOut size={20} />
-          LOG OUT
-        </button>
-      </div>
-    </div>
+    </aside>
   );
 };
-export default Profile_Info;
+export default SidebarRight;

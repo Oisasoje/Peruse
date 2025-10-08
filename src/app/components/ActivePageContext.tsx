@@ -18,6 +18,8 @@ export const ActivePageProvider = ({
 }) => {
   const [activePage, setActivePage] = useState("take-quiz");
 
+  //
+
   return (
     <ActivePageContext.Provider value={{ activePage, setActivePage }}>
       {children}
