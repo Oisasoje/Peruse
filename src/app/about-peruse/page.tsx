@@ -6,7 +6,7 @@ import { useActivePage } from "../components/ActivePageContext";
 export default function AboutPage() {
   const { setActivePage } = useActivePage();
   return (
-    <div className="min-h-screen  bg-[#131f24] py-8  px-4 sm:py-12 sm:px-6 lg:py-16">
+    <div className="min-h-screen  bg-[#131f24] py-8  px-4 sm:py-12 sm:px-6 lg:py-16 w-full">
       <div className="max-w-3xl md:ml-60 lg:mr-80 pb-20 md:pb-0 pt-24 md:pt-0 md:mt-0 mx-auto">
         {/* Header */}
         <header className="text-center mb-12 sm:mb-16">

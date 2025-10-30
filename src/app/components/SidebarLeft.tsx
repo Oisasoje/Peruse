@@ -1,5 +1,3 @@
-"use client";
-
 import { BookOpen, Lightbulb, LogOut } from "lucide-react";
 import Link from "next/link";
 import { useActivePage } from "./ActivePageContext";
@@ -53,7 +51,7 @@ const SidebarLeft = () => {
   };
 
   return (
-    <aside className="fixed text-white hidden md:block z-100 top-0 left-0 h-screen w-60 border-r-2 border-slate-600 pl-5 pr-3">
+    <aside className="fixed text-white hidden md:block z-100 top-0 left-0 h-screen w-60 border-r-2 border-slate-600 bg-[#131f24] pl-5 pr-3">
       <h3
         className={`${fredoka.className} text-blue-500 text-3xl font-extrabold mt-6`}
       >
@@ -62,11 +60,17 @@ const SidebarLeft = () => {
       <div className="flex flex-col gap-10 mt-10 h-screen w-full">
         {navItems.map((item) => {
           const { name, path, icon } = item;
+          console.log(pathname, name);
           setActivePage(pathname);
           return (
             <Link key={name} href={`${path}`}>
               <button
-                onClick={() => setActivePage(`${name}`)}
+                onClick={() => {
+                  setActivePage(`${name}`);
+                  if (item.name === "LOG OUT") {
+                    handleLogout();
+                  }
+                }}
                 className={`flex items-center gap-3 cursor-pointer hover:bg-slate-800   rounded-2xl text-left w-full outline-none ${
                   activePage === name ||
                   pathname === path ||

@@ -362,17 +362,7 @@ const SidebarRight = () => {
               {userData?.quizzesTaken ?? 0}
             </span>
           </div>
-          <div className="flex justify-between items-center">
-            <span className="flex gap-2 items-center">
-              <Crown size={30} color="red" />
-              <p className="font-semibold text-[17px] tracking-wider">
-                Subscription
-              </p>
-            </span>
-            <span className="text-[17px] font-semibold text-gray-300">
-              {userData?.hasPremium ? "Premium" : "Free"}
-            </span>
-          </div>
+
           <div className="flex justify-between items-center">
             <span className="flex gap-2 items-center">
               <Medal size={30} color="green" />

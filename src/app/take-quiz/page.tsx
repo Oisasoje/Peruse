@@ -232,7 +232,7 @@ const Quiz = () => {
 
   return (
     <div
-      className={`min-h-screen ${inter.className} text-white w-full bg-[#131f24]`}
+      className={`min-h-screen ${inter.className} bg-[#131f24] text-white w-full `}
     >
       {/* Mobile Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-[#131f24] border-b-0 md:border-b-2  border-slate-600 md:hidden">
