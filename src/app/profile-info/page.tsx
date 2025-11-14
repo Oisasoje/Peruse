@@ -388,7 +388,7 @@ const Profile_Info = () => {
         </h3>
         <button
           onClick={handleLogout}
-          className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors duration-200"
+          className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2  mb-8 transition-colors duration-200"
         >
           <LogOut size={20} />
           LOG OUT
