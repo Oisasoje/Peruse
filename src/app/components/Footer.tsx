@@ -26,12 +26,12 @@ const Footer = () => {
   const { activePage, setActivePage } = useActivePage();
   const { isProcessing, setIsProcessing, loading, setLoading } = useLoader();
   return (
-    <div className="fixed bottom-0 text-white left-0 right-0 bg-[#0b2f33] border-slate-600 flex justify-beween items-center py-3 md:hidden z-50">
-      <Link href={"/take-quiz"}>
+    <div className="fixed bottom-0 text-white left-0 right-0 bg-[#0b2f33] border-slate-600 flex justify-between items-center py-3 px-4 md:hidden z-50">
+      <Link href={"/take-quiz"} className="flex-1">
         <button
           disabled={isProcessing || loading}
           onClick={() => setActivePage("take-quiz")}
-          className={`flex flex-col items-center w-15 disabled:cursor-not-allowed py-2 rounded-lg ${
+          className={`flex flex-col items-center w-full disabled:cursor-not-allowed py-2 rounded-lg ${
             activePage === "take-quiz" ? "bg-[#14545b]" : ""
           }`}
         >
@@ -39,24 +39,14 @@ const Footer = () => {
           <span className="text-xs mt-1">Quiz</span>
         </button>
       </Link>
-      <Link href={"/challenge"}>
-        <button
-          disabled={isProcessing || loading}
-          onClick={() => setActivePage("challenge")}
-          className={`flex flex-col items-center w-15 disabled:cursor-not-allowed py-2 rounded-lg ${
-            activePage === "challenge" ? "bg-[#14545b]" : ""
-          }`}
-        >
-          <GiSwordsEmblem size={20} color="violet" />
-          <span className="text-xs mt-1">Clash</span>
-        </button>
-      </Link>
 
-      <Link href={"/profile-info"}>
+    
+
+      <Link href={"/profile-info"} className="flex-1">
         <button
           disabled={isProcessing || loading}
           onClick={() => setActivePage("profile")}
-          className={`flex flex-col items-center disabled:cursor-not-allowed w-15 py-2 rounded-lg ${
+          className={`flex flex-col items-center w-full disabled:cursor-not-allowed py-2 rounded-lg ${
             activePage === "profile" ? "bg-[#14545b]" : ""
           }`}
         >
@@ -65,11 +55,11 @@ const Footer = () => {
         </button>
       </Link>
 
-      <Link href={"/about-peruse"}>
+      <Link href={"/about-peruse"} className="flex-1">
         <button
           disabled={isProcessing || loading}
           onClick={() => setActivePage("about-us")}
-          className={`flex flex-col items-center disabled:cursor-not-allowed w-15 py-2 rounded-lg ${
+          className={`flex flex-col items-center w-full disabled:cursor-not-allowed py-2 rounded-lg ${
             activePage === "about-us" ? "bg-[#14545b]" : ""
           }`}
         >

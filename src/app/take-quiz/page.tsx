@@ -235,7 +235,7 @@ const Quiz = () => {
       className={`min-h-screen ${inter.className} bg-[#131f24] text-white w-full `}
     >
       {/* Mobile Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#131f24] border-b-0 md:border-b-2  border-slate-600 md:hidden">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#131f24] border-b border-slate-600 md:hidden">
         <div className="flex items-center justify-between p-4">
           <h3
             className={`${fredoka.className} text-blue-500 text-4xl font-extrabold`}
@@ -262,8 +262,12 @@ const Quiz = () => {
         {/* Current Resource Info */}
         <div className="px-4 pb-4">
           <p className="font-bold flex flex-col">
-            <span className="text-yellow-500 text-lg">{currentResource}</span>
-            <span className="text-sm">BY {currentAuthor.toUpperCase()}</span>
+            <span className="text-yellow-500 text-lg truncate">
+              {currentResource}
+            </span>
+            <span className="text-sm truncate">
+              BY {currentAuthor.toUpperCase()}
+            </span>
           </p>
         </div>
       </header>
