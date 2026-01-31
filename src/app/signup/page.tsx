@@ -1,9 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../../lib/firebase"; // make sure this path is correct
-
-import Image from "next/image";
 import { Inter, Nunito } from "next/font/google";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
@@ -16,7 +12,6 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../../../lib/firebase";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { createUserDoc } from "../../../lib/firebaseUser";
@@ -136,7 +131,7 @@ const Signup = () => {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
-        password
+        password,
       );
       const user = userCredential.user;
 
@@ -233,8 +228,8 @@ const Signup = () => {
                 dirtyFields.username && errors.username
                   ? "border-red-500"
                   : dirtyFields.username && !errors.username
-                  ? "border-green-500 focus:border-green-500"
-                  : "border-white"
+                    ? "border-green-500 focus:border-green-500"
+                    : "border-white"
               }`}
               type="text"
               id="username"
@@ -274,8 +269,8 @@ const Signup = () => {
                 dirtyFields.email && errors.email
                   ? "border-red-500"
                   : dirtyFields.email && !errors.email
-                  ? "border-green-500 focus:border-green-500"
-                  : "border-white"
+                    ? "border-green-500 focus:border-green-500"
+                    : "border-white"
               }`}
               type="email"
               id="email"
@@ -314,8 +309,8 @@ const Signup = () => {
                 dirtyFields.password && errors.password
                   ? "border-red-500"
                   : dirtyFields.password && !errors.password
-                  ? "border-green-500 focus:border-green-500"
-                  : "border-white"
+                    ? "border-green-500 focus:border-green-500"
+                    : "border-white"
               }`}
               type="password"
               id="password"

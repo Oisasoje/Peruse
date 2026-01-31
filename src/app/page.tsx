@@ -1,97 +1,176 @@
 "use client";
-import { Inter, Comic_Neue, Fredoka } from "next/font/google";
+import { Inter, Fredoka } from "next/font/google";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600"],
+  weight: ["300", "400", "500", "600"],
 });
-const fredoka = Fredoka({
-  subsets: ["latin"],
-  weight: ["300", "400", "700"],
-});
-const comicNeue = Comic_Neue({
-  subsets: ["latin"],
-  weight: ["300", "400", "700"],
-});
+const fredoka = Fredoka({ subsets: ["latin"], weight: ["400", "700"] });
 
-const page = () => {
+export default function LandingPage() {
   return (
     <div
-      className={`relative bg-cover overflow-hidden max-h-screen w-full ${inter.className}`}
+      className={`min-h-screen bg-[#131f24] text-white overflow-hidden relative ${inter.className}`}
     >
-      <div className="pt-2 w-full min-h-screen flex flex-col">
-        {/* Header */}
-        <header className="flex px-4 w-full justify-center sm:px-6 lg:px-30 mt-3 md:justify-between items-center  sm:mb-4">
-          <h3
-            className={`${fredoka.className} text-blue-500  text-center self-center text-5xl  sm:text-3xl lg:text-4xl font-extrabold`}
+      {/* Background Gradients */}
+      <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px]" />
+      <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px]" />
+
+      {/* Header */}
+      <nav className="relative z-50 flex items-center justify-between px-6 py-6 max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="flex items-center gap-2"
+        >
+          <h1
+            className={`${fredoka.className} text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400`}
           >
             peruse
-          </h3>
+          </h1>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="hidden md:flex items-center gap-6"
+        >
+          <Link
+            href="/login"
+            className="text-gray-300 hover:text-white font-medium transition-colors"
+          >
+            Log in
+          </Link>
           <Link href="/signup">
             <motion.button
-              className="bg-blue-500 hover:bg-blue-400 cursor-pointer text-white hidden md:block will-change-transform px-4 sm:px-6 lg:px-10 py-2 sm:pt-1 sm:pb-2 shadow-black font-bold rounded-xl sm:rounded-2xl border-b-4 border-slate-400 text-sm sm:text-base"
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.5 }}
+              className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2.5 rounded-full font-bold shadow-lg shadow-blue-900/20 transition-all flex items-center gap-2"
             >
-              GET STARTED
+              Get Started
             </motion.button>
           </Link>
-        </header>
+        </motion.div>
+      </nav>
 
-        {/* Main Content */}
-        <div className="px-4 sm:px-6 lg:px-8 w-full flex-1 flex mt-10 md:mt-0 md:items-center justify-center">
-          <div className="grid w-full grid-cols-1  lg:grid-cols-2 gap-8 lg:gap-20 max-w-7xl mx-auto">
-            {/* Image Section */}
-            <div className="w-full h-64 sm:h-80 lg:h-[85vh] rounded-lg  md:shadow-lg  order-1 flex justify-center">
+      {/* Hero Section */}
+      <main className="relative z-10 max-w-7xl mx-auto px-6 h-full flex flex-col md:flex-row items-center justify-center min-h-[85vh] gap-12 lg:gap-20">
+        {/* Text Content */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="flex-1 text-center md:text-left space-y-8"
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/30 border border-blue-500/30 text-blue-300 text-sm font-medium mb-4">
+            <Sparkles size={14} />
+            <span>The #1 Quiz App for Elite Minds</span>
+          </div>
+
+          <h2
+            className={`${fredoka.className} text-5xl md:text-7xl font-bold leading-tight tracking-tight`}
+          >
+            Master The <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-amber-400">
+              Bridge
+            </span>
+          </h2>
+
+          <p className="text-gray-400 text-lg md:text-xl max-w-xl mx-auto md:mx-0 leading-relaxed">
+            Join the top 1% of learners. Peruse isn't just a quiz app—it's a
+            gateway to mastering complex topics with style and speed.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start pt-4">
+            <Link href="/signup" className="w-full sm:w-auto">
+              <motion.button
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl font-bold text-lg shadow-xl shadow-blue-900/30 flex items-center justify-center gap-2 group"
+              >
+                Start Your Journey
+                <ArrowRight
+                  size={20}
+                  className="group-hover:translate-x-1 transition-transform"
+                />
+              </motion.button>
+            </Link>
+
+            <Link href="/login" className="w-full sm:w-auto">
+              <motion.button
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full sm:w-auto px-8 py-4 bg-[#1e293b]/50 border border-slate-600 hover:bg-slate-800 rounded-2xl font-bold text-lg text-gray-200 transition-colors"
+              >
+                I Have an Account
+              </motion.button>
+            </Link>
+          </div>
+        </motion.div>
+
+        {/* Hero Image / Illustration */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="flex-1 w-full max-w-lg md:max-w-xl relative group"
+        >
+          <div className="relative z-10 animate-float">
+            <div className="relative w-full aspect-square bg-gradient-to-tr from-blue-500/10 to-purple-500/10 rounded-3xl border border-white/5 backdrop-blur-sm p-8 flex items-center justify-center">
               <Image
                 src="/assets/bg.svg"
-                alt="background image"
-                width={500}
-                height={500}
-                unoptimized
-                className="h-full w-auto pointer-events-none object-contain"
+                alt="Peruse Hero"
+                width={600}
+                height={600}
+                className="w-full h-full object-contain drop-shadow-2xl"
                 priority
               />
             </div>
 
-            {/* Text and Buttons Section */}
-            <div className="flex gap-6 lg:gap-8 h-full justify-center flex-col order-1 lg:order-2 text-center -mt-30 md:mt-0 items-center lg:text-left">
-              <p className="text-2xl text-center  leading-9 sm:leading-8 lg:leading-11 font-extrabold tracking-wider text-[#4B4B4B] max-w-md sm:max-w-lg lg:max-w-full">
-                The super fun quiz app you need to complete{" "}
-                <span className="text-amber-500 block font-bold text-3xl ">
-                  The Bridge!
-                </span>
-              </p>
-
-              <div className="flex items-center mt-15 md:mt-0 flex-col gap-3 sm:gap-4 w-full max-w-xs sm:max-w-sm">
-                <Link href="/signup" className="w-full">
-                  <motion.button
-                    className="bg-blue-500 text-white w-full cursor-pointer hover:bg-blue-400 py-2 sm:py-3 font-bold rounded-xl sm:rounded-2xl will-change-transform border-b-4 border-slate-400"
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    GET STARTED
-                  </motion.button>
-                </Link>
-                <Link href="/login" className="w-full">
-                  <motion.button
-                    className="w-full py-2 sm:py-3 rounded-xl sm:rounded-2xl border-2 font-bold text-green-500 cursor-pointer border-slate-400 hover:bg-amber-50 border-b-4 px-4"
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    I ALREADY HAVE AN ACCOUNT
-                  </motion.button>
-                </Link>
+            {/* Floating Cards (Decorative) */}
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1,
+              }}
+              className="absolute -top-6 -right-6 bg-[#1e293b] p-4 rounded-xl border border-slate-600 shadow-xl"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-400">
+                  <Sparkles size={20} />
+                </div>
+                <div>
+                  <p className="text-xs text-gray-400">Current Streak</p>
+                  <p className="font-bold text-white">12 Days 🔥</p>
+                </div>
               </div>
-            </div>
+            </motion.div>
+
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -bottom-8 -left-8 bg-[#1e293b] p-4 rounded-xl border border-slate-600 shadow-xl"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">
+                  <span className="font-bold text-lg">A+</span>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-400">Quiz Score</p>
+                  <p className="font-bold text-white">Top 1%</p>
+                </div>
+              </div>
+            </motion.div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </main>
     </div>
   );
-};
-
-export default page;
+}

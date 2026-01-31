@@ -68,7 +68,7 @@ const EmotionalIntelligence = dynamic(
   {
     ssr: false,
     loading: () => <SimpleLoader />,
-  }
+  },
 );
 const Ultralearning = dynamic(() => import("../components/Ultralearning"), {
   ssr: false,
@@ -232,26 +232,30 @@ const Quiz = () => {
 
   return (
     <div
-      className={`min-h-screen ${inter.className} bg-[#131f24] text-white w-full `}
+      className={`min-h-screen ${inter.className} bg-[#131f24] text-white w-full overflow-x-hidden`}
     >
+      {/* Background Gradients */}
+      <div className="fixed top-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="fixed bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
+
       {/* Mobile Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#131f24] border-b border-slate-600 md:hidden">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#131f24]/80 backdrop-blur-md border-b border-slate-700/50 md:hidden">
         <div className="flex items-center justify-between p-4">
           <h3
-            className={`${fredoka.className} text-blue-500 text-4xl font-extrabold`}
+            className={`${fredoka.className} text-blue-500 text-3xl font-extrabold`}
           >
             peruse
           </h3>
 
           <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1">
-              <Flame size={20} color="orange" />
+            <span className="flex items-center gap-1 bg-slate-800/50 px-2 py-1 rounded-full border border-slate-700">
+              <Flame size={18} className="text-orange-500" />
               <span className="text-sm font-semibold">
                 {userData?.streak ?? 0}
               </span>
             </span>
-            <span className="flex items-center gap-1">
-              <HeartOffIcon size={20} color="red" />
+            <span className="flex items-center gap-1 bg-slate-800/50 px-2 py-1 rounded-full border border-slate-700">
+              <HeartOffIcon size={18} className="text-red-500" />
               <span className="text-sm font-semibold">
                 {userData?.hearts ?? 0}
               </span>
@@ -260,12 +264,12 @@ const Quiz = () => {
         </div>
 
         {/* Current Resource Info */}
-        <div className="px-4 pb-4">
-          <p className="font-bold flex flex-col">
-            <span className="text-yellow-500 text-lg truncate">
+        <div className="px-4 pb-3">
+          <p className="font-bold flex flex-col text-xs tracking-wide">
+            <span className="text-yellow-500 uppercase truncate">
               {currentResource}
             </span>
-            <span className="text-sm truncate">
+            <span className="text-slate-400 truncate text-[10px]">
               BY {currentAuthor.toUpperCase()}
             </span>
           </p>
@@ -273,38 +277,47 @@ const Quiz = () => {
       </header>
 
       {/* Main Content */}
-      <main className="md:ml-60 lg:mr-80 pb-20 md:pb-0 pt-24 md:pt-0">
+      <main className="md:ml-64 lg:mr-80 pb-24 md:pb-8 pt-28 md:pt-8 px-4 transition-all duration-300">
         {/* Desktop Header */}
-        <header className="hidden md:flex fixed z-101 rounded-lg top-0 left-60 right-80 h-24 bg-blue-500 items-center justify-between px-6">
-          <div className="flex flex-col space-y-1">
+        <header className="hidden md:flex fixed z-40 rounded-2xl top-4 left-64 right-6 lg:right-84 h-20 bg-[#1e293b]/80 backdrop-blur-xl border border-slate-700/50 items-center justify-between px-8 shadow-xl">
+          <div className="flex flex-col space-y-0.5">
+            <span className="text-xs font-bold text-slate-400 tracking-wider">
+              CURRENTLY READING
+            </span>
             <p className="font-bold flex flex-col">
-              <span className="text-yellow-400">{currentResource}</span>
-              <span className="text-sm">BY {currentAuthor.toUpperCase()}</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-500 text-lg">
+                {currentResource}
+              </span>
+              <span className="text-xs text-slate-500 font-medium">
+                BY {currentAuthor.toUpperCase()}
+              </span>
             </p>
           </div>
 
           <div className="relative group">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               disabled={isProcessing}
               onClick={() => setIsResourcesOpen(!isResourcesOpen)}
-              className="flex items-center gap-2 px-4 py-3 disabled:opacity-50 border-2 border-b-4 border-slate-600 text-sm font-semibold rounded-2xl cursor-pointer hover:opacity-80"
+              className="flex items-center gap-2 px-5 py-2.5 disabled:opacity-50 border border-slate-600 bg-slate-800/50 hover:bg-slate-700 text-sm font-bold rounded-xl cursor-pointer transition-all shadow-lg"
             >
-              <Library size={24} color="purple" />
-              RESOURCES
-            </button>
+              <Library size={20} className="text-purple-400" />
+              LIBRARY
+            </motion.button>
 
             <AnimatePresence>
               {isResourcesOpen && (
                 <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="absolute opacity-100 visible transition overflow-hidden left-0 w-75 text-center rounded-2xl z-[200] bg-[#131f24] border-slate-600 border-2 mt-2"
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                  className="absolute right-0 w-80 rounded-2xl z-[200] bg-[#1e293b] border border-slate-600 shadow-2xl mt-4 overflow-hidden"
                 >
-                  <div className="sticky top-0 bg-[#131f24] px-4 text-left py-2 border-b-2 border-slate-500 text-gray-400">
-                    Resources
+                  <div className="bg-slate-800/50 px-4 py-3 border-b border-slate-700 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                    Available Books
                   </div>
-                  <div className="max-h-64 overflow-y-auto p-4 flex flex-col gap-2">
+                  <div className="max-h-72 overflow-y-auto p-2 flex flex-col gap-1">
                     {bookResources.map(({ title, author }) => (
                       <button
                         onClick={() => {
@@ -312,14 +325,19 @@ const Quiz = () => {
                           setCurrentAuthor(author);
                           setIsResourcesOpen(false);
                         }}
-                        className={`font-semibold cursor-pointer hover:bg-[#14545b] tracking-wider w-full text-sm rounded-2xl p-2 text-left ${
+                        className={`group flex flex-col items-start px-4 py-3 rounded-xl transition-all ${
                           currentResource === title
-                            ? "bg-[#14545b]"
-                            : "bg-[#0b2f33]"
+                            ? "bg-blue-600/20 border border-blue-500/30"
+                            : "hover:bg-slate-700/50 border border-transparent"
                         }`}
                         key={title}
                       >
-                        {title}
+                        <span
+                          className={`font-bold text-sm ${currentResource === title ? "text-blue-400" : "text-slate-200"}`}
+                        >
+                          {title}
+                        </span>
+                        <span className="text-xs text-slate-500">{author}</span>
                       </button>
                     ))}
                   </div>
@@ -330,22 +348,31 @@ const Quiz = () => {
         </header>
 
         {/* Content Grid */}
-        <div className="px-4 md:px-2 pb-4 mx-auto space-y-4 gap-2 grid grid-cols-2 lg:grid-cols-3 pt-20 w-full md:pt-30">
-          {renderedResource}
+        <div className="mx-auto w-full md:pt-24 space-y-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {renderedResource}
+          </motion.div>
         </div>
 
-        {/* Mobile Resources Dropdown */}
-        <div className="fixed bottom-20 right-4 md:hidden z-40">
+        {/* Mobile Resources FAB */}
+        <div className="fixed bottom-24 right-6 md:hidden z-40">
           <AnimatePresence>
             {isResourcesOpen && (
               <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                className="bg-[#131f24] border-2 border-slate-600 rounded-2xl p-4 mb-2 max-h-64 overflow-y-auto"
+                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.8, y: 20 }}
+                className="absolute bottom-16 right-0 w-72 bg-[#1e293b] border border-slate-600 rounded-2xl shadow-2xl overflow-hidden mb-2"
               >
-                <div className="text-gray-400 text-sm mb-2">Resources</div>
-                <div className="flex flex-col gap-2">
+                <div className="bg-slate-800/50 px-4 py-3 text-xs font-bold text-slate-400 uppercase tracking-wider border-b border-slate-700">
+                  Library
+                </div>
+                <div className="max-h-60 overflow-y-auto p-2 space-y-1">
                   {bookResources.map(({ title, author }) => (
                     <button
                       onClick={() => {
@@ -353,14 +380,19 @@ const Quiz = () => {
                         setCurrentAuthor(author);
                         setIsResourcesOpen(false);
                       }}
-                      className={`font-semibold  cursor-pointer hover:bg-[#14545b] tracking-wider text-sm rounded-2xl p-2 text-left ${
+                      className={`w-full text-left px-4 py-3 rounded-xl transition-all ${
                         currentResource === title
-                          ? "bg-[#14545b]"
-                          : "bg-[#0b2f33]"
+                          ? "bg-blue-600/20 border border-blue-500/30"
+                          : "hover:bg-slate-700/50 border border-transparent"
                       }`}
                       key={title}
                     >
-                      {title}
+                      <div
+                        className={`font-bold text-sm ${currentResource === title ? "text-blue-400" : "text-white"}`}
+                      >
+                        {title}
+                      </div>
+                      <div className="text-xs text-slate-500">{author}</div>
                     </button>
                   ))}
                 </div>
@@ -368,13 +400,14 @@ const Quiz = () => {
             )}
           </AnimatePresence>
 
-          <button
+          <motion.button
+            whileTap={{ scale: 0.9 }}
             disabled={isProcessing}
             onClick={() => setIsResourcesOpen(!isResourcesOpen)}
-            className="bg-blue-500 disabled:opacity-50 p-4 rounded-full shadow-lg"
+            className="bg-blue-600 hover:bg-blue-500 disabled:opacity-50 w-14 h-14 rounded-full shadow-lg shadow-blue-900/40 flex items-center justify-center text-white transition-colors"
           >
-            <Library size={24} color="white" />
-          </button>
+            <Library size={24} />
+          </motion.button>
         </div>
       </main>
     </div>

@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { HeartOffIcon, X } from "lucide-react";
+import { HeartOffIcon, X, CheckCircle2, AlertCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { auth, db } from "../../../lib/firebase";
@@ -22,7 +22,7 @@ import {
 } from "firebase/firestore";
 import toast from "react-hot-toast";
 import { serverTimestamp } from "firebase/firestore";
-import { Inter } from "next/font/google";
+import { Fredoka, Inter } from "next/font/google";
 
 interface Questions {
   id: number;
@@ -32,8 +32,9 @@ interface Questions {
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
 });
+const fredoka = Fredoka({ subsets: ["latin"], weight: ["400", "600"] });
 
 type UserDoc = {
   createdAt: string;
@@ -49,6 +50,7 @@ type UserDoc = {
 
 type SelectedOptions = Record<number, string>;
 
+// ... (your impatientPlaceholders array remains the same, omitted for brevity but presumed kept or imported ideally)
 const impatientPlaceholders = [
   "Are you going to pick an option or should I come back tomorrow?",
   "The suspense is killing me... and not in a good way.",
@@ -132,11 +134,14 @@ const QuestionsComponent = ({
   // normalize parsed selectedOptions so keys are numbers & strings trimmed
   const normalizeSelectedOptions = (raw: any) => {
     if (!raw || typeof raw !== "object") return {};
-    return Object.entries(raw).reduce((acc, [k, v]) => {
-      const val = typeof v === "string" ? v.trim() : String(v);
-      acc[Number(k)] = val;
-      return acc;
-    }, {} as Record<number, string>);
+    return Object.entries(raw).reduce(
+      (acc, [k, v]) => {
+        const val = typeof v === "string" ? v.trim() : String(v);
+        acc[Number(k)] = val;
+        return acc;
+      },
+      {} as Record<number, string>,
+    );
   };
 
   const completionMessages = [
@@ -161,10 +166,9 @@ const QuestionsComponent = ({
 
   const [isLoading, setIsLoading] = useState(false);
   const [roasts, setRoasts] = useState<Record<number, string>>({});
-  const [roastCache, setRoastCache] = useState<Record<string, string>>({});
   const [hasRestoredProgress, setHasRestoredProgress] = useState(false);
   const [isRoastLoading, setIsRoastLoading] = useState<Record<number, boolean>>(
-    {}
+    {},
   );
   const [resultModal, setResultModal] = useState(false);
 
@@ -175,16 +179,14 @@ const QuestionsComponent = ({
 
   useEffect(() => {
     if (!hasRestoredProgress) return;
-
     const quizProgress = {
       selectedOptions,
       currentQuestionIndex,
       roasts,
     };
-
     sessionStorage.setItem(
       `quiz-${quizId}-progress`,
-      JSON.stringify(quizProgress)
+      JSON.stringify(quizProgress),
     );
   }, [
     selectedOptions,
@@ -194,10 +196,9 @@ const QuestionsComponent = ({
     hasRestoredProgress,
   ]);
 
-  // Restore progress from sessionStorage on component mount
   useEffect(() => {
     const navEntries = performance.getEntriesByType(
-      "navigation"
+      "navigation",
     ) as PerformanceNavigationTiming[];
     const isReload = navEntries.length > 0 && navEntries[0].type === "reload";
 
@@ -217,17 +218,16 @@ const QuestionsComponent = ({
     try {
       const progress = JSON.parse(savedProgress);
       const normalizedSelectedOptions = normalizeSelectedOptions(
-        progress.selectedOptions
+        progress.selectedOptions,
       );
 
       setSelectedOptions(normalizedSelectedOptions);
       setCurrentQuestionIndex(
         typeof progress.currentQuestionIndex !== "undefined"
           ? Number(progress.currentQuestionIndex)
-          : 0
+          : 0,
       );
       setRoasts(progress.roasts || {});
-
       toast.success("Your quiz progress has been restored!");
     } catch (error) {
       console.error("Error restoring quiz progress:", error);
@@ -237,7 +237,6 @@ const QuestionsComponent = ({
     }
   }, [quizId, setSelectedOptions, setCurrentQuestionIndex]);
 
-  // Clear progress when quiz is completed
   const clearQuizProgress = () => {
     sessionStorage.removeItem(`quiz-${quizId}-progress`);
   };
@@ -270,7 +269,7 @@ const QuestionsComponent = ({
   const handleClickOption = async (
     option: string,
     event: MouseEvent<HTMLDivElement>,
-    index: number
+    index: number,
   ) => {
     if (currentSelectedOption || isLoading) return;
 
@@ -326,7 +325,6 @@ const QuestionsComponent = ({
       const now = new Date();
       const today = now.toISOString().split("T")[0];
 
-      // Handle last answered date
       let lastDateStr: string | null = null;
       if (userData.lastAnsweredAt) {
         if (userData.lastAnsweredAt instanceof Timestamp) {
@@ -339,7 +337,6 @@ const QuestionsComponent = ({
         }
       }
 
-      // Calculate streak
       let streakUpdate = userData.streak || 0;
       if (!lastDateStr) {
         streakUpdate = 1;
@@ -353,30 +350,20 @@ const QuestionsComponent = ({
 
           if (lastDateStr === yesterdayStr) {
             streakUpdate += 1;
-            console.log("Consecutive day! New streak:", streakUpdate);
           } else {
             streakUpdate = 1;
-            console.log("Not consecutive, reset streak to 1");
           }
         }
       }
 
-      // Generate chapter ID for completion tracking
-      const chapterId = `${book
-        .toLowerCase()
-        .replace(/\s+/g, "-")}-chapter-${id}`;
+      const chapterId = `${book.toLowerCase().replace(/\s+/g, "-")}-chapter-${id}`;
 
-      // Update user document with quiz completion and chapter progress
       await updateDoc(userRef, {
         quizzesTaken: increment(1),
         lastAnsweredAt: serverTimestamp(),
         streak: streakUpdate,
-        completedChapters: arrayUnion(chapterId), // Add chapter to completed array
+        completedChapters: arrayUnion(chapterId),
       });
-
-      console.log("Quiz submitted successfully!");
-      console.log("Chapter completed:", chapterId);
-      console.log("New streak:", streakUpdate);
 
       clearQuizProgress();
       toast.success("Chapter completed! 🎉");
@@ -392,29 +379,12 @@ const QuestionsComponent = ({
     }
   };
 
-  useEffect(() => {
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      if (Object.keys(selectedOptions).length > 0) {
-        e.preventDefault();
-        e.returnValue =
-          "You have unsaved quiz progress. Are you sure you want to leave?";
-        return e.returnValue;
-      }
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, [selectedOptions]);
-
   const isLastQuestion = currentQuestionIndex === 9;
 
   if (!hasRestoredProgress) {
     return (
-      <div className="pt-5 w-full h-full flex items-center justify-center">
-        <span>Loading your quiz…</span>
+      <div className="flex items-center justify-center min-h-[50vh]">
+        <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -423,199 +393,216 @@ const QuestionsComponent = ({
 
   return (
     <div
-      className={`pt-5 ${inter.className} w-full flex flex-col items-center px-4 sm:px-6 lg:px-8`}
+      className={`w-full max-w-5xl mx-auto flex flex-col items-center px-4 md:px-6 pb-20 md:pb-0 ${inter.className}`}
     >
       {isLoading && (
-        <div className="flex w-full h-screen items-center justify-center p-8">
-          <div className="w-10 h-10 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
         </div>
       )}
-      {resultModal && (
-        <div
-          className={`inset-0 z-50 fixed bg-black/40 flex justify-center items-center w-full h-full ${inter.className} px-4`}
-        >
-          <div className="bg-blue-500 text-center p-4 sm:p-6 rounded-2xl shadow-lg max-w-md w-full mx-4 text-white">
-            <h1 className="text-xl sm:text-2xl tracking-wider font-bold">
-              Congratulations! <span className="text-2xl sm:text-3xl">🎉</span>
-            </h1>
-            <p className="mt-2 text-base sm:text-lg">{randomMessage}</p>
 
-            <div className="flex flex-col sm:flex-row gap-3 justify-center mt-6">
-              <Link href={"/take-quiz"}>
-                <button className="bg-blue-600 cursor-pointer px-4 py-2 rounded-xl hover:bg-blue-800 w-full sm:w-auto">
-                  Back To Home
-                </button>
+      {/* Result Modal */}
+      <AnimatePresence>
+        {resultModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              className="bg-[#1e293b] border border-slate-700 text-center p-8 rounded-3xl shadow-2xl max-w-md w-full relative overflow-hidden"
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500" />
+
+              <div className="w-20 h-20 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">
+                🎉
+              </div>
+
+              <h2
+                className={`${fredoka.className} text-3xl font-extrabold text-white mb-4`}
+              >
+                Chapter Conquered!
+              </h2>
+              <p className="text-gray-300 text-lg mb-8 leading-relaxed">
+                {randomMessage}
+              </p>
+
+              <Link href="/take-quiz">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-900/40 transition-all"
+                >
+                  Return to Dashboard
+                </motion.button>
               </Link>
-            </div>
-          </div>
-        </div>
-      )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* Header Section */}
-      <div className="flex w-full items-center justify-between gap-3 sm:gap-5 mt-4 max-w-4xl">
-        <Link href={"/take-quiz"}>
-          <span className="text-[#37464f]">
-            <X
-              size={30}
-              className="sm:size-[30px] hover:opacity-60 cursor-pointer"
-            />
-          </span>
+      {/* Top Bar: Progress & Exit */}
+      <div className="w-full flex items-center justify-between gap-6 py-6 border-b border-white/5 mb-8">
+        <Link href="/take-quiz">
+          <button className="p-2 hover:bg-white/5 rounded-xl transition-colors text-slate-400 hover:text-white">
+            <X size={24} />
+          </button>
         </Link>
 
-        <div className="flex-1 max-w-2xl">
-          <div className="w-full overflow-hidden h-4 bg-[#37464f] rounded-2xl">
-            <div
-              className="h-4 rounded-2xl bg-blue-500 transition-all duration-500 ease-in-out"
-              style={{ width: `${width}%` }}
-            ></div>
-          </div>
+        <div className="flex-1 h-3 bg-slate-800 rounded-full overflow-hidden">
+          <motion.div
+            initial={{ width: 0 }}
+            animate={{ width: `${width}%` }}
+            transition={{ type: "spring", stiffness: 50, damping: 20 }}
+            className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
+          />
         </div>
 
-        <span className="flex items-center gap-2 min-w-fit">
-          <HeartOffIcon
-            size={30}
-            className="sm:size-[30px]"
-            strokeWidth={3}
-            color="red"
-          />
-          <span className="flex flex-col">
-            <span className="font-semibold text-base sm:text-lg text-red-500">
-              {hearts}
-            </span>
-          </span>
-        </span>
+        <div className="bg-red-500/10 px-3 py-1.5 rounded-full flex items-center gap-2 border border-red-500/20">
+          <HeartOffIcon size={18} className="text-red-500" />
+          <span className="font-bold text-red-500">{hearts}</span>
+        </div>
       </div>
 
-      {/* Question Content */}
+      {/* Question Card */}
       <AnimatePresence mode="wait">
         <motion.div
           key={currentQuestionIndex}
-          initial={{ x: direction * 30, opacity: 0 }}
+          initial={{ x: direction * 50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          exit={{ x: direction * -30, opacity: 0 }}
-          transition={{ duration: 0.4 }}
-          className="mt-5 w-full max-w-4xl"
+          exit={{ x: direction * -50, opacity: 0 }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          className="w-full max-w-3xl"
         >
-          {/* Question Text */}
-          <div className="px-2 sm:px-0">
-            <span className="text-lg sm:text-xl lg:text-2xl text-gray-100 font-extrabold tracking-wider leading-relaxed">
-              {question}
-            </span>
-          </div>
+          <h2 className="text-2xl md:text-3xl font-bold leading-relaxed text-center mb-8 md:mb-12">
+            {question}
+          </h2>
 
-          {/* Character and Speech Bubble */}
-          <div className="flex flex-row gap-4 items-start sm:items-center mt-6 px-2 sm:px-0">
-            <div className="w-20 h-20 sm:w-20 sm:h-20 lg:w-25 lg:h-25 border-amber-500 border-2 border-b-4 sm:ml-12 shadow-black shadow-xl rounded-full overflow-hidden flex-shrink-0">
+          {/* Character / Roast Area */}
+          <div className="flex flex-col md:flex-row items-center gap-6 mb-10 bg-slate-800/30 p-4 rounded-2xl border border-white/5">
+            <div className="relative w-16 h-16 md:w-20 md:h-20 flex-shrink-0">
+              <div className="absolute inset-0 bg-amber-500 rounded-full blur-[2px] opacity-20 animate-pulse" />
               <Image
                 src="/assets/mezie-cartoon.jpg"
                 alt="Mezie The Sage"
-                width={100}
-                height={100}
-                className="w-full h-full pointer-events-none object-cover"
+                width={80}
+                height={80}
+                className="rounded-full border-2 border-amber-500 relative z-10 w-full h-full object-cover"
               />
             </div>
 
-            <div className="relative bg-slate-600 text-white p-3 sm:p-4 rounded-xl max-w-full sm:max-w-xs lg:max-w-md">
-              <div className="absolute -left-2 top-4 w-4 h-4 rotate-45 bg-slate-600 block"></div>
-
-              <p className="relative z-10 tracking-wider text-sm sm:text-base leading-relaxed">
+            <div className="relative flex-1 bg-slate-800 p-4 rounded-2xl rounded-tl-none border border-slate-700 w-full text-center md:text-left">
+              <div className="absolute top-0 left-[-8px] w-0 h-0 border-t-[10px] border-r-[10px] border-b-[0px] border-transparent border-r-slate-800 hidden md:block" />
+              <p className="text-sm md:text-base text-gray-300 italic">
+                "
                 {isRoastLoading[currentQuestionIndex]
-                  ? "Loading roast..."
-                  : roasts[currentQuestionIndex] ??
-                    getRandomPlaceholder(currentQuestionIndex)}
+                  ? "Evaluating your life choices..."
+                  : (roasts[currentQuestionIndex] ??
+                    getRandomPlaceholder(currentQuestionIndex))}
+                "
               </p>
             </div>
           </div>
 
-          {/* Options */}
-          <div className="mt-6 sm:mt-8 space-y-3 w-full">
+          {/* Options Grid */}
+          <div className="grid gap-3">
             {options.map((option, index) => {
               const isSelected = currentSelectedOption === option.trim();
-              const hasAnswerForThisQuestion =
-                Object.prototype.hasOwnProperty.call(
-                  selectedOptions,
-                  currentQuestionIndex
-                );
+              const hasAnswered = !!currentSelectedOption;
 
               return (
-                <motion.div
+                <motion.button
                   key={index}
-                  animate={{
-                    scale: isSelected ? 0.98 : 1,
-                    opacity: hasAnswerForThisQuestion && !isSelected ? 0.7 : 1,
-                  }}
-                  transition={{ duration: 0.4 }}
-                  className={`w-full px-4 py-3 sm:px-6 sm:py-4 rounded-2xl text-base sm:text-lg
+                  whileHover={
+                    !hasAnswered
+                      ? {
+                          scale: 1.01,
+                          backgroundColor: "rgba(30, 41, 59, 0.8)",
+                        }
+                      : {}
+                  }
+                  whileTap={!hasAnswered ? { scale: 0.99 } : {}}
+                  onClick={(e: any) => handleClickOption(option, e, index)}
+                  disabled={hasAnswered}
+                  className={`
+                    w-full p-4 md:p-5 text-left rounded-xl border-2 transition-all duration-300 text-base md:text-lg font-medium relative overflow-hidden group
                     ${
                       isSelected
-                        ? "bg-slate-800 border-amber-500"
-                        : hasAnswerForThisQuestion
-                        ? "bg-gray-600 cursor-not-allowed"
-                        : "hover:bg-slate-700 cursor-pointer"
+                        ? "bg-blue-600/20 border-blue-500 text-white shadow-[0_0_30px_rgba(59,130,246,0.2)]"
+                        : "bg-[#1e293b] border-slate-700 text-gray-300 hover:border-slate-500"
                     }
-                    font-bold border-2 border-b-4 tracking-wide transition-colors duration-200`}
-                  onClick={(event) => {
-                    if (!currentSelectedOption) {
-                      handleClickOption(option, event, index);
-                    }
-                  }}
+                    ${hasAnswered && !isSelected ? "opacity-50 grayscale" : ""}
+                  `}
                 >
-                  {option}
-                </motion.div>
+                  <div className="flex items-center gap-4 relative z-10">
+                    <div
+                      className={`
+                      w-8 h-8 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors
+                      ${isSelected ? "border-blue-400 bg-blue-500 text-white" : "border-slate-500 text-slate-500 group-hover:border-slate-400"}
+                    `}
+                    >
+                      {isSelected ? (
+                        <CheckCircle2 size={16} />
+                      ) : (
+                        <span className="text-xs font-bold">
+                          {String.fromCharCode(65 + index)}
+                        </span>
+                      )}
+                    </div>
+                    <span>{option}</span>
+                  </div>
+                </motion.button>
               );
             })}
           </div>
         </motion.div>
       </AnimatePresence>
 
-      {/* Navigation Buttons */}
-      <div className="flex flex-col sm:flex-row gap-4 sm:gap-0 mt-8 sm:mt-10 justify-between w-full max-w-4xl px-2 sm:px-0">
-        <button
-          disabled={currentQuestionIndex === 0}
-          className={`px-6 py-3 sm:px-15 sm:py-2 rounded-2xl text-base sm:text-xl font-bold tracking-wider border-2 border-b-4
-            ${
-              currentQuestionIndex === 0
-                ? "text-slate-500 border-slate-500 cursor-not-allowed opacity-40"
-                : "text-white border-white cursor-pointer hover:bg-[#101b1f]"
-            } outline-none transition-colors duration-200`}
-          onClick={() => {
-            setCurrentQuestionIndex((prev) => prev - 1);
-            setDirection(-1);
-          }}
-        >
-          Previous
-        </button>
-
-        {isLastQuestion ? (
+      {/* Footer Navigation */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-[#131f24]/90 backdrop-blur-lg border-t border-white/5 md:relative md:bg-transparent md:border-t-0 md:mt-12 md:p-0">
+        <div className="max-w-3xl mx-auto flex items-center justify-between gap-4">
           <button
-            className="px-6 py-3 sm:px-10 sm:py-2 outline-none rounded-2xl text-base sm:text-xl font-bold cursor-pointer 
-              text-white tracking-wider bg-green-500 hover:bg-green-600 disabled:bg-green-300 disabled:cursor-not-allowed
-              transition-colors duration-200 w-full sm:w-auto"
-            onClick={handleSubmitQuiz}
-            disabled={!selectedOptions[currentQuestionIndex] || isSubmitting}
-          >
-            {isSubmitting ? "Submitting..." : "Submit Quiz"}
-          </button>
-        ) : (
-          <button
-            disabled={!selectedOptions[currentQuestionIndex]}
-            className={`px-6 py-3 sm:px-15 sm:py-2 outline-none rounded-2xl text-base sm:text-xl font-bold tracking-wider 
-              transition-all duration-200 w-full sm:w-auto
-              ${
-                !selectedOptions[currentQuestionIndex]
-                  ? "bg-blue-300 text-slate-700 cursor-not-allowed"
-                  : "bg-blue-500 text-[#131f24] hover:bg-blue-400 cursor-pointer"
-              }`}
             onClick={() => {
-              if (selectedOptions[currentQuestionIndex]) {
-                setCurrentQuestionIndex((prev) => prev + 1);
-                setDirection(1);
-              }
+              setCurrentQuestionIndex((prev) => prev - 1);
+              setDirection(-1);
             }}
+            disabled={currentQuestionIndex === 0}
+            className="px-6 py-3 rounded-xl font-bold text-slate-400 hover:bg-slate-800 disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
           >
-            Next
+            Previous
           </button>
-        )}
+
+          {isLastQuestion ? (
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleSubmitQuiz}
+              disabled={!currentSelectedOption || isSubmitting}
+              className="px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-xl shadow-lg shadow-green-900/20 disabled:opacity-50 disabled:shadow-none flex items-center gap-2"
+            >
+              {isSubmitting ? "Finishing..." : "Complete Chapter"}
+              {!isSubmitting && <CheckCircle2 size={18} />}
+            </motion.button>
+          ) : (
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                if (currentSelectedOption) {
+                  setCurrentQuestionIndex((prev) => prev + 1);
+                  setDirection(1);
+                }
+              }}
+              disabled={!currentSelectedOption}
+              className="px-8 py-3 bg-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-900/20 disabled:bg-slate-700 disabled:text-slate-500 disabled:shadow-none transition-all"
+            >
+              Next Question
+            </motion.button>
+          )}
+        </div>
       </div>
     </div>
   );

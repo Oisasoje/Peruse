@@ -1,7 +1,39 @@
 @import "tailwindcss";
-/* Remove Chrome/Edge/Safari autofill background */
+
+@theme {
+  --font-display: "Fredoka", "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+/* Premium Glassmorphism & Base Styles */
+:root {
+  --background: #131f24;
+  --foreground: #ffffff;
+  --primary: #3b82f6; /* Blue 500 */
+  --secondary: #f59e0b; /* Amber 500 */
+}
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-[#131f24] text-white antialiased overflow-x-hidden;
+    font-family: var(--font-body);
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #131f24;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-700 rounded-full hover:bg-slate-600;
+  }
+
   /* autofill for chrome/edge/safari */
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
@@ -27,4 +59,21 @@
     /* prevents that yellow flash */
     transition: background-color 5000s ease-in-out 0s;
   }
+}
+
+/* Utility Animations */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
 }
