@@ -9,7 +9,7 @@ import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import toast from "react-hot-toast";
 import { auth } from "../../../lib/firebase";
 import { useRouter } from "next/navigation";
-import { Fredoka, Inter } from "next/font/google"; // Corrected import
+import { Fredoka, Inter } from "next/font/google";
 import { KeyRound, Mail, ArrowRight } from "lucide-react";
 
 const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600"] });
@@ -58,11 +58,6 @@ const Login = () => {
     const t = toast.loading("Logging in...");
 
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password,
-      );
       toast.success("Logged in!", { id: t });
       router.replace("/take-quiz");
     } catch (error: any) {
@@ -95,7 +90,6 @@ const Login = () => {
     <div
       className={`min-h-screen relative flex items-center justify-center p-4 bg-[#131f24] overflow-hidden ${inter.className}`}
     >
-      {/* Background Gradients */}
       <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px]" />
       <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px]" />
 
@@ -207,7 +201,7 @@ const Login = () => {
               whileTap={{ scale: 0.98 }}
               disabled={loading}
               type="submit"
-              className={`w-full py-3.5 rounded-xl font-bold font-display shadow-lg transition-all flex items-center justify-center gap-2
+              className={`w-full cursor-pointer py-3.5 rounded-xl font-medium font-display shadow-lg transition-all flex items-center justify-center gap-2
                 ${
                   isFormValid
                     ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-blue-900/20"

@@ -1,10 +1,24 @@
 import { doc, getDoc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
-import { ClipboardList, Crown, Flame, HeartOffIcon, Medal } from "lucide-react";
+import {
+  ClipboardList,
+  Crown,
+  Flame,
+  Heart,
+  Medal,
+  PenLine,
+  X,
+  Check,
+} from "lucide-react";
 import { auth, db } from "../../../lib/firebase";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { onAuthStateChanged, updateProfile } from "firebase/auth";
 import z from "zod";
+import { Fredoka, Inter } from "next/font/google";
+import { motion, AnimatePresence } from "framer-motion";
+
+const fredoka = Fredoka({ subsets: ["latin"], weight: ["400", "600"] });
+const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600"] });
 
 const usernameSchema = z.string().min(1, "Required").max(25, "Max 25 chars");
 
@@ -103,46 +117,53 @@ const UsernameEditor = () => {
   };
 
   return editUsername ? (
-    <div className="flex flex-col gap-2 justify-between w-full">
+    <div className="flex flex-col gap-2 w-full animate-in fade-in slide-in-from-top-2 duration-300">
       <input
-        className="border-2 border-amber-600 outline-none px-2 py-1 w-full max-w-xs mt-2 rounded-lg tracking-wider text-[15px]"
+        className={`bg-black/30 border border-white/20 outline-none px-3 py-2 w-full rounded-xl text-sm text-white placeholder-white/30 focus:border-blue-500/50 transition-all ${inter.className}`}
         value={username}
         onChange={(e) => setUsername(e.target.value)}
+        placeholder="Enter username"
+        autoFocus
       />
-      <div className="h-4 -mt-3">
+      <div className="h-4 -mt-1">
         {usernameError && (
-          <p className="text-red-500 text-sm">{usernameError}</p>
+          <p className="text-red-400 text-xs">{usernameError}</p>
         )}
       </div>
       <div className="flex w-full gap-2">
         <button
-          className="bg-green-500 rounded-lg text-sm w-fit font-semibold px-3 cursor-pointer hover:bg-green-600 py-2 flex-1"
+          className="bg-green-500/20 text-green-400 border border-green-500/30 rounded-lg text-xs font-bold px-3 py-2 flex-1 hover:bg-green-500/30 transition-colors flex items-center justify-center gap-1"
           onClick={confirmUsername}
         >
-          CONFIRM
+          <Check size={14} /> SAVE
         </button>
         <button
-          className="bg-red-500 rounded-lg text-sm w-fit font-semibold px-3 cursor-pointer hover:bg-red-600 py-2 flex-1"
+          className="bg-red-500/20 text-red-400 border border-red-500/30 rounded-lg text-xs font-bold px-3 py-2 flex-1 hover:bg-red-500/30 transition-colors flex items-center justify-center gap-1"
           onClick={() => cancelUsername()}
         >
-          CANCEL
+          <X size={14} /> CANCEL
         </button>
       </div>
     </div>
   ) : (
-    <div className="flex flex-col w-full">
-      <p className="font-bold tracking-wider text-[17px] break-words">
-        {username || "Loading username..."}
-      </p>
-      <button
-        className={`bg-yellow-500 w-full gap-2 rounded-lg text-sm font-semibold px-4 cursor-pointer hover:bg-yellow-600 py-2 mt-2 ${
-          isLoading ? "opacity-50 cursor-not-allowed hover:bg-yellow-500" : ""
-        }`}
-        onClick={() => !isLoading && setEditUsername(true)}
-        disabled={isLoading}
-      >
-        EDIT USERNAME
-      </button>
+    <div className="flex flex-col w-full group">
+      <div className="flex items-center justify-between">
+        <p
+          className={`font-semibold tracking-wide text-[16px] break-words text-white ${inter.className}`}
+        >
+          {username || "Loading..."}
+        </p>
+        <button
+          className={`text-slate-400 hover:text-white transition-colors p-1.5 hover:bg-white/10 rounded-lg opacity-0 group-hover:opacity-100 ${
+            isLoading ? "cursor-not-allowed opacity-0" : ""
+          }`}
+          onClick={() => !isLoading && setEditUsername(true)}
+          disabled={isLoading}
+          title="Edit Username"
+        >
+          <PenLine size={16} />
+        </button>
+      </div>
     </div>
   );
 };
@@ -158,6 +179,8 @@ const podOptions = [
   "The Catalysts",
   "The Phoenixes",
   "The Victors",
+  "The Trailblazers",
+  "The Vanguards",
 ];
 
 const PodNameEditor = () => {
@@ -237,65 +260,73 @@ const PodNameEditor = () => {
   };
 
   return editPodName ? (
-    <div className="flex flex-col gap-2 w-full">
+    <div className="flex flex-col  py-6 gap-2 w-full animate-in fade-in slide-in-from-top-2 duration-300">
       <select
-        className="border-2 border-amber-600 outline-none px-2 py-2 w-full max-w-xs mt-2 rounded-lg tracking-wider text-[15px] cursor-pointer text-white bg-[#131f24]"
+        className={`bg-black/30 border border-white/20 outline-none px-3 py-2 w-full rounded-xl text-sm text-white cursor-pointer focus:border-blue-500/50 transition-all ${inter.className}`}
         value={podName}
         onChange={(e) => setPodName(e.target.value)}
       >
-        <option value="Select your pod">Select your pod</option>
+        <option value="Select your pod" className="bg-[#131f24] text-gray-400">
+          Select your pod
+        </option>
         {podOptions.map((pod) => (
-          <option key={pod} value={pod}>
+          <option key={pod} value={pod} className="bg-[#131f24] text-white">
             {pod}
           </option>
         ))}
       </select>
-      {podNameError && <p className="text-red-500 text-sm">{podNameError}</p>}
+      {podNameError && <p className="text-red-400 text-xs">{podNameError}</p>}
       <div className="flex w-full gap-2">
         <button
-          className="bg-green-500 rounded-lg text-sm w-fit font-semibold px-3 py-2 cursor-pointer hover:bg-green-600 flex-1"
+          className="bg-green-500/20 text-green-400 border border-green-500/30 rounded-lg text-xs font-bold px-3 py-2 flex-1 hover:bg-green-500/30 transition-colors flex items-center justify-center gap-1"
           onClick={confirmPodName}
           disabled={podName === "Select your pod"}
         >
-          CONFIRM
+          <Check size={14} /> CONFIRM
         </button>
         <button
-          className="bg-red-500 rounded-lg text-sm w-fit font-semibold px-3 py-2 cursor-pointer hover:bg-red-600 flex-1"
+          className="bg-red-500/20 text-red-400 border border-red-500/30 rounded-lg text-xs font-bold px-3 py-2 flex-1 hover:bg-red-500/30 transition-colors flex items-center justify-center gap-1"
           onClick={() => setEditPodName(false)}
         >
-          CANCEL
+          <X size={14} /> CANCEL
         </button>
       </div>
     </div>
   ) : (
     <div className="flex flex-col gap-2 w-full">
-      <p className="font-bold text-white tracking-widest text-[17px] break-words">
-        {podName}
-      </p>
+      <div className="flex items-center justify-between group">
+        <p
+          className={`font-semibold text-white tracking-wide text-[16px] break-words ${inter.className}`}
+        >
+          {podName}
+        </p>
+        <button
+          className={`text-slate-400 hover:text-white transition-colors p-1.5 hover:bg-white/10 rounded-lg opacity-0 group-hover:opacity-100 ${
+            isLoading || changeCount >= 2
+              ? "opacity-0 cursor-not-allowed hidden"
+              : ""
+          }`}
+          onClick={() => !isLoading && changeCount < 2 && setEditPodName(true)}
+          disabled={isLoading || changeCount >= 2}
+          title="Change Pod"
+        >
+          <PenLine size={16} />
+        </button>
+      </div>
 
-      <button
-        className={`bg-yellow-500 rounded-lg text-sm cursor-pointer font-semibold px-4 py-2 w-full hover:bg-yellow-600 ${
-          isLoading || changeCount >= 2
-            ? "opacity-50 cursor-not-allowed hover:bg-yellow-500"
-            : ""
-        }`}
-        onClick={() => !isLoading && changeCount < 2 && setEditPodName(true)}
-        disabled={isLoading || changeCount >= 2}
-      >
-        {isNewUser ? "SELECT POD" : "CHANGE POD"}
-      </button>
-
-      <p
-        className={`text-xs font-bold text-center ${
-          changeCount === 0 ? "text-blue-500" : "text-red-500"
-        } `}
-      >
-        {isNewUser
-          ? "Welcome! Select your pod to get started."
-          : `${2 - changeCount} ${
-              changeCount > 0 ? "change" : "changes"
-            } remaining`}
-      </p>
+      {(isNewUser || changeCount < 2) && (
+        <p
+          className={`text-[10px] font-bold uppercase tracking-wider ${
+            changeCount === 0 ? "text-blue-400" : "text-orange-400"
+          } `}
+        >
+          {isNewUser
+            ? "Select Pod To Begin"
+            : `${2 - changeCount} ${
+                changeCount > 0 ? "change" : "changes"
+              } remaining`}
+        </p>
+      )}
     </div>
   );
 };
@@ -304,71 +335,108 @@ const SidebarRight = () => {
   const userData = useUserDoc();
 
   return (
-    <aside className="hidden text-white lg:block w-80 pl-5 fixed top-0 right-0 h-screen">
-      <div className="flex px-6 py-2 mt-6 justify-between rounded-2xl">
-        <span className="flex gap-2">
-          <Flame color="orange" />
-          <span className="flex flex-col">
-            <span className="font-semibold text-lg">
-              {userData?.streak ?? 0}
-            </span>
-            <span className="text-sm font-semibold tracking-wider text-orange-400">
-              DAY STREAK
-            </span>
+    <aside className="hidden lg:flex flex-col w-84 px-6 fixed top-0 right-0 h-screen bg-[#131f24]/95 backdrop-blur-xl z-50 overflow-y-auto no-scrollbar">
+      {/* Stats Cards */}
+      <div className="flex gap-4 mt-8 w-full shrink-0">
+        <div className="flex-1 bg-gradient-to-br from-orange-500/10 to-red-500/10 border border-orange-500/20 rounded-2xl p-4 flex flex-col items-center justify-center relative overflow-hidden group hover:border-orange-500/40 transition-colors">
+          <div className="absolute top-[-10px] right-[-10px] bg-orange-500/20 w-12 h-12 rounded-full blur-xl group-hover:bg-orange-500/30 transition-all" />
+          <Flame className="text-orange-500 mb-2 drop-shadow-lg" size={28} />
+          <span
+            className={`text-2xl font-black text-white ${fredoka.className}`}
+          >
+            {userData?.streak ?? 0}
           </span>
-        </span>
-        <span className="flex gap-3">
-          <HeartOffIcon size={30} color="red" />
-          <span className="flex flex-col">
-            <span className="font-semibold text-lg">
-              {userData?.hearts ?? 0}
-            </span>
-            <span className="text-sm tracking-wider text-red-600 font-semibold">
-              {userData && userData.hearts > 1 ? "HEARTS" : "HEART"}
-            </span>
+          <span className="text-[10px] font-bold tracking-wider text-orange-400 uppercase mt-1">
+            Day Streak
           </span>
-        </span>
+        </div>
+
+        <div className="flex-1 bg-gradient-to-br from-red-500/10 to-pink-500/10 border border-red-500/20 rounded-2xl p-4 flex flex-col items-center justify-center relative overflow-hidden group hover:border-red-500/40 transition-colors">
+          <div className="absolute top-[-10px] right-[-10px] bg-red-500/20 w-12 h-12 rounded-full blur-xl group-hover:bg-red-500/30 transition-all" />
+          <Heart
+            className="text-red-500 mb-2 drop-shadow-lg fill-red-500/20"
+            size={28}
+          />
+          <span
+            className={`text-2xl font-black text-white ${fredoka.className}`}
+          >
+            {userData?.hearts ?? 0}
+          </span>
+          <span className="text-[10px] font-bold tracking-wider text-red-500 uppercase mt-1">
+            {userData && userData.hearts !== 1 ? "Hearts" : "Heart"}
+          </span>
+        </div>
       </div>
 
-      <div className="border-2 px-3 pt-3 pb-4 text-sm rounded-2xl h-75 mt-2 border-slate-600">
-        <h2 className="tracking-wider font-semibold">YOUR INFORMATION</h2>
-        <div className="mt-3 flex gap-3 justify-center flex-col">
-          <div>
-            <label className="text-gray-400 font-semibold tracking-wider">
-              USERNAME:
+      {/* Profile Section */}
+      <div className="mt-6 bg-white/5 border border-white/10 rounded-3xl p-6 relative overflow-hidden shrink-0">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-50" />
+        <h2
+          className={`text-xs font-bold text-slate-400 tracking-widest uppercase mb-6 flex items-center gap-2 ${inter.className}`}
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-blue-400" /> Profile
+          Details
+        </h2>
+
+        <div className="space-y-6">
+          <div className="relative pl-4 border-l-2 border-slate-700/50">
+            <label className="text-[11px] font-bold text-slate-500 tracking-widest uppercase block mb-1">
+              USERNAME
             </label>
             <UsernameEditor />
           </div>
-          <div>
-            <label className="text-gray-400 font-semibold tracking-wider">
-              POD NAME:
+
+          <div className="relative pl-4 border-l-2 border-slate-700/50">
+            <label className="text-[11px] font-bold text-slate-500 tracking-widest uppercase block mb-1">
+              POD NAME
             </label>
             <PodNameEditor />
           </div>
         </div>
       </div>
 
-      <div className="mt-2 rounded-2xl overflow-y-auto p-3 border-2 border-slate-600">
-        <h3 className="font-semibold text-sm">ACHIEVEMENTS</h3>
-        <div className="mt-5 space-y-4">
-          <div className="flex justify-between items-center">
-            <span className="flex gap-2 items-center">
-              <ClipboardList size={30} color="blue" />
-              <p className="font-semibold text-[17px] tracking-wider">
+      {/* Achievements Section */}
+      <div className="mt-6 bg-white/5 border border-white/10 rounded-3xl p-6 relative overflow-hidden shrink-0">
+        <h3
+          className={`text-xs font-bold text-slate-400 tracking-widest uppercase mb-6 flex items-center gap-2 ${inter.className}`}
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />{" "}
+          Achievements
+        </h3>
+
+        <div className="space-y-4">
+          <div className="flex justify-between items-center p-3 bg-black/20 rounded-xl border border-white/5 hover:border-white/10 transition-colors">
+            <div className="flex gap-3 items-center">
+              <div className="p-2 bg-blue-500/20 rounded-lg text-blue-400">
+                <ClipboardList size={20} />
+              </div>
+              <p
+                className={`font-semibold text-sm text-slate-200 ${inter.className}`}
+              >
                 Quizzes Taken
               </p>
-            </span>
-            <span className="text-[17px] font-semibold text-gray-300">
+            </div>
+            <span
+              className={`text-lg font-bold text-white ${fredoka.className}`}
+            >
               {userData?.quizzesTaken ?? 0}
             </span>
           </div>
 
-          <div className="flex justify-between items-center">
-            <span className="flex gap-2 items-center">
-              <Medal size={30} color="green" />
-              <p className="font-semibold text-[17px] tracking-wider">Badge</p>
-            </span>
-            <span className="text-[17px] font-semibold text-gray-300">
+          <div className="flex justify-between items-center p-3 bg-black/20 rounded-xl border border-white/5 hover:border-white/10 transition-colors">
+            <div className="flex gap-3 items-center">
+              <div className="p-2 bg-green-500/20 rounded-lg text-green-400">
+                <Medal size={20} />
+              </div>
+              <p
+                className={`font-semibold text-sm text-slate-200 ${inter.className}`}
+              >
+                Current Rank
+              </p>
+            </div>
+            <span
+              className={`text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-300 uppercase ${inter.className}`}
+            >
               {userData?.hasPremium ? "Beacon" : "Newbie"}
             </span>
           </div>

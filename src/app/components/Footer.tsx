@@ -3,70 +3,85 @@ import { useActivePage } from "./ActivePageContext";
 import Link from "next/link";
 import { useLoader } from "./LoaderContext";
 import { GiSwordsEmblem } from "react-icons/gi";
+import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 const navItems = [
   {
-    name: "TAKE QUIZ",
+    name: "quiz",
     path: "/take-quiz",
-    icon: <Lightbulb size={35} color="yellow" />,
+    icon: <Lightbulb size={24} />,
+    color: "text-yellow-400",
+    activeBg: "bg-yellow-400/20",
+    label: "Quiz",
   },
   {
-    name: "POD CLASH",
-    path: "/challenge",
-    icon: <GiSwordsEmblem size={35} color="violet" />,
+    name: "profile",
+    path: "/profile-info",
+    icon: <User size={24} />,
+    color: "text-blue-400",
+    activeBg: "bg-blue-400/20",
+    label: "Profile",
   },
   {
-    name: "ABOUT US ",
+    name: "about",
     path: "/about-peruse",
-    icon: <BookOpen size={35} color="green" />,
+    icon: <BookOpen size={24} />,
+    color: "text-green-400",
+    activeBg: "bg-green-400/20",
+    label: "About",
   },
 ];
 
 const Footer = () => {
-  const { activePage, setActivePage } = useActivePage();
-  const { isProcessing, setIsProcessing, loading, setLoading } = useLoader();
+  const { setActivePage } = useActivePage();
+  const { isProcessing, loading } = useLoader();
+  const pathname = usePathname();
+
   return (
-    <div className="fixed bottom-0 text-white left-0 right-0 bg-[#0b2f33] border-slate-600 flex justify-between items-center py-3 px-4 md:hidden z-50">
-      <Link href={"/take-quiz"} className="flex-1">
-        <button
-          disabled={isProcessing || loading}
-          onClick={() => setActivePage("take-quiz")}
-          className={`flex flex-col items-center w-full disabled:cursor-not-allowed py-2 rounded-lg ${
-            activePage === "take-quiz" ? "bg-[#14545b]" : ""
-          }`}
-        >
-          <Lightbulb size={20} color="yellow" />
-          <span className="text-xs mt-1">Quiz</span>
-        </button>
-      </Link>
+    <div className="fixed bottom-4 left-4 right-4 md:hidden z-50">
+      <div className="bg-[#131f24]/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl flex justify-between items-center p-2 relative overflow-hidden">
+        {/* Gradient Border Effect */}
+        <div className="absolute inset-0 rounded-2xl border border-white/5 pointer-events-none" />
 
-    
+        {navItems.map((item) => {
+          const isActive =
+            pathname === item.path || pathname.startsWith(item.path + "/");
 
-      <Link href={"/profile-info"} className="flex-1">
-        <button
-          disabled={isProcessing || loading}
-          onClick={() => setActivePage("profile")}
-          className={`flex flex-col items-center w-full disabled:cursor-not-allowed py-2 rounded-lg ${
-            activePage === "profile" ? "bg-[#14545b]" : ""
-          }`}
-        >
-          <User size={20} color="brown" />
-          <span className="text-xs mt-1">Profile</span>
-        </button>
-      </Link>
-
-      <Link href={"/about-peruse"} className="flex-1">
-        <button
-          disabled={isProcessing || loading}
-          onClick={() => setActivePage("about-us")}
-          className={`flex flex-col items-center w-full disabled:cursor-not-allowed py-2 rounded-lg ${
-            activePage === "about-us" ? "bg-[#14545b]" : ""
-          }`}
-        >
-          <BookOpen size={20} color="green" />
-          <span className="text-xs mt-1">About</span>
-        </button>
-      </Link>
+          return (
+            <Link key={item.name} href={item.path} className="flex-1">
+              <motion.button
+                disabled={isProcessing || loading}
+                onClick={() => setActivePage(item.name)}
+                whileTap={{ scale: 0.9 }}
+                className={`flex flex-col items-center justify-center w-full py-2 rounded-xl transition-all duration-300 relative
+                                ${isActive ? item.activeBg : "hover:bg-white/5"}
+                            `}
+              >
+                <motion.div
+                  animate={
+                    isActive ? { scale: 1.1, y: -2 } : { scale: 1, y: 0 }
+                  }
+                  className={`${isActive ? item.color : "text-slate-500"}`}
+                >
+                  {item.icon}
+                </motion.div>
+                <span
+                  className={`text-[10px] font-bold mt-1 ${isActive ? "text-white" : "text-slate-500"}`}
+                >
+                  {item.label}
+                </span>
+                {isActive && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className={`absolute -bottom-2 w-1 h-1 rounded-full ${item.color.replace("text-", "bg-")} shadow-[0_0_10px_currentColor]`}
+                  />
+                )}
+              </motion.button>
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 };

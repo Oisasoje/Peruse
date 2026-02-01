@@ -11,13 +11,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   // Paths where you do NOT want the footer
   const hideFooterOn = ["/", "/login", "/signup", "/no-hearts"];
   const hideSidebarOn = ["/", "/login", "/signup", "/no-hearts"];
-  const hideSidebarRightOn = [
-    "/",
-    "/login",
-    "/signup",
-    "/no-hearts",
-    "/challenge",
-  ];
+  const hideSidebarRightOn = ["/", "/login", "/signup", "/no-hearts"];
 
   const isQuizRoute = pathname.startsWith("/quiz");
 

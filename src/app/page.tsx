@@ -49,7 +49,7 @@ export default function LandingPage() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2.5 rounded-full font-bold shadow-lg shadow-blue-900/20 transition-all flex items-center gap-2"
+              className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2.5 rounded-full font-bold shadow-lg shadow-blue-900/20 cursor-pointer transition-all flex items-center gap-2"
             >
               Get Started
             </motion.button>
@@ -90,7 +90,7 @@ export default function LandingPage() {
               <motion.button
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl font-bold text-lg shadow-xl shadow-blue-900/30 flex items-center justify-center gap-2 group"
+                className="w-full sm:w-auto cursor-pointer  px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl font-bold text-lg shadow-xl shadow-blue-900/30 flex items-center justify-center gap-2 group"
               >
                 Start Your Journey
                 <ArrowRight
@@ -104,7 +104,7 @@ export default function LandingPage() {
               <motion.button
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto px-8 py-4 bg-[#1e293b]/50 border border-slate-600 hover:bg-slate-800 rounded-2xl font-bold text-lg text-gray-200 transition-colors"
+                className="w-full sm:w-auto px-8 py-4 bg-[#1e293b]/50 border border-slate-600 hover:bg-slate-800 rounded-2xl font-bold text-lg cursor-pointer text-gray-200 transition-colors"
               >
                 I Have an Account
               </motion.button>
@@ -119,7 +119,7 @@ export default function LandingPage() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="flex-1 w-full max-w-lg md:max-w-xl relative group"
         >
-          <div className="relative z-10 animate-float">
+          <div className="relative z-10 mb-10 animate-float">
             <div className="relative w-full aspect-square bg-gradient-to-tr from-blue-500/10 to-purple-500/10 rounded-3xl border border-white/5 backdrop-blur-sm p-8 flex items-center justify-center">
               <Image
                 src="/assets/bg.svg"
@@ -130,28 +130,6 @@ export default function LandingPage() {
                 priority
               />
             </div>
-
-            {/* Floating Cards (Decorative) */}
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 1,
-              }}
-              className="absolute -top-6 -right-6 bg-[#1e293b] p-4 rounded-xl border border-slate-600 shadow-xl"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-400">
-                  <Sparkles size={20} />
-                </div>
-                <div>
-                  <p className="text-xs text-gray-400">Current Streak</p>
-                  <p className="font-bold text-white">12 Days 🔥</p>
-                </div>
-              </div>
-            </motion.div>
 
             <motion.div
               animate={{ y: [0, 10, 0] }}
