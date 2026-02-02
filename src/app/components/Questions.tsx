@@ -497,12 +497,10 @@ const QuestionsComponent = ({
             <div className="relative flex-1 bg-slate-800 p-4 rounded-2xl rounded-tl-none border border-slate-700 w-full text-center md:text-left">
               <div className="absolute top-0 left-[-8px] w-0 h-0 border-t-[10px] border-r-[10px] border-b-[0px] border-transparent border-r-slate-800 hidden md:block" />
               <p className="text-sm md:text-base text-gray-300 italic">
-                "
                 {isRoastLoading[currentQuestionIndex]
                   ? "Evaluating your life choices..."
                   : (roasts[currentQuestionIndex] ??
                     getRandomPlaceholder(currentQuestionIndex))}
-                "
               </p>
             </div>
           </div>

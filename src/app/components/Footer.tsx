@@ -16,6 +16,14 @@ const navItems = [
     label: "Quiz",
   },
   {
+    name: "clash",
+    path: "/challenge",
+    icon: <GiSwordsEmblem size={24} />,
+    color: "text-purple-400",
+    activeBg: "bg-purple-400/20",
+    label: "Clash",
+  },
+  {
     name: "profile",
     path: "/profile-info",
     icon: <User size={24} />,
@@ -39,7 +47,7 @@ const Footer = () => {
   const pathname = usePathname();
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 md:hidden z-50">
+    <div className="fixed bottom-4 left-4 right-4 md:hidden z-40">
       <div className="bg-[#131f24]/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl flex justify-between items-center p-2 relative overflow-hidden">
         {/* Gradient Border Effect */}
         <div className="absolute inset-0 rounded-2xl border border-white/5 pointer-events-none" />

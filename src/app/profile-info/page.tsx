@@ -6,8 +6,23 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { onAuthStateChanged, updateProfile, signOut } from "firebase/auth";
 import z from "zod";
-import { ClipboardList, Crown, Flame, Medal, LogOut } from "lucide-react";
+import {
+  ClipboardList,
+  Crown,
+  Flame,
+  Medal,
+  LogOut,
+  PenLine,
+  Check,
+  X,
+  User,
+  Zap,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Fredoka, Inter } from "next/font/google";
+
+const fredoka = Fredoka({ subsets: ["latin"], weight: ["400", "600"] });
+const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600"] });
 
 const usernameSchema = z.string().min(1, "Required").max(25, "Max 25 chars");
 
@@ -46,6 +61,7 @@ const UsernameEditor = () => {
 
     const result = usernameSchema.safeParse(trimmed);
     if (!result.success) {
+      toast.error(result.error.message);
       return;
     }
 
@@ -68,46 +84,53 @@ const UsernameEditor = () => {
   };
 
   return editUsername ? (
-    <div className="flex flex-col  gap-2 justify-between w-full">
+    <div className="flex flex-col gap-3 w-full animate-in fade-in slide-in-from-top-2 duration-300">
       <input
-        className="border-2 text-white border-amber-600 outline-none px-2 py-1 w-full max-w-xs mt-2 rounded-lg tracking-wider text-[15px]"
+        className={`bg-black/30 border border-white/20 outline-none px-4 py-3 w-full rounded-xl text-sm text-white placeholder-white/30 focus:border-blue-500/50 transition-all ${inter.className}`}
         value={username}
         onChange={(e) => setUsername(e.target.value)}
+        placeholder="Enter username"
+        autoFocus
       />
-      <div className="h-4 -mt-3">
+      <div className="h-4 -mt-1">
         {usernameError && (
-          <p className="text-red-500 text-sm">{usernameError}</p>
+          <p className="text-red-400 text-xs">{usernameError}</p>
         )}
       </div>
-      <div className="flex w-full gap-2">
+      <div className="flex w-full gap-3">
         <button
-          className="bg-green-500 rounded-lg text-sm w-fit font-semibold px-3 cursor-pointer hover:bg-green-600 py-2 flex-1"
+          className="bg-green-500/20 text-green-400 border border-green-500/30 rounded-xl text-xs font-bold px-4 py-3 flex-1 hover:bg-green-500/30 transition-colors flex items-center justify-center gap-2"
           onClick={confirmUsername}
         >
-          CONFIRM
+          <Check size={16} /> SAVE
         </button>
         <button
-          className="bg-red-500 rounded-lg text-sm w-fit font-semibold px-3 cursor-pointer hover:bg-red-600 py-2 flex-1"
+          className="bg-red-500/20 text-red-400 border border-red-500/30 rounded-xl text-xs font-bold px-4 py-3 flex-1 hover:bg-red-500/30 transition-colors flex items-center justify-center gap-2"
           onClick={() => cancelUsername()}
         >
-          CANCEL
+          <X size={16} /> CANCEL
         </button>
       </div>
     </div>
   ) : (
-    <div className="flex flex-col w-full">
-      <p className="font-bold tracking-widest text-white text-[17px] break-words">
-        {username || "Loading username..."}
-      </p>
-      <button
-        className={`bg-yellow-500 w-full gap-2 rounded-lg text-sm font-semibold px-4 cursor-pointer hover:bg-yellow-600 py-2 mt-2 ${
-          isLoading ? "opacity-50 cursor-not-allowed hover:bg-yellow-500" : ""
-        }`}
-        onClick={() => !isLoading && setEditUsername(true)}
-        disabled={isLoading}
-      >
-        EDIT USERNAME
-      </button>
+    <div className="flex flex-col w-full group">
+      <div className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/10">
+        <p
+          className={`font-semibold tracking-wide text-lg text-white ${inter.className}`}
+        >
+          {username || "Loading..."}
+        </p>
+        <button
+          className={`text-slate-400 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-lg opacity-0 group-hover:opacity-100 ${
+            isLoading ? "cursor-not-allowed opacity-0" : ""
+          }`}
+          onClick={() => !isLoading && setEditUsername(true)}
+          disabled={isLoading}
+          title="Edit Username"
+        >
+          <PenLine size={18} />
+        </button>
+      </div>
     </div>
   );
 };
@@ -123,6 +146,8 @@ const podOptions = [
   "The Catalysts",
   "The Phoenixes",
   "The Victors",
+  "The Trailblazers",
+  "The Vanguards",
 ];
 
 const PodNameEditor = () => {
@@ -202,65 +227,73 @@ const PodNameEditor = () => {
   };
 
   return editPodName ? (
-    <div className="flex flex-col gap-2 w-full">
+    <div className="flex flex-col gap-3 w-full animate-in fade-in slide-in-from-top-2 duration-300">
       <select
-        className="border-2 border-amber-600 outline-none px-2 py-2 w-full max-w-xs mt-2 rounded-lg tracking-wider text-[15px] cursor-pointer text-white bg-[#131f24]"
+        className={`bg-black/30 border border-white/20 outline-none px-4 py-3 w-full rounded-xl text-sm text-white cursor-pointer focus:border-blue-500/50 transition-all ${inter.className}`}
         value={podName}
         onChange={(e) => setPodName(e.target.value)}
       >
-        <option value="Select your pod">Select your pod</option>
+        <option value="Select your pod" className="bg-[#131f24] text-gray-400">
+          Select your pod
+        </option>
         {podOptions.map((pod) => (
-          <option key={pod} value={pod}>
+          <option key={pod} value={pod} className="bg-[#131f24] text-white">
             {pod}
           </option>
         ))}
       </select>
-      {podNameError && <p className="text-red-500 text-sm">{podNameError}</p>}
-      <div className="flex w-full gap-2">
+      {podNameError && <p className="text-red-400 text-xs">{podNameError}</p>}
+      <div className="flex w-full gap-3">
         <button
-          className="bg-green-500 rounded-lg text-sm w-fit font-semibold px-3 py-2 cursor-pointer hover:bg-green-600 flex-1"
+          className="bg-green-500/20 text-green-400 border border-green-500/30 rounded-xl text-xs font-bold px-4 py-3 flex-1 hover:bg-green-500/30 transition-colors flex items-center justify-center gap-2"
           onClick={confirmPodName}
           disabled={podName === "Select your pod"}
         >
-          CONFIRM
+          <Check size={16} /> CONFIRM
         </button>
         <button
-          className="bg-red-500 rounded-lg text-sm w-fit font-semibold px-3 py-2 cursor-pointer hover:bg-red-600 flex-1"
+          className="bg-red-500/20 text-red-400 border border-red-500/30 rounded-xl text-xs font-bold px-4 py-3 flex-1 hover:bg-red-500/30 transition-colors flex items-center justify-center gap-2"
           onClick={() => setEditPodName(false)}
         >
-          CANCEL
+          <X size={16} /> CANCEL
         </button>
       </div>
     </div>
   ) : (
     <div className="flex flex-col gap-2 w-full">
-      <p className="font-bold text-white tracking-widest text-[17px] break-words">
-        {podName}
-      </p>
+      <div className="flex items-center justify-between group p-3 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/10">
+        <p
+          className={`font-semibold text-white tracking-wide text-lg break-words ${inter.className}`}
+        >
+          {podName}
+        </p>
+        <button
+          className={`text-slate-400 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-lg opacity-0 group-hover:opacity-100 ${
+            isLoading || changeCount >= 2
+              ? "opacity-0 cursor-not-allowed hidden"
+              : ""
+          }`}
+          onClick={() => !isLoading && changeCount < 2 && setEditPodName(true)}
+          disabled={isLoading || changeCount >= 2}
+          title="Change Pod"
+        >
+          <PenLine size={18} />
+        </button>
+      </div>
 
-      <button
-        className={`bg-yellow-500 rounded-lg text-sm cursor-pointer font-semibold px-4 py-2 w-full hover:bg-yellow-600 ${
-          isLoading || changeCount >= 2
-            ? "opacity-50 cursor-not-allowed hover:bg-yellow-500"
-            : ""
-        }`}
-        onClick={() => !isLoading && changeCount < 2 && setEditPodName(true)}
-        disabled={isLoading || changeCount >= 2}
-      >
-        {isNewUser ? "SELECT POD" : "CHANGE POD"}
-      </button>
-
-      <p
-        className={`text-xs font-bold text-center ${
-          changeCount === 0 ? "text-blue-500" : "text-red-500"
-        } `}
-      >
-        {isNewUser
-          ? "Welcome! Select your pod to get started."
-          : `${2 - changeCount > 0 ? 2 - changeCount : 0} ${
-              changeCount > 0 ? "change" : "changes"
-            } remaining`}
-      </p>
+      {(isNewUser || changeCount < 2) && (
+        <p
+          className={`text-[10px] font-bold uppercase tracking-wider pl-3 ${
+            changeCount === 0 ? "text-blue-400" : "text-orange-400"
+          } `}
+        >
+          {isNewUser
+            ? "b Select Pod To Begin"
+            : `${2 - changeCount} ${
+                changeCount > 0 ? "change" : "changes"
+              } remaining`}
+        </p>
+      )}
     </div>
   );
 };
@@ -308,7 +341,6 @@ const Profile_Info = () => {
     try {
       await signOut(auth);
       toast.success("Logged out successfully!");
-
       router.push("/login");
     } catch (error) {
       console.error("Logout error:", error);
@@ -317,84 +349,154 @@ const Profile_Info = () => {
   };
 
   return (
-    <div className=" bg-[#131f24] min-h-screen w-full px-4 py-6 ">
-      <div className="border-2 px-3 pt-3 pb-4 text-sm rounded-2xl border-slate-600 mb-4">
-        <h2 className="tracking-wider text-amber-500 font-semibold text-center mb-4">
-          YOUR INFORMATION
-        </h2>
-        <div className="flex flex-col gap-6">
-          <div className="text-center">
-            <label className="text-gray-400 font-semibold tracking-wider block mb-2">
-              USERNAME:
-            </label>
-            <UsernameEditor />
+    <div className="bg-[#131f24] min-h-screen w-full px-4 py-8 pb-28 md:py-12 flex flex-col items-center">
+      <div className="w-full max-w-2xl space-y-6">
+        {/* Header */}
+        <div className="text-center mb-10">
+          <h1
+            className={`text-3xl font-bold text-white mb-2 ${fredoka.className}`}
+          >
+            My Profile
+          </h1>
+          <p className={`text-slate-400 ${inter.className}`}>
+            Manage your account settings and view achievements
+          </p>
+        </div>
+
+        {/* Profile Info Card */}
+        <div className="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-8 relative overflow-hidden backdrop-blur-xl">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-70" />
+
+          <div className="flex items-center gap-3 mb-8">
+            <User className="text-blue-400" size={24} />
+            <h2
+              className={`text-sm font-bold text-slate-400 tracking-widest uppercase ${inter.className}`}
+            >
+              Personal Information
+            </h2>
           </div>
 
-          <div className="text-center">
-            <label className="text-gray-400 font-semibold tracking-wider block mb-2">
-              POD NAME:
-            </label>
-            <PodNameEditor />
-          </div>
-        </div>
-      </div>
+          <div className="space-y-8">
+            <div className="relative pl-6 border-l-2 border-slate-700/50">
+              <label className="text-[11px] font-bold text-slate-500 tracking-widest uppercase block mb-2">
+                USERNAME
+              </label>
+              <UsernameEditor />
+            </div>
 
-      <div className="rounded-2xl p-3 border-2 border-slate-600">
-        <h3 className="font-semibold text-gray-400 text-sm text-center mb-4">
-          ACHIEVEMENTS
-        </h3>
-        <div className="space-y-4 text-teal-300">
-          <div className="flex justify-between items-center">
-            <span className="flex gap-2 items-center">
-              <ClipboardList size={24} color="blue" />
-              <p className="font-semibold">Quizzes Taken</p>
-            </span>
-            <span className="font-semibold text-gray-300">
-              {userData?.quizzesTaken ?? 0}
-            </span>
-          </div>
-          <div className="flex justify-between items-center">
-            <span className="flex gap-2 items-center">
-              <Crown size={24} color="indigo" />
-              <p className="font-semibold">Subscription</p>
-            </span>
-            <span className="font-semibold text-gray-300">
-              {userData?.hasPremium ? "Premium" : "Free"}
-            </span>
-          </div>
-          <div className="flex justify-between items-center">
-            <span className="flex gap-2 items-center">
-              <Medal size={24} color="green" />
-              <p className="font-semibold">Badge</p>
-            </span>
-            <span className="font-semibold text-gray-300">
-              {userData?.hasPremium ? "Beacon" : "Newbie"}
-            </span>
-          </div>
-          <div className="flex justify-between items-center">
-            <span className="flex gap-2 items-center">
-              <Flame size={24} color="red" />
-              <p className="font-semibold">Streak</p>
-            </span>
-            <span className="font-semibold text-gray-300">
-              {userData?.streak ?? 0}
-            </span>
+            <div className="relative pl-6 border-l-2 border-slate-700/50">
+              <label className="text-[11px] font-bold text-slate-500 tracking-widest uppercase block mb-2">
+                POD NAME
+              </label>
+              <PodNameEditor />
+            </div>
           </div>
         </div>
-      </div>
-      <div className="rounded-2xl mt-4 p-3 border-2 mb-20 border-slate-600">
-        <h3 className="font-semibold text-gray-400 text-sm text-center mb-4">
-          ACCOUNT
-        </h3>
-        <button
-          onClick={handleLogout}
-          className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2   transition-colors duration-200"
-        >
-          <LogOut size={20} />
-          LOG OUT
-        </button>
+
+        {/* Achievements Card */}
+        <div className="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-8 relative overflow-hidden backdrop-blur-xl">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 via-yellow-500 to-orange-500 opacity-70" />
+
+          <div className="flex items-center gap-3 mb-8">
+            <Medal className="text-yellow-500" size={24} />
+            <h3
+              className={`text-sm font-bold text-slate-400 tracking-widest uppercase ${inter.className}`}
+            >
+              Achievements & Stats
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex justify-between items-center p-4 bg-black/20 rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
+              <div className="flex gap-3 items-center">
+                <div className="p-2.5 bg-blue-500/20 rounded-xl text-blue-400">
+                  <ClipboardList size={20} />
+                </div>
+                <p
+                  className={`font-medium text-sm text-slate-300 ${inter.className}`}
+                >
+                  Quizzes Taken
+                </p>
+              </div>
+              <span
+                className={`text-xl font-bold text-white ${fredoka.className}`}
+              >
+                {userData?.quizzesTaken ?? 0}
+              </span>
+            </div>
+
+            <div className="flex justify-between items-center p-4 bg-black/20 rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
+              <div className="flex gap-3 items-center">
+                <div className="p-2.5 bg-indigo-500/20 rounded-xl text-indigo-400">
+                  <Crown size={20} />
+                </div>
+                <p
+                  className={`font-medium text-sm text-slate-300 ${inter.className}`}
+                >
+                  Plan
+                </p>
+              </div>
+              <span
+                className={`text-sm font-bold px-3 py-1 rounded-full ${userData?.hasPremium ? "bg-indigo-500/20 text-indigo-300" : "bg-slate-700/50 text-slate-400"} ${inter.className}`}
+              >
+                {userData?.hasPremium ? "PREMIUM" : "FREE"}
+              </span>
+            </div>
+
+            <div className="flex justify-between items-center p-4 bg-black/20 rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
+              <div className="flex gap-3 items-center">
+                <div className="p-2.5 bg-green-500/20 rounded-xl text-green-400">
+                  <Zap size={20} />
+                </div>
+                <p
+                  className={`font-medium text-sm text-slate-300 ${inter.className}`}
+                >
+                  Rank
+                </p>
+              </div>
+              <span
+                className={`text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-300 uppercase ${inter.className}`}
+              >
+                {userData?.hasPremium ? "Beacon" : "Newbie"}
+              </span>
+            </div>
+
+            <div className="flex justify-between items-center p-4 bg-black/20 rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
+              <div className="flex gap-3 items-center">
+                <div className="p-2.5 bg-orange-500/20 rounded-xl text-orange-400">
+                  <Flame size={20} />
+                </div>
+                <p
+                  className={`font-medium text-sm text-slate-300 ${inter.className}`}
+                >
+                  Streak
+                </p>
+              </div>
+              <span
+                className={`text-xl font-bold text-white ${fredoka.className}`}
+              >
+                {userData?.streak ?? 0}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Account Actions */}
+        <div className="pt-4">
+          <button
+            onClick={handleLogout}
+            className="w-full bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-500 font-semibold py-4 px-6 rounded-2xl flex items-center justify-center gap-2 transition-all duration-200 group"
+          >
+            <LogOut
+              size={20}
+              className="group-hover:-translate-x-1 transition-transform"
+            />
+            <span className="tracking-wide">LOG OUT</span>
+          </button>
+        </div>
       </div>
     </div>
   );
 };
+
 export default Profile_Info;
