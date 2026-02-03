@@ -9,11 +9,7 @@ import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import toast from "react-hot-toast";
 import { auth } from "../../../lib/firebase";
 import { useRouter } from "next/navigation";
-import { Fredoka, Inter } from "next/font/google";
 import { KeyRound, Mail, ArrowRight } from "lucide-react";
-
-const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600"] });
-const fredoka = Fredoka({ subsets: ["latin"], weight: ["400", "700"] });
 
 const loginSchema = z.object({
   email: z.email("Invalid email address"),
@@ -87,9 +83,7 @@ const Login = () => {
   if (!hasMounted || !userChecked) return null;
 
   return (
-    <div
-      className={`min-h-screen relative flex items-center justify-center p-4 bg-[#131f24] overflow-hidden ${inter.className}`}
-    >
+    <div className="min-h-screen relative flex items-center justify-center p-4 bg-[#131f24] overflow-hidden font-body">
       <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px]" />
       <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px]" />
 
@@ -111,9 +105,7 @@ const Login = () => {
       >
         <div className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 shadow-2xl">
           <div className="text-center mb-8">
-            <h1
-              className={`${fredoka.className} text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 mb-2`}
-            >
+            <h1 className="font-display text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 mb-2">
               Welcome Back
             </h1>
             <p className="text-gray-400">Continue your journey to mastery</p>

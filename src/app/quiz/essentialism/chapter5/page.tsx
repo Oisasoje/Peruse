@@ -1,14 +1,8 @@
 "use client";
 
-import { Inter } from "next/font/google";
 import QuestionsComponent from "@/app/components/Questions";
-import { essentialismChapter5Questions as Questions } from "../../../../../data";
+import { essentialismChapter5Questions as Questions } from "@/data/essentialism";
 import { useEffect, useState } from "react";
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600"],
-});
 
 interface Questions {
   book: string;
@@ -44,7 +38,7 @@ const Chapter5 = () => {
 
   return (
     <div
-      className={`min-h-screen pb-50 ${inter.className} text-white  bg-[#131f24]`}
+      className="min-h-screen pb-50 font-body text-white  bg-[#131f24]"
     >
       <QuestionsComponent
         question={question}

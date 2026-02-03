@@ -5,12 +5,12 @@
   --font-body: "Inter", sans-serif;
 }
 
-/* Premium Glassmorphism & Base Styles */
+
 :root {
   --background: #131f24;
   --foreground: #ffffff;
-  --primary: #3b82f6; /* Blue 500 */
-  --secondary: #f59e0b; /* Amber 500 */
+  --primary: #3b82f6; 
+  --secondary: #f59e0b; 
 }
 
 @layer base {

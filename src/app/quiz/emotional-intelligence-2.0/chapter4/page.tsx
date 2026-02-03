@@ -1,14 +1,8 @@
 "use client";
 
-import { Inter } from "next/font/google";
 import QuestionsComponent from "@/app/components/Questions";
-import { emotionalIntelligenceChapter4Questions as Questions } from "../../../../../data";
+import { emotionalIntelligenceChapter4Questions as Questions } from "@/data/emotional-intelligence";
 import { useEffect, useState } from "react";
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600"],
-});
 
 interface Questions {
   id: number;
@@ -21,7 +15,7 @@ const Chapter4 = () => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOptionIndex, setSelectedOptionIndex] = useState<number | null>(
-    null
+    null,
   );
   const [questions, setQuestions] = useState<Questions[] | null>(null);
 
@@ -47,7 +41,7 @@ const Chapter4 = () => {
 
   return (
     <div
-      className={`min-h-screen pb-50 ${inter.className} text-white  bg-[#131f24]`}
+      className="min-h-screen pb-50 font-body text-white  bg-[#131f24]"
     >
       <QuestionsComponent
         question={question}

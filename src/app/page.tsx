@@ -1,21 +1,12 @@
 "use client";
-import { Inter, Fredoka } from "next/font/google";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-});
-const fredoka = Fredoka({ subsets: ["latin"], weight: ["400", "700"] });
-
 export default function LandingPage() {
   return (
-    <div
-      className={`min-h-screen bg-[#131f24] text-white overflow-hidden relative ${inter.className}`}
-    >
+    <div className="min-h-screen bg-[#131f24] text-white overflow-hidden relative font-body">
       {/* Background Gradients */}
       <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px]" />
       <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px]" />
@@ -27,9 +18,7 @@ export default function LandingPage() {
           animate={{ opacity: 1, x: 0 }}
           className="flex items-center gap-2"
         >
-          <h1
-            className={`${fredoka.className} text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400`}
-          >
+          <h1 className="font-display text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
             peruse
           </h1>
         </motion.div>
@@ -71,9 +60,7 @@ export default function LandingPage() {
             <span>The #1 Quiz App for Elite Minds</span>
           </div>
 
-          <h2
-            className={`${fredoka.className} text-5xl md:text-7xl font-bold leading-tight tracking-tight`}
-          >
+          <h2 className="font-display text-5xl md:text-7xl font-bold leading-tight tracking-tight">
             Master The <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-amber-400">
               Bridge

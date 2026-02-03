@@ -7,12 +7,8 @@ import { useState, useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 
 import { Flame, HeartOffIcon, Library } from "lucide-react";
-import { Fredoka, Inter } from "next/font/google";
-
 import { motion, AnimatePresence } from "framer-motion";
-
 import dynamic from "next/dynamic";
-
 import { useLoader } from "../components/LoaderContext";
 import { useRouter } from "next/navigation";
 type UserDoc = {
@@ -77,15 +73,6 @@ const Ultralearning = dynamic(() => import("../components/Ultralearning"), {
 const Essentialism = dynamic(() => import("../components/Essentialism"), {
   ssr: false,
   loading: () => <SimpleLoader />,
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600"],
-});
-const fredoka = Fredoka({
-  subsets: ["latin"],
-  weight: ["300", "400", "700"],
 });
 
 const bookResources = [
@@ -231,9 +218,7 @@ const Quiz = () => {
   }
 
   return (
-    <div
-      className={`min-h-screen ${inter.className} bg-[#131f24] text-white w-full overflow-x-hidden`}
-    >
+    <div className="min-h-screen font-body bg-[#131f24] text-white w-full overflow-x-hidden">
       {/* Background Gradients */}
       <div className="fixed top-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="fixed bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
@@ -241,9 +226,7 @@ const Quiz = () => {
       {/* Mobile Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-[#131f24]/80 backdrop-blur-md border-b border-slate-700/50 md:hidden">
         <div className="flex items-center justify-between p-4">
-          <h3
-            className={`${fredoka.className} text-blue-500 text-3xl font-extrabold`}
-          >
+          <h3 className="font-display text-blue-500 text-3xl font-extrabold">
             peruse
           </h3>
 

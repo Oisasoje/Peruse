@@ -3,9 +3,15 @@
 import { useEffect } from "react";
 import { auth } from "../../../lib/firebase";
 import nookies from "nookies";
+import { useUserStore } from "@/lib/store/userStore";
 
 export default function AuthSync() {
+  const init = useUserStore((state) => state.init);
+
   useEffect(() => {
+    // Initialize the centralized user data listener
+    const cleanupStore = init();
+
     const unsubscribe = auth.onIdTokenChanged(async (user) => {
       try {
         if (user) {
@@ -27,28 +33,32 @@ export default function AuthSync() {
     });
 
     // Force token refresh every 10 minutes to prevent expiration
-    const interval = setInterval(async () => {
-      const user = auth.currentUser;
-      if (user) {
-        try {
-          console.log("AuthSync: Refreshing token...");
-          const token = await user.getIdToken(true);
-          nookies.set(null, "token", token, {
-            path: "/",
-            maxAge: 30 * 24 * 60 * 60,
-            sameSite: "lax",
-          });
-        } catch (error) {
-          console.error("AuthSync: Token refresh error:", error);
+    const interval = setInterval(
+      async () => {
+        const user = auth.currentUser;
+        if (user) {
+          try {
+            console.log("AuthSync: Refreshing token...");
+            const token = await user.getIdToken(true);
+            nookies.set(null, "token", token, {
+              path: "/",
+              maxAge: 30 * 24 * 60 * 60,
+              sameSite: "lax",
+            });
+          } catch (error) {
+            console.error("AuthSync: Token refresh error:", error);
+          }
         }
-      }
-    }, 10 * 60 * 1000); // 10 minutes
+      },
+      10 * 60 * 1000,
+    ); // 10 minutes
 
     return () => {
       unsubscribe();
+      cleanupStore();
       clearInterval(interval);
     };
-  }, []);
+  }, [init]);
 
   return null;
 }

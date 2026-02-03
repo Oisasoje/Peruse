@@ -7,22 +7,22 @@ import {
   useState,
 } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { HeartOffIcon, X, CheckCircle2, AlertCircle } from "lucide-react";
+import { HeartOffIcon, X, CheckCircle2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { auth, db } from "../../../lib/firebase";
 import {
   doc,
-  onSnapshot,
   updateDoc,
   increment,
   getDoc,
   Timestamp,
   arrayUnion,
+  serverTimestamp,
 } from "firebase/firestore";
 import toast from "react-hot-toast";
-import { serverTimestamp } from "firebase/firestore";
-import { Fredoka, Inter } from "next/font/google";
+import { useUserStore } from "@/lib/store/userStore";
+import { impatientPlaceholders, completionMessages } from "@/constants/quiz";
 
 interface Questions {
   id: number;
@@ -30,79 +30,7 @@ interface Questions {
   options: string[];
 }
 
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-const fredoka = Fredoka({ subsets: ["latin"], weight: ["400", "600"] });
-
-type UserDoc = {
-  createdAt: string;
-  displayName: string;
-  hasPremium: boolean;
-  hearts: number;
-  lastAnsweredAt: Timestamp | string | number;
-  podName: string;
-  podNameChangeCount: number;
-  quizzesTaken: number;
-  streak: number;
-};
-
 type SelectedOptions = Record<number, string>;
-
-// ... (your impatientPlaceholders array remains the same, omitted for brevity but presumed kept or imported ideally)
-const impatientPlaceholders = [
-  "Are you going to pick an option or should I come back tomorrow?",
-  "The suspense is killing me... and not in a good way.",
-  "Even a snail would have chosen by now.",
-  "I don't have all day to watch you stare at options.",
-  "Tick tock, tick tock... my beard is growing longer.",
-  "If you wait any longer, the question will answer itself.",
-  "I've seen glaciers move faster than your decision-making.",
-  "Are you reading or having a spiritual experience with the options?",
-  "The options won't bite you... unlike me if you don't choose soon.",
-  "I could have roasted three other people by now.",
-  "Your hesitation is louder than your eventual choice will be.",
-  "Did you fall asleep or are you actually thinking this hard?",
-  "Even indecision is a decision... a bad one.",
-  "I'm starting to think you enjoy wasting my time.",
-  "The answer won't magically appear if you stare long enough.",
-  "You're taking so long I might forget what the question was.",
-  "If confusion were a superpower, you'd be invincible right now.",
-  "I've got better things to do than watch you contemplate existence.",
-  "Your slow pace is actually impressive... in the worst way possible.",
-  "Are you waiting for divine intervention or just scared?",
-  "The options haven't changed in the last minute, you know.",
-  "I could write a book in the time you're taking to choose.",
-  "Your procrastination needs its own zip code.",
-  "Even a rock would have shown more urgency by now.",
-  "If you don't choose soon, I might choose for you... poorly.",
-  "This isn't a museum - you don't need to admire the options.",
-  "Your hesitation speaks volumes about your confidence.",
-  "I'm aging faster than you're making progress.",
-  "The question isn't that hard... or maybe it is for you.",
-  "I've lost interest and I'm the one who's supposed to care.",
-  "Your slow response time is a roast in itself.",
-  "Are you analyzing each option with a microscope?",
-  "I could have trained a monkey to choose faster by now.",
-  "This isn't a chess match - it's multiple choice.",
-  "Your deliberation is longer than the chapter itself.",
-  "I'm starting to doubt you can read at this point.",
-  "The suspense isn't building... it's decaying.",
-  "You're making this harder than it needs to be.",
-  "I've seen faster decision-making in a traffic jam.",
-  "If you wait any longer, the quiz will retire.",
-  "Your pace is setting records... for slowness.",
-  "Are you waiting for the options to introduce themselves?",
-  "I could have grown a full beard in this time.",
-  "This isn't rocket science - pick one already.",
-  "Your hesitation is more interesting than your answer will be.",
-  "I'm running out of patience and I have infinite patience.",
-  "The clock is ticking... and so is my annoyance.",
-  "You're giving 'overthinking' a bad name.",
-  "I've seen sloths make faster life decisions.",
-  "If you don't choose soon, I might lose my sage-like composure.",
-];
 
 const QuestionsComponent = ({
   question,
@@ -131,7 +59,6 @@ const QuestionsComponent = ({
   setSelectedOptions: Dispatch<SetStateAction<SelectedOptions>>;
   quizId: string;
 }) => {
-  // normalize parsed selectedOptions so keys are numbers & strings trimmed
   const normalizeSelectedOptions = (raw: any) => {
     if (!raw || typeof raw !== "object") return {};
     return Object.entries(raw).reduce(
@@ -144,26 +71,12 @@ const QuestionsComponent = ({
     );
   };
 
-  const completionMessages = [
-    `🔥 Another chapter down! Impressive work, finishing Chapter ${id} of ${book}.`,
-    `From page-turner to page-master: Chapter ${id} of ${book} is officially yours.`,
-    `Your brain just did push-ups through Chapter ${id} — keep flexing that ${book} muscle!`,
-    `🎯 You just crossed Chapter ${id} of ${book} like a pro. The Bridge salutes you!`,
-    `Ah-ah, you actually finished Chapter ${id}? Mama Kuti didn't see that coming. 🏆`,
-    `Your attention span just shocked the nation. Chapter ${id} of ${book}… conquered.`,
-    `Not just reading — bridging. Chapter ${id} of ${book} done and dusted. 💪`,
-    `📚 Chapter ${id} in the bag! ${book} is starting to look like your playground.`,
-    `Who said you can't focus? Chapter ${id} of ${book} complete. Respect!`,
-    `🚀 You and ${book} are becoming besties. Chapter ${id} absorbed. On to the next!`,
-  ];
-
   const randomMessage =
     completionMessages[Math.floor(Math.random() * completionMessages.length)];
 
   const router = useRouter();
-  const [userDoc, setUserDoc] = useState<UserDoc | null>(null);
+  const userData = useUserStore((state) => state.userData);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const [isLoading, setIsLoading] = useState(false);
   const [roasts, setRoasts] = useState<Record<number, string>>({});
   const [hasRestoredProgress, setHasRestoredProgress] = useState(false);
@@ -242,29 +155,12 @@ const QuestionsComponent = ({
   };
 
   useEffect(() => {
-    if (!auth.currentUser) return;
-    const unsub = onSnapshot(doc(db, "users", auth.currentUser.uid), (snap) => {
-      if (snap.exists()) {
-        const data = snap.data();
-        if (data.hearts < 0) {
-          router.replace("/out-of-hearts");
-        }
-      }
-    });
-    return unsub;
-  }, []);
+    if (userData && userData.hearts < 0) {
+      router.replace("/out-of-hearts");
+    }
+  }, [userData, router]);
 
-  useEffect(() => {
-    if (!auth.currentUser) return;
-    const ref = doc(db, "users", auth.currentUser.uid);
-    return onSnapshot(ref, (snap) => {
-      if (snap.exists()) {
-        setUserDoc(snap.data() as UserDoc);
-      }
-    });
-  }, []);
-
-  const hearts = userDoc?.hearts ?? 0;
+  const hearts = userData?.hearts ?? 0;
 
   const handleClickOption = async (
     option: string,
@@ -321,23 +217,23 @@ const QuestionsComponent = ({
         return;
       }
 
-      const userData = userDocSnap.data() as UserDoc;
+      const userDataLocal = userDocSnap.data() as any;
       const now = new Date();
       const today = now.toISOString().split("T")[0];
 
       let lastDateStr: string | null = null;
-      if (userData.lastAnsweredAt) {
-        if (userData.lastAnsweredAt instanceof Timestamp) {
-          lastDateStr = userData.lastAnsweredAt
+      if (userDataLocal.lastAnsweredAt) {
+        if (userDataLocal.lastAnsweredAt instanceof Timestamp) {
+          lastDateStr = userDataLocal.lastAnsweredAt
             .toDate()
             .toISOString()
             .split("T")[0];
-        } else if (typeof userData.lastAnsweredAt === "string") {
-          lastDateStr = userData.lastAnsweredAt.split("T")[0];
+        } else if (typeof userDataLocal.lastAnsweredAt === "string") {
+          lastDateStr = userDataLocal.lastAnsweredAt.split("T")[0];
         }
       }
 
-      let streakUpdate = userData.streak || 0;
+      let streakUpdate = userDataLocal.streak || 0;
       if (!lastDateStr) {
         streakUpdate = 1;
       } else {
@@ -392,9 +288,7 @@ const QuestionsComponent = ({
   const currentSelectedOption = selectedOptions[currentQuestionIndex];
 
   return (
-    <div
-      className={`w-full max-w-5xl mx-auto flex flex-col items-center px-4 md:px-6 pb-20 md:pb-0 ${inter.className}`}
-    >
+    <div className="w-full max-w-5xl mx-auto flex flex-col items-center px-4 md:px-6 pb-20 md:pb-0 font-body">
       {isLoading && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
           <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
@@ -421,9 +315,7 @@ const QuestionsComponent = ({
                 🎉
               </div>
 
-              <h2
-                className={`${fredoka.className} text-3xl font-extrabold text-white mb-4`}
-              >
+              <h2 className="font-display text-3xl font-extrabold text-white mb-4">
                 Chapter Conquered!
               </h2>
               <p className="text-gray-300 text-lg mb-8 leading-relaxed">

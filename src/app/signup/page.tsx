@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Inter, Fredoka } from "next/font/google"; // Changed Nunito to Fredoka to match Login
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useForm } from "react-hook-form";
@@ -16,9 +15,6 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { createUserDoc } from "../../../lib/firebaseUser";
 import { User, Mail, KeyRound, ArrowRight } from "lucide-react"; // Added icons
-
-const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600"] });
-const fredoka = Fredoka({ subsets: ["latin"], weight: ["400", "700"] });
 
 const signUpSchema = z.object({
   username: z
@@ -141,9 +137,7 @@ const Signup = () => {
   if (!hasMounted) return null;
 
   return (
-    <div
-      className={`min-h-screen relative flex items-center justify-center p-4 bg-[#131f24] overflow-hidden ${inter.className}`}
-    >
+    <div className="min-h-screen relative flex items-center justify-center p-4 bg-[#131f24] overflow-hidden font-body">
       {/* Background Gradients */}
       <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px]" />
       <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px]" />
@@ -166,9 +160,7 @@ const Signup = () => {
       >
         <div className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 shadow-2xl">
           <div className="text-center mb-8">
-            <h1
-              className={`${fredoka.className} text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 mb-2`}
-            >
+            <h1 className="font-display text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 mb-2">
               Join Peruse
             </h1>
             <p className="text-gray-400">Start your journey today</p>

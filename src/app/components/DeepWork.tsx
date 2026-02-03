@@ -77,7 +77,7 @@ const DeepWork = () => {
   const [userDoc, setUserDoc] = useState<UserDoc | null>(null);
   const { isProcessing, setIsProcessing } = useLoader();
 
-  const [loading, setLoading] = useState(true); // new
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   const isChapterCompleted = (chapterIndex: number) => {
@@ -113,35 +113,30 @@ const DeepWork = () => {
       const user = auth.currentUser;
       if (!user) return;
 
-      // 1️⃣ Update Firestore
       await updateDoc(doc(db, "users", user.uid), {
         hearts: increment(-1),
       });
 
-      // 2️⃣ Update cookie for middleware
       const newHearts = userDoc.hearts - 1;
       Cookies.set("hearts", String(newHearts), { path: "/" });
 
-      // 3️⃣ Tiny wait to ensure cookie is written
       await new Promise((resolve) => setTimeout(resolve, 50));
 
-      // 4️⃣ Redirect to quiz
       router.push(`/quiz/deepwork/chapter${chapterIndex + 1}`);
     } catch (e) {
       console.error(e);
       toast.error("Something went wrong!");
       setTimeout(() => {
         setIsProcessing(false);
-      }, 8000);
+      }, 800);
     } finally {
       setTimeout(() => {
         setIsProcessing(false);
-      }, 15000);
+      }, 1500);
     }
   };
 
   if (loading || isProcessing) {
-    // show placeholder or spinner until userDoc is loaded
     return (
       <motion.div
         initial={{ opacity: 0 }}

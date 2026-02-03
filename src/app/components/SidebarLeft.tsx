@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
-import { Fredoka } from "next/font/google";
 import { GiSwordsEmblem } from "react-icons/gi";
 
 const navItems = [
@@ -41,11 +40,6 @@ const navItems = [
   },
 ];
 
-const fredoka = Fredoka({
-  subsets: ["latin"],
-  weight: ["300", "400", "700"],
-});
-
 const SidebarLeft = () => {
   const { activePage, setActivePage } = useActivePage();
   const router = useRouter();
@@ -65,9 +59,7 @@ const SidebarLeft = () => {
   return (
     <aside className="fixed hidden md:flex flex-col z-50 top-0 left-0 h-screen w-64 border-r border-slate-700/50 bg-[#131f24]/95 backdrop-blur-xl pl-6 pr-4">
       <div className="py-8">
-        <h3
-          className={`${fredoka.className} text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 text-3xl font-extrabold tracking-tight`}
-        >
+        <h3 className="font-display text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 text-3xl font-extrabold tracking-tight">
           peruse
         </h3>
       </div>

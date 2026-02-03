@@ -1,14 +1,8 @@
 "use client";
 
-import { Inter } from "next/font/google";
 import QuestionsComponent from "@/app/components/Questions";
-import { deepWorkChapter3Questions as Questions } from "../../../../../data";
+import { deepWorkChapter3Questions as Questions } from "@/data/deep-work";
 import { useEffect, useState } from "react";
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600"],
-});
 
 interface Questions {
   id: number;
@@ -47,7 +41,7 @@ const Chapter3 = () => {
 
   return (
     <div
-      className={`min-h-screen pb-50 ${inter.className} text-white  bg-[#131f24]`}
+      className="min-h-screen pb-50 font-body text-white  bg-[#131f24]"
     >
       <QuestionsComponent
         question={question}
