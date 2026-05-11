@@ -171,41 +171,21 @@ const Essentialism = () => {
 
   const handleClick = async (chapterIndex: number) => {
     if (isProcessing) return;
-    if (userDoc!.hearts > 0) setIsProcessing(true);
+    setIsProcessing(true);
 
     try {
-      if (!userDoc || userDoc.hearts <= 0) {
-        toast.error("No hearts left!");
-        return;
-      }
-
       const user = auth.currentUser;
       if (!user) return;
 
-      // 1️⃣ Update Firestore
-      await updateDoc(doc(db, "users", user.uid), {
-        hearts: increment(-1),
-      });
-
-      // 2️⃣ Update cookie for middleware
-      const newHearts = userDoc.hearts - 1;
-      Cookies.set("hearts", String(newHearts), { path: "/" });
-
-      // 3️⃣ Tiny wait to ensure cookie is written
-      await new Promise((resolve) => setTimeout(resolve, 50));
-
-      // 4️⃣ Redirect to quiz
       router.push(`/quiz/essentialism/chapter${chapterIndex + 1}`);
     } catch (e) {
       console.error(e);
       toast.error("Something went wrong!");
-      setTimeout(() => {
-        setIsProcessing(false);
-      }, 8000);
+      setIsProcessing(false);
     } finally {
       setTimeout(() => {
         setIsProcessing(false);
-      }, 15000);
+      }, 200);
     }
   };
 
@@ -235,10 +215,13 @@ const Essentialism = () => {
     <>
       {ultralearningChapters.map(({ title, img, chapter }, i) => {
         const completed = isChapterCompleted(i);
+        const quizPath = `/quiz/essentialism/chapter${i + 1}`;
+
         return (
           <div
             key={i}
             onClick={() => handleClick(i)}
+            onMouseEnter={() => router.prefetch(quizPath)}
             className={`relative border-2 pb-10 h-80 border-slate-600 flex flex-col items-center border-b-4 shadow-xl rounded-2xl justify-between text-center overflow-hidden transition-opacity 
       ${
         isProcessing
@@ -253,6 +236,7 @@ const Essentialism = () => {
               alt={title}
               width={200}
               height={200}
+              priority={i < 2}
               className="object-cover w-full pointer-events-none"
             />
             <p className="flex pt-[70px] pb-4 flex-col items-center">

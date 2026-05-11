@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { auth } from "../../../lib/firebase";
 import { useRouter } from "next/navigation";
 import { KeyRound, Mail, ArrowRight } from "lucide-react";
+import nookies from "nookies";
 
 const loginSchema = z.object({
   email: z.email("Invalid email address"),
@@ -54,20 +55,27 @@ const Login = () => {
     const t = toast.loading("Logging in...");
 
     try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const token = await userCredential.user.getIdToken();
+      nookies.set(null, "token", token, {
+        path: "/",
+        maxAge: 30 * 24 * 60 * 60,
+        sameSite: "lax",
+      });
       toast.success("Logged in!", { id: t });
       router.replace("/take-quiz");
     } catch (error: any) {
       toast.error("Login failed!", { id: t });
       const errorCode = error.code;
-      if (errorCode === "auth/user-not-found") {
-        setError("email", { message: "No account found with this email" });
+      if (errorCode === "auth/user-not-found" || errorCode === "auth/invalid-credential") {
+        setError("email", { message: "Invalid email or password" });
       } else if (errorCode === "auth/wrong-password") {
         setError("password", { message: "Incorrect password" });
       } else if (errorCode === "auth/invalid-email") {
         setError("email", { message: "Invalid email address" });
       } else {
         console.error(error);
-        setError("email", { message: "Something went wrong. Try again." });
+        setError("root", { message: "Something went wrong. Try again." });
       }
     } finally {
       setLoading(false);
@@ -80,7 +88,13 @@ const Login = () => {
     !errors.email &&
     !errors.password;
 
-  if (!hasMounted || !userChecked) return null;
+  if (!hasMounted || !userChecked) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#131f24]">
+        <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen relative flex items-center justify-center p-4 bg-[#131f24] overflow-hidden font-body">

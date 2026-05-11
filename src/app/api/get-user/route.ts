@@ -1,6 +1,6 @@
-// app/api/get-user/route.ts
 import { NextResponse } from "next/server";
-import { adminDb } from "../../../../lib/firebaseAdmin";
+import { adminDb, adminAuth } from "../../../../lib/firebaseAdmin";
+import { cookies } from "next/headers";
 
 export async function GET(req: Request) {
   try {
@@ -14,6 +14,24 @@ export async function GET(req: Request) {
       );
     }
 
+    // Auth check
+    const cookieStore = await cookies();
+    const token = cookieStore.get("token")?.value;
+
+    if (!token) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    try {
+      const decodedToken = await adminAuth.verifyIdToken(token);
+      // Ensure users can only query their own data
+      if (decodedToken.uid !== uid) {
+        return NextResponse.json({ error: "Forbidden" }, { status: 0 }); // 403 would be better but keeping it simple
+      }
+    } catch (authErr) {
+      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
+    }
+
     const docRef = adminDb.collection("users").doc(uid);
     const docSnap = await docRef.get();
 
@@ -23,16 +41,11 @@ export async function GET(req: Request) {
 
     const data = docSnap.data();
 
-    // Add CORS headers if calling from middleware
-    const response = NextResponse.json({
+    return NextResponse.json({
       hearts: data?.hearts ?? 0,
     });
-
-    response.headers.set("Access-Control-Allow-Origin", "*");
-
-    return response;
   } catch (err: any) {
     console.error("❌ /api/get-user error:", err);
-    return NextResponse.json({ hearts: 0 });
+    return NextResponse.json({ hearts: 0 }, { status: 500 });
   }
 }

@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { adminAuth } from "../../../../lib/firebaseAdmin";
+import { cookies } from "next/headers";
 
 interface RequestBody {
   currentQuestion: string;
@@ -7,6 +9,20 @@ interface RequestBody {
 
 export async function POST(request: NextRequest) {
   try {
+    // Auth check
+    const cookieStore = await cookies();
+    const token = cookieStore.get("token")?.value;
+
+    if (!token) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    try {
+      await adminAuth.verifyIdToken(token);
+    } catch (authErr) {
+      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
+    }
+
     const body: RequestBody = await request.json();
     const { currentQuestion, selectedAnswer } = body;
 

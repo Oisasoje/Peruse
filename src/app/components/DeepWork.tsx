@@ -102,37 +102,21 @@ const DeepWork = () => {
 
   const handleClick = async (chapterIndex: number) => {
     if (isProcessing) return;
-    if (userDoc!.hearts > 0) setIsProcessing(true);
+    setIsProcessing(true);
 
     try {
-      if (!userDoc || userDoc.hearts <= 0) {
-        toast.error("No hearts left!");
-        return;
-      }
-
       const user = auth.currentUser;
       if (!user) return;
-
-      await updateDoc(doc(db, "users", user.uid), {
-        hearts: increment(-1),
-      });
-
-      const newHearts = userDoc.hearts - 1;
-      Cookies.set("hearts", String(newHearts), { path: "/" });
-
-      await new Promise((resolve) => setTimeout(resolve, 50));
 
       router.push(`/quiz/deepwork/chapter${chapterIndex + 1}`);
     } catch (e) {
       console.error(e);
       toast.error("Something went wrong!");
-      setTimeout(() => {
-        setIsProcessing(false);
-      }, 800);
+      setIsProcessing(false);
     } finally {
       setTimeout(() => {
         setIsProcessing(false);
-      }, 1500);
+      }, 200);
     }
   };
 
@@ -161,10 +145,13 @@ const DeepWork = () => {
     <>
       {deepWorkChapters.map(({ title, img, chapter }, i) => {
         const completed = isChapterCompleted(i);
+        const quizPath = `/quiz/deepwork/chapter${i + 1}`;
+
         return (
           <div
             key={i}
             onClick={() => handleClick(i)}
+            onMouseEnter={() => router.prefetch(quizPath)}
             className={`border-2 relative h-80 border-slate-600 flex flex-col items-center border-b-4 shadow-xl hover:scale-101 cursor-pointer transition-all duration-300 text-center  rounded-2xl justify-between overflow-hidden  
     ${
       isProcessing
@@ -178,6 +165,7 @@ const DeepWork = () => {
               alt={title}
               width={200}
               height={200}
+              priority={i < 2}
               className="object-cover w-full pointer-events-none"
             />
             <p className="flex pt-[70px] pb-4 flex-col items-center">

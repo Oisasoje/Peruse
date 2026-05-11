@@ -133,11 +133,7 @@ const Quiz = () => {
 
   useEffect(() => {
     setIsMounted(true);
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
+    setIsLoading(false);
   }, []);
 
   // Add this useEffect to your quiz component

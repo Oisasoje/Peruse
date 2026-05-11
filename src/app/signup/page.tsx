@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { createUserDoc } from "../../../lib/firebaseUser";
 import { User, Mail, KeyRound, ArrowRight } from "lucide-react"; // Added icons
+import nookies from "nookies";
 
 const signUpSchema = z.object({
   username: z
@@ -102,6 +103,14 @@ const Signup = () => {
       toast.success("Account created!", { id: t });
       console.log("User created successfully:", user.uid);
 
+      // Set cookie manually to prevent middleware redirect race condition
+      const token = await user.getIdToken();
+      nookies.set(null, "token", token, {
+        path: "/",
+        maxAge: 30 * 24 * 60 * 60,
+        sameSite: "lax",
+      });
+
       // 4. Navigate
       router.replace("/take-quiz");
     } catch (error: any) {
@@ -134,7 +143,13 @@ const Signup = () => {
     !errors.email &&
     !errors.password;
 
-  if (!hasMounted) return null;
+  if (!hasMounted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#131f24]">
+        <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen relative flex items-center justify-center p-4 bg-[#131f24] overflow-hidden font-body">

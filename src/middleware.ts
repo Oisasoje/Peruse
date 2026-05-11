@@ -23,16 +23,7 @@ async function verifyToken(token: string) {
   }
 }
 
-async function getUserData(uid: string, baseUrl: string) {
-  try {
-    const apiUrl = new URL(`/api/get-user?uid=${uid}`, baseUrl).toString();
-    const response = await fetch(apiUrl);
-    if (!response.ok) return null;
-    return await response.json();
-  } catch (error) {
-    return null;
-  }
-}
+
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
@@ -58,35 +49,10 @@ export async function middleware(req: NextRequest) {
     }
 
     console.log("✅ Token verified, user:", user.localId);
-
-    // Get REAL heart data from Firestore via API
-    // Use the origin to avoid path-based issues
-    const apiUrl = new URL(
-      `/api/get-user?uid=${user.localId}`,
-      req.nextUrl.origin
-    ).toString();
-    console.log("📡 Fetching user data from:", apiUrl);
-
-    const userData = await getUserData(user.localId, req.nextUrl.origin);
-
-    if (!userData) {
-      throw new Error("User data not available");
-    }
-
-    const hearts = userData.hearts ?? 0;
-    console.log("💓 Real hearts from Firestore:", hearts);
-
-    // Check against the REAL heart count from database
-    if (hearts < 0) {
-      console.log("❌ No hearts - blocking access");
-      return NextResponse.redirect(new URL("/no-hearts", req.url));
-    }
-
-    console.log("✅ Access granted - hearts available");
     return NextResponse.next();
   } catch (error) {
     console.error("Middleware error:", error);
-    return NextResponse.redirect(new URL("/no-hearts", req.url));
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 }
 

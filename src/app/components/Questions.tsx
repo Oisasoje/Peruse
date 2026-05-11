@@ -154,11 +154,7 @@ const QuestionsComponent = ({
     sessionStorage.removeItem(`quiz-${quizId}-progress`);
   };
 
-  useEffect(() => {
-    if (userData && userData.hearts < 0) {
-      router.replace("/out-of-hearts");
-    }
-  }, [userData, router]);
+
 
   const hearts = userData?.hearts ?? 0;
 
@@ -266,7 +262,7 @@ const QuestionsComponent = ({
 
       setTimeout(() => {
         setResultModal(true);
-      }, 1500);
+      }, 500);
     } catch (error) {
       console.error("Error submitting quiz:", error);
       toast.error("Failed to submit quiz. Please try again.");
