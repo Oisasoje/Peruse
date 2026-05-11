@@ -427,24 +427,6 @@ const Profile_Info = () => {
 
             <div className="flex justify-between items-center p-4 bg-black/20 rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
               <div className="flex gap-3 items-center">
-                <div className="p-2.5 bg-indigo-500/20 rounded-xl text-indigo-400">
-                  <Crown size={20} />
-                </div>
-                <p
-                  className={`font-medium text-sm text-slate-300 ${inter.className}`}
-                >
-                  Plan
-                </p>
-              </div>
-              <span
-                className={`text-sm font-bold px-3 py-1 rounded-full ${userData?.hasPremium ? "bg-indigo-500/20 text-indigo-300" : "bg-slate-700/50 text-slate-400"} ${inter.className}`}
-              >
-                {userData?.hasPremium ? "PREMIUM" : "FREE"}
-              </span>
-            </div>
-
-            <div className="flex justify-between items-center p-4 bg-black/20 rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
-              <div className="flex gap-3 items-center">
                 <div className="p-2.5 bg-green-500/20 rounded-xl text-green-400">
                   <Zap size={20} />
                 </div>

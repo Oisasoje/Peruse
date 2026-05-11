@@ -9,7 +9,7 @@ export async function createUserDoc(user: User, username: string) {
 
     console.log(
       "createUserDoc: Checking if user document exists for:",
-      user.uid
+      user.uid,
     );
     console.log("createUserDoc: Document exists:", snap.exists());
 
@@ -20,7 +20,7 @@ export async function createUserDoc(user: User, username: string) {
         uid: user.uid,
         email: user.email,
         displayName: username,
-        hearts: 5,
+        hearts: "Infinity",
         streak: 0,
         quizzesTaken: 0,
         createdAt: serverTimestamp(),
@@ -38,12 +38,12 @@ export async function createUserDoc(user: User, username: string) {
       const verifySnap = await getDoc(ref);
       console.log(
         "createUserDoc: Verification - document exists:",
-        verifySnap.exists()
+        verifySnap.exists(),
       );
       console.log("createUserDoc: Verification - data:", verifySnap.data());
     } else {
       console.log(
-        "createUserDoc: User document already exists, skipping creation"
+        "createUserDoc: User document already exists, skipping creation",
       );
       console.log("createUserDoc: Existing data:", snap.data());
     }
