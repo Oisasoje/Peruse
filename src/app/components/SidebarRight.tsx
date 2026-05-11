@@ -1,11 +1,4 @@
-import {
-  ClipboardList,
-  Flame,
-  Medal,
-  PenLine,
-  X,
-  Check,
-} from "lucide-react";
+import { ClipboardList, Flame, Medal, PenLine, X, Check } from "lucide-react";
 import { auth, db } from "../../../lib/firebase";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -249,7 +242,7 @@ const SidebarRight = () => {
   const userData = useUserStore((state) => state.userData);
 
   return (
-    <aside className="hidden lg:flex flex-col w-84 px-6 fixed top-0 right-0 h-screen bg-[#131f24]/95 backdrop-blur-xl z-40 overflow-y-auto no-scrollbar">
+    <aside className="hidden lg:flex flex-col w-84 px-6 fixed top-0 right-0 h-screen bg-[#131f24]/95 backdrop-blur-xl z-40 overflow-y-auto scrollbar">
       {/* Stats Cards */}
       <div className="flex gap-4 mt-8 w-full shrink-0">
         <div className="flex-1 bg-gradient-to-br from-orange-500/10 to-red-500/10 border border-orange-500/20 rounded-2xl p-4 flex flex-col items-center justify-center relative overflow-hidden group hover:border-orange-500/40 transition-colors">
