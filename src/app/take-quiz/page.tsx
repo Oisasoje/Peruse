@@ -6,7 +6,7 @@ import { auth, db } from "../../../lib/firebase";
 import { useState, useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 
-import { Flame, HeartOffIcon, Library } from "lucide-react";
+import { Flame, Library } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 import { useLoader } from "../components/LoaderContext";
@@ -127,22 +127,21 @@ const Quiz = () => {
   const [currentResource, setCurrentResource] = useState("DEEP WORK");
   const [currentAuthor, setCurrentAuthor] = useState("Cal Newport");
   const [isMounted, setIsMounted] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const [isResourcesOpen, setIsResourcesOpen] = useState(false);
   const { isProcessing, setIsProcessing } = useLoader();
 
   useEffect(() => {
     setIsMounted(true);
-    setIsLoading(false);
   }, []);
 
   // Add this useEffect to your quiz component
   useEffect(() => {
     const checkDailyReset = async () => {
-      if (!auth.currentUser) return;
+      const user = auth.currentUser;
+      if (!user) return;
 
       try {
-        const userRef = doc(db, "users", auth.currentUser.uid);
+        const userRef = doc(db, "users", user.uid);
         const userDoc = await getDoc(userRef);
 
         if (userDoc.exists()) {
@@ -164,8 +163,14 @@ const Quiz = () => {
       }
     };
 
-    checkDailyReset();
-  }, [auth.currentUser]);
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        checkDailyReset();
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -205,7 +210,7 @@ const Quiz = () => {
     }
   };
 
-  if (!isMounted || isLoading) {
+  if (!isMounted) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#131f24]">
         <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
@@ -231,12 +236,6 @@ const Quiz = () => {
               <Flame size={18} className="text-orange-500" />
               <span className="text-sm font-semibold">
                 {userData?.streak ?? 0}
-              </span>
-            </span>
-            <span className="flex items-center gap-1 bg-slate-800/50 px-2 py-1 rounded-full border border-slate-700">
-              <HeartOffIcon size={18} className="text-red-500" />
-              <span className="text-sm font-semibold">
-                {userData?.hearts ?? 0}
               </span>
             </span>
           </div>

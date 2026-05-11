@@ -1,7 +1,6 @@
 import {
   ClipboardList,
   Flame,
-  Heart,
   Medal,
   PenLine,
   X,
@@ -261,20 +260,6 @@ const SidebarRight = () => {
           </span>
           <span className="text-[10px] font-bold tracking-wider text-orange-400 uppercase mt-1">
             Day Streak
-          </span>
-        </div>
-
-        <div className="flex-1 bg-gradient-to-br from-red-500/10 to-pink-500/10 border border-red-500/20 rounded-2xl p-4 flex flex-col items-center justify-center relative overflow-hidden group hover:border-red-500/40 transition-colors">
-          <div className="absolute top-[-10px] right-[-10px] bg-red-500/20 w-12 h-12 rounded-full blur-xl group-hover:bg-red-500/30 transition-all" />
-          <Heart
-            className="text-red-500 mb-2 drop-shadow-lg fill-red-500/20"
-            size={28}
-          />
-          <span className="text-2xl font-black text-white font-display">
-            {userData?.hearts ?? 0}
-          </span>
-          <span className="text-[10px] font-bold tracking-wider text-red-500 uppercase mt-1">
-            {userData && userData.hearts !== 1 ? "Hearts" : "Heart"}
           </span>
         </div>
       </div>

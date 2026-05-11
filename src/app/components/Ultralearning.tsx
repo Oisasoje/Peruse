@@ -126,17 +126,22 @@ const Ultralearning = () => {
   };
 
   useEffect(() => {
-    if (!auth.currentUser) return;
-
-    const ref = doc(db, "users", auth.currentUser.uid);
-    const unsub = onSnapshot(ref, (snap) => {
-      if (snap.exists()) {
-        setUserDoc(snap.data() as UserDoc);
+    const unsubscribeAuth = auth.onAuthStateChanged((user) => {
+      if (user) {
+        const ref = doc(db, "users", user.uid);
+        const unsubSnap = onSnapshot(ref, (snap) => {
+          if (snap.exists()) {
+            setUserDoc(snap.data() as UserDoc);
+          }
+          setLoading(false);
+        });
+        return () => unsubSnap();
+      } else {
+        setLoading(false);
       }
-      setLoading(false); // loaded whether snap exists or not
     });
 
-    return unsub;
+    return () => unsubscribeAuth();
   }, []);
 
   const handleClick = async (chapterIndex: number) => {

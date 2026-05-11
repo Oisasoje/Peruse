@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { HeartOffIcon, X, CheckCircle2 } from "lucide-react";
+import { X, CheckCircle2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { auth, db } from "../../../lib/firebase";
@@ -156,7 +156,7 @@ const QuestionsComponent = ({
 
 
 
-  const hearts = userData?.hearts ?? 0;
+
 
   const handleClickOption = async (
     option: string,
@@ -347,11 +347,6 @@ const QuestionsComponent = ({
             transition={{ type: "spring", stiffness: 50, damping: 20 }}
             className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
           />
-        </div>
-
-        <div className="bg-red-500/10 px-3 py-1.5 rounded-full flex items-center gap-2 border border-red-500/20">
-          <HeartOffIcon size={18} className="text-red-500" />
-          <span className="font-bold text-red-500">{hearts}</span>
         </div>
       </div>
 
